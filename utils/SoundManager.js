@@ -1,15 +1,25 @@
 // utils/SoundManager.js
-import { Audio } from 'expo-av';
+import { AudioPlayer, setAudioModeAsync } from 'expo-audio';
 
 let _soundEnabled = true;
 export function setSoundEnabled(val) { _soundEnabled = val; }
 
+const play = async (source, volume = 1.0) => {
+  if (!_soundEnabled) return;
+  try {
+    const player = new AudioPlayer(source);
+    player.volume = volume;
+    await player.play();
+  } catch (e) {
+    console.warn('SoundManager error:', e);
+  }
+};
+
 const SoundManager = {
   preloadAll: async () => {
     try {
-      await Audio.setAudioModeAsync({
+      await setAudioModeAsync({
         playsInSilentModeIOS: false,
-        allowsRecordingIOS: false,
         staysActiveInBackground: false,
       });
     } catch (e) {
@@ -19,41 +29,9 @@ const SoundManager = {
 
   unloadAll: async () => {},
 
-  playCountdownBeep: async () => {
-    if (!_soundEnabled) return;
-    try {
-      const { sound } = await Audio.Sound.createAsync(
-        require('../assets/sounds/countdown_beep.wav')
-      );
-      await sound.setVolumeAsync(0.8);
-      await sound.playAsync();
-      sound.setOnPlaybackStatusUpdate((s) => { if (s.didJustFinish) sound.unloadAsync(); });
-    } catch (e) { console.warn('beep error:', e); }
-  },
-
-  playTimesUp: async () => {
-    if (!_soundEnabled) return;
-    try {
-      const { sound } = await Audio.Sound.createAsync(
-        require('../assets/sounds/Times up.mp3')
-      );
-      await sound.setVolumeAsync(1.0);
-      await sound.playAsync();
-      sound.setOnPlaybackStatusUpdate((s) => { if (s.didJustFinish) sound.unloadAsync(); });
-    } catch (e) { console.warn('timesup error:', e); }
-  },
-
-  playSpyRevealed: async () => {
-    if (!_soundEnabled) return;
-    try {
-      const { sound } = await Audio.Sound.createAsync(
-        require('../assets/sounds/spy_revealed.wav')
-      );
-      await sound.setVolumeAsync(0.9);
-      await sound.playAsync();
-      sound.setOnPlaybackStatusUpdate((s) => { if (s.didJustFinish) sound.unloadAsync(); });
-    } catch (e) { console.warn('spy error:', e); }
-  },
+  playCountdownBeep: () => play(require('../assets/sounds/countdown_beep.wav'), 0.8),
+  playTimesUp: () => play(require('../assets/sounds/Times up.mp3'), 1.0),
+  playSpyRevealed: () => play(require('../assets/sounds/spy_revealed.wav'), 0.9),
 };
 
 export default SoundManager;

@@ -5,12 +5,10 @@ const SettingsContext = createContext();
 
 export function SettingsProvider({ children }) {
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [vibrationEnabled, setVibrationEnabled] = useState(true);
 
   return (
     <SettingsContext.Provider value={{
       soundEnabled, setSoundEnabled,
-      vibrationEnabled, setVibrationEnabled,
     }}>
       {children}
     </SettingsContext.Provider>

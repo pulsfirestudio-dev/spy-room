@@ -17,8 +17,6 @@ const translations = {
     audio: 'AUDIO',
     sound: 'Sound Effects',
     soundSub: 'Beeps, buzzer, spy sting',
-    vibration: 'Vibration',
-    vibrationSub: 'Haptic feedback on actions',
     language: 'LANGUAGE',
     selectLanguage: 'App Language',
     back: 'BACK',
@@ -31,8 +29,6 @@ const translations = {
     audio: 'GARSAS',
     sound: 'Garso efektai',
     soundSub: 'Pyptelėjimai, sirena, šnipo skambutis',
-    vibration: 'Vibracija',
-    vibrationSub: 'Haptinis atsakas',
     language: 'KALBA',
     selectLanguage: 'Programos kalba',
     back: 'ATGAL',
@@ -41,7 +37,7 @@ const translations = {
 
 export default function SettingsScreen({ navigation, route }) {
   const { colors, isDarkMode, toggleTheme } = useTheme();
-  const { soundEnabled, setSoundEnabled, vibrationEnabled, setVibrationEnabled } = useSettings();
+  const { soundEnabled, setSoundEnabled } = useSettings();
   const lang = route.params?.language || 'en';
   const t = translations[lang];
   const styles = useMemo(() => getStyles(colors, isDarkMode), [colors, isDarkMode]);
@@ -117,14 +113,7 @@ export default function SettingsScreen({ navigation, route }) {
             value={soundEnabled}
             onValueChange={setSoundEnabled}
           />
-          <View style={styles.divider} />
-          <SettingRow
-            icon="phone-portrait-outline"
-            label={t.vibration}
-            subtitle={t.vibrationSub}
-            value={vibrationEnabled}
-            onValueChange={setVibrationEnabled}
-          />
+
         </View>
 
         {/* Language */}

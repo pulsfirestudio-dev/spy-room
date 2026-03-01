@@ -13,7 +13,6 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../context/ThemeContext";
-import { lightHaptic, mediumHaptic, heavyHaptic, errorHaptic } from "../utils/HapticsManager";
 
 import SoundManager, { setSoundEnabled } from "../utils/SoundManager";
 import { useSettings } from "../context/SettingsContext";
@@ -300,7 +299,6 @@ export default function DiscussionScreen({ route, navigation }) {
     setTimesUp(true);
     setTimerRunning(false);
     SoundManager.playTimesUp();
-    errorHaptic();
     flashLoopRef.current = Animated.loop(
       Animated.sequence([
         Animated.timing(flashAnim, { toValue: 1, duration: 300, useNativeDriver: false }),
@@ -326,7 +324,6 @@ export default function DiscussionScreen({ route, navigation }) {
   }, [timerRunning, timeLeft, triggerTimesUp]);
 
   const advancePlayer = () => {
-    mediumHaptic();
     if (flashLoopRef.current) { flashLoopRef.current.stop(); flashLoopRef.current = null; }
     flashAnim.setValue(0);
     scaleAnim.setValue(1);
@@ -341,19 +338,16 @@ export default function DiscussionScreen({ route, navigation }) {
   };
 
   const onReveal = () => {
-    lightHaptic();
     navigation.navigate("RevealResult", {
     players, language, categoryId, categoryName, word, spyIndex, imposterIndices,
   });
   };
 
   const onNewGame = () => {
-    lightHaptic();
     navigation.replace("CreateRoom", { language });
   };
 
   const onRestartGame = () => {
-    lightHaptic();
     const nextUsedWords = word ? [...usedWords, word] : usedWords;
     const { secretWord, hintWord, imposterIndices: newImposters } = pickNewRound(
       categoryId, players, numImposters, language, nextUsedWords

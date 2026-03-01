@@ -18,7 +18,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
-import { lightHaptic, mediumHaptic, heavyHaptic, errorHaptic } from "../utils/HapticsManager";
 
 
 const { width, height } = Dimensions.get('window');
@@ -207,12 +206,12 @@ export default function HomeScreen({ navigation, route }) {
         </View>
 
         <View style={styles.buttonContainer}>
-          <AnimatedButton style={styles.mainButton} onPress={() => { mediumHaptic(); navigation.navigate('CreateRoom', { language: lang }); }} colors={colors} isDarkMode={isDarkMode}>
+          <AnimatedButton style={styles.mainButton} onPress={() => { navigation.navigate('CreateRoom', { language: lang }); }} colors={colors} isDarkMode={isDarkMode}>
             <Text style={styles.buttonText}>{t.newGame}</Text>
             <Ionicons name="arrow-forward" size={20} color="#fff" style={styles.buttonIcon} />
           </AnimatedButton>
 
-          <AnimatedButton style={styles.secondaryButton} onPress={() => { lightHaptic(); navigation.navigate('HowToPlay', { language: lang }); }} colors={colors} isDarkMode={isDarkMode} secondary>
+          <AnimatedButton style={styles.secondaryButton} onPress={() => { navigation.navigate('HowToPlay', { language: lang }); }} colors={colors} isDarkMode={isDarkMode} secondary>
             <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
             <Text style={styles.secondaryButtonText}>{t.howToPlay}</Text>
             <View style={styles.btnSlot} />

@@ -14,7 +14,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
-import { lightHaptic, mediumHaptic, heavyHaptic, errorHaptic } from "../utils/HapticsManager";
 
 import AppButton from "../components/AppButton";
 
@@ -355,7 +354,6 @@ export default function CreateRoomScreen({ navigation, route }) {
   const addPlayer = () => {
     const name = newPlayerName.trim();
     if (!name) { Alert.alert('Error', t.noName); return; }
-    lightHaptic();
     if (players.length >= MAX_PLAYERS) { Alert.alert('Error', t.maxPlayers); return; }
     if (normalizedPlayers.includes(name.toLowerCase())) { Alert.alert('Error', t.duplicateName); return; }
     setPlayers((prev) => [...prev, name]);
@@ -366,7 +364,6 @@ export default function CreateRoomScreen({ navigation, route }) {
 
   const selectCategory = (cat, isPremiumCat = false) => {
     if (isPremiumCat && !isPremium) { setShowPremiumModal(true); return; }
-    lightHaptic();
     setSelectedCategory(cat);
   };
 
@@ -374,7 +371,6 @@ export default function CreateRoomScreen({ navigation, route }) {
 
   const startGame = () => {
     if (!canStart) { Alert.alert('Error', t.needMorePlayers(remainingPlayers)); return; }
-    mediumHaptic();
 
     const categoryData = freeCategories[selectedCategory] || premiumCategories[selectedCategory];
     const randomItem = categoryData[Math.floor(Math.random() * categoryData.length)];
