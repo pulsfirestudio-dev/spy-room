@@ -30,6 +30,8 @@ const translations = {
     newGame: 'NEW GAME',
     howToPlay: 'HOW TO PLAY',
     rateAndShare: 'RATE & SHARE',
+    multiplayer: 'MULTIPLAYER',
+    comingSoon: 'Coming Soon',
     language: 'LANGUAGE',
     leaveReview: 'LEAVE A REVIEW',
     supportShare: 'SUPPORT & SHARE',
@@ -40,6 +42,8 @@ const translations = {
     newGame: 'NAUJAS ŽAIDIMAS',
     howToPlay: 'KAIP ŽAISTI',
     rateAndShare: 'ĮVERTINK IR DALINKIS',
+    multiplayer: 'DAUGIAŽAIDIS',
+    comingSoon: 'Jau Greitai',
     language: 'KALBA',
     leaveReview: 'PALIKTI ATSILIEPIMĄ',
     supportShare: 'PALAIKYK IR DALINKIS',
@@ -214,6 +218,15 @@ export default function HomeScreen({ navigation, route }) {
             <View style={styles.btnSlot} />
           </AnimatedButton>
 
+          <TouchableOpacity style={styles.multiplayerBtn} activeOpacity={0.7} disabled>
+            <View style={styles.btnSlot}><Ionicons name="people-outline" size={20} color={isDarkMode ? '#888' : '#999'} /></View>
+            <View style={styles.multiplayerTextGroup}>
+              <Text style={styles.multiplayerTitle}>{t.multiplayer}</Text>
+              <Text style={styles.multiplayerSub}>{t.comingSoon}</Text>
+            </View>
+            <View style={styles.btnSlot} />
+          </TouchableOpacity>
+
           <AnimatedButton style={styles.secondaryButton} onPress={handleRateAndShare} colors={colors} isDarkMode={isDarkMode} secondary>
             <View style={styles.btnSlot}><Text style={styles.slotEmoji}>⭐</Text></View>
             <Text style={styles.secondaryButtonText}>{t.rateAndShare}</Text>
@@ -315,6 +328,24 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   },
   buttonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 3 },
   buttonIcon: { marginLeft: 12 },
+  multiplayerBtn: {
+    backgroundColor: colors.surface,
+    paddingVertical: 15, paddingHorizontal: 25,
+    borderRadius: 16,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
+    opacity: 0.5,
+  },
+  multiplayerTextGroup: { flex: 1, alignItems: 'center' },
+  multiplayerTitle: {
+    color: isDarkMode ? '#fff' : '#000',
+    fontSize: 14, fontWeight: '700', letterSpacing: 1,
+  },
+  multiplayerSub: {
+    color: isDarkMode ? '#aaa' : '#777',
+    fontSize: 11, fontWeight: '500', letterSpacing: 1,
+    marginTop: 2,
+  },
   secondaryButton: {
     backgroundColor: colors.surface,
     paddingVertical: 15, paddingHorizontal: 25,
