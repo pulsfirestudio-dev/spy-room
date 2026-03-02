@@ -50,7 +50,7 @@ Spy Room is a social deduction party game for 3–12 players. One or more player
 ## 📁 Project Structure
 
 ```
-ImposterGame/
+Spy-Room/
 ├── assets/
 │   ├── sounds/          # WAV/MP3 sound effects
 │   └── logo.png         # App logo
