@@ -249,7 +249,7 @@ const translations = {
     hiddenRoles: 'NUMBER OF SPIES',
     // Game mode labels & subtitles
     clueAssist: 'CLUE ASSIST',
-    clueAssistSub: 'Spy gets category hint',
+    clueAssistSub: 'Spy gets a secret hint',
     assistOn: 'On',
     assistOff: 'Off',
     chaosRound: 'CHAOS ROUND',

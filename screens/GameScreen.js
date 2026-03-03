@@ -172,10 +172,10 @@ export default function GameScreen({ navigation, route }) {
               </View>
             )}
             {isCurrentPlayerSpy && clueAssist && (
-              <View style={[styles.hintBox, { borderColor: currentColor.text + "44" }]}>
-                <Text style={[styles.hintLabel, { color: currentColor.text }]}>Category: {category?.name ?? category ?? "-"}</Text>
-              </View>
-            )}
+  <View style={[styles.hintBox, { borderColor: currentColor.text + "44" }]}>
+    <Text style={[styles.hintLabel, { color: currentColor.text }]}>Hint: {route.params?.hintWord ?? "?"}</Text>
+  </View>
+)}
           </View>
         )}
       </View>

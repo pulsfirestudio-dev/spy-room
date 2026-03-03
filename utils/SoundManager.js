@@ -1,5 +1,5 @@
 // utils/SoundManager.js
-import { AudioPlayer, setAudioModeAsync } from 'expo-audio';
+import { Audio } from 'expo-av';
 
 let _soundEnabled = true;
 export function setSoundEnabled(val) { _soundEnabled = val; }
@@ -7,9 +7,10 @@ export function setSoundEnabled(val) { _soundEnabled = val; }
 const play = async (source, volume = 1.0) => {
   if (!_soundEnabled) return;
   try {
-    const player = new AudioPlayer(source);
-    player.volume = volume;
-    await player.play();
+    const { sound } = await Audio.Sound.createAsync(source, { volume, shouldPlay: true });
+    sound.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) sound.unloadAsync();
+    });
   } catch (e) {
     console.warn('SoundManager error:', e);
   }
@@ -18,7 +19,7 @@ const play = async (source, volume = 1.0) => {
 const SoundManager = {
   preloadAll: async () => {
     try {
-      await setAudioModeAsync({
+      await Audio.setAudioModeAsync({
         playsInSilentModeIOS: false,
         staysActiveInBackground: false,
       });

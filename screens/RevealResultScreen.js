@@ -57,7 +57,7 @@ export default function RevealResultScreen({ route, navigation }) {
             : <Text style={styles.imposterName}>—</Text>}
         </View>
 
-        <TouchableOpacity style={[styles.backBtn, { borderColor: border }]} onPress={() => () => { navigation.goBack(); }} activeOpacity={0.85}>
+        <TouchableOpacity style={[styles.backBtn, { borderColor: border }]} onPress={() => navigation.goBack()} activeOpacity={0.85}>
           <Ionicons name="arrow-back" size={20} color={isDarkMode ? "#fff" : "#000"} />
           <Text style={[styles.backBtnText, { color: isDarkMode ? "#fff" : "#000" }]}>{t.back}</Text>
         </TouchableOpacity>
