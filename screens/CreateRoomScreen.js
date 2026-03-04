@@ -676,9 +676,9 @@ const getStyles = (colors, isDarkMode) => {
       alignItems: 'center', minHeight: 120, justifyContent: 'space-between',
     },
     toggleSquareActive: { borderWidth: 2, borderColor: border, backgroundColor: colors.primary + '15' },
-    toggleSquareTitle: { color: isDarkMode ? '#ffffff' : '#000000', fontWeight: '800', fontSize: 12, letterSpacing: 1, textAlign: 'center' },
+    toggleSquareTitle: { color: isDarkMode ? '#ffffff' : '#000000', fontWeight: '800', fontSize: 14, letterSpacing: 1, textAlign: 'center' },
     toggleSquareTitleActive: { color: isDarkMode ? '#fff' : '#000' },
-    toggleSquareSubtitle: { color: isDarkMode ? '#aaaaaa' : '#666666', fontSize: 11, textAlign: 'center', marginTop: 4 },
+    toggleSquareSubtitle: { color: isDarkMode ? '#aaaaaa' : '#666666', fontSize: 13, textAlign: 'center', marginTop: 4 },
     toggleSquareSubtitleActive: { color: isDarkMode ? '#fff' : '#000', opacity: 0.8 },
     toggleIndicator: {
       backgroundColor: isDarkMode ? '#333333' : '#e0e0e0', paddingVertical: 4, paddingHorizontal: 10,

@@ -19,6 +19,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 
+// Preload logo image
+Image.prefetch(Image.resolveAssetSource(require('../assets/logo.png')).uri);
 
 const { width, height } = Dimensions.get('window');
 
