@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 
-import IntroVideoScreen from './screens/IntroVideoScreen';
 import HomeScreen from './screens/HomeScreen';
 import CreateRoomScreen from './screens/CreateRoomScreen';
 import GameScreen from './screens/GameScreen';
@@ -58,10 +57,9 @@ export default function App() {
           <View style={styles.container} onLayout={onLayoutRootView}>
             <StatusBar style="auto" />
             <Stack.Navigator
-              initialRouteName="Intro"
+              initialRouteName="Home"
               screenOptions={{ headerShown: false }}
             >
-              <Stack.Screen name="Intro" component={IntroVideoScreen} />
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Settings" component={SettingsScreen} />
               <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
