@@ -381,17 +381,18 @@ export default function CreateRoomScreen({ navigation, route }) {
     const triggerChaos = chaosRound && Math.random() < 0.30;
     const actualNumImposters = triggerChaos ? players.length : numImposters;
 
-    let imposterIndices = [];
-    while (imposterIndices.length < Math.min(actualNumImposters, players.length)) {
-      const idx = Math.floor(Math.random() * players.length);
-      if (!imposterIndices.includes(idx)) imposterIndices.push(idx);
-    }
+   const previousImposterIndices = route.params?.previousImposterIndices ?? [];
+const eligible = players.map((_, i) => i).filter(i => !previousImposterIndices.includes(i));
+const pool = eligible.length >= Math.min(actualNumImposters, players.length) ? eligible : players.map((_, i) => i);
+const shuffled = [...pool].sort(() => Math.random() - 0.5);
+const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.length));
 
     navigation.navigate('Game', {
       players,
       secretWord,
       hintWord,
       imposterIndices,
+      previousImposterIndices: imposterIndices,
       clueAssist,
       category: selectedCategory,
       categoryId: selectedCategory,
