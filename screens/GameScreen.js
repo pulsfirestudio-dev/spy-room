@@ -24,14 +24,10 @@ const PLAYER_COLORS = [
 ];
 
 const shuffleColors = (count) => {
-  const pool = [...PLAYER_COLORS];
-  const result = [];
-  for (let i = 0; i < count; i++) {
-    if (pool.length === 0) pool.push(...PLAYER_COLORS);
-    const idx = Math.floor(Math.random() * pool.length);
-    result.push(pool.splice(idx, 1)[0]);
-  }
-  return result;
+  // Shuffle the palette once
+  const shuffled = [...PLAYER_COLORS].sort(() => Math.random() - 0.5);
+  // Assign by cycling through — no repeats until all 8 are used
+  return Array.from({ length: count }, (_, i) => shuffled[i % shuffled.length]);
 };
 
 const translations = {
@@ -78,6 +74,8 @@ export default function GameScreen({ navigation, route }) {
   const glowAnim = useRef(new Animated.Value(0)).current;
   const holdExpandAnim = useRef(new Animated.Value(1)).current;
   const holdExpandRef = useRef(null);
+  const passFlashAnim = useRef(new Animated.Value(0)).current;
+  const passFlashRef = useRef(null);
   const isCurrentPlayerSpy = imposterIndices.includes(currentPlayerIndex);
   const currentColor = playerColors[currentPlayerIndex] ?? { bg: "#FFE066", text: "#1a1a1a" };
   const styles = useMemo(() => getStyles(colors, isDarkMode), [colors, isDarkMode]);
@@ -126,7 +124,7 @@ export default function GameScreen({ navigation, route }) {
       navigation.replace("Discussion", {
         players, language, categoryId: category ?? null, categoryName: category ?? null,
         word: secretWord, imposterIndices, spyIndex: Array.isArray(imposterIndices) ? imposterIndices[0] : null,
-        timeLimit, timePerPerson, numImposters, usedWords,
+        clueAssist, timeLimit, timePerPerson, numImposters, usedWords,
       });
     }, 150);
   };
@@ -152,6 +150,26 @@ export default function GameScreen({ navigation, route }) {
     return imposterIndices.includes(parseInt(mostVotedKey, 10)) ? "agents" : "spies";
   };
   const glowOpacity = glowAnim.interpolate({ inputRange: [0, 1], outputRange: [0.25, 0.75] });
+
+  useEffect(() => {
+    if (hasRevealedThisPlayer && !isHoldingReveal) {
+      passFlashRef.current = Animated.loop(
+        Animated.sequence([
+          Animated.timing(passFlashAnim, { toValue: 1, duration: 500, useNativeDriver: false }),
+          Animated.timing(passFlashAnim, { toValue: 0, duration: 500, useNativeDriver: false }),
+        ])
+      );
+      passFlashRef.current.start();
+    } else {
+      if (passFlashRef.current) passFlashRef.current.stop();
+      passFlashAnim.setValue(0);
+    }
+  }, [hasRevealedThisPlayer, isHoldingReveal]);
+
+  const passButtonBg = passFlashAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [colors.primary, "#22cc66"],
+  });
   const isLastPlayer = currentPlayerIndex >= players.length - 1;
 
   const renderRevealPhase = () => (
@@ -190,10 +208,12 @@ export default function GameScreen({ navigation, route }) {
           </Animated.View>
         </Animated.View>
       </View>
-      <TouchableOpacity style={[styles.passButton, (!hasRevealedThisPlayer || isPassing || isHoldingReveal) && styles.passButtonDisabled]} onPress={handlePassNext} disabled={!hasRevealedThisPlayer || isPassing || isHoldingReveal} activeOpacity={0.9}>
-        <Ionicons name={isLastPlayer ? "play" : "swap-horizontal"} size={22} color="#fff" />
-        <Text style={styles.passButtonText}>{isLastPlayer ? t.startDiscussion : `${t.passTo} ${players[(currentPlayerIndex + 1) % players.length]}`}</Text>
-      </TouchableOpacity>
+      <Animated.View style={[styles.passButtonWrapper, { backgroundColor: passButtonBg }, (!hasRevealedThisPlayer || isPassing) && styles.passButtonDisabled]}>
+        <TouchableOpacity style={styles.passButton} onPress={handlePassNext} disabled={!hasRevealedThisPlayer || isPassing || isHoldingReveal} activeOpacity={0.9}>
+          <Ionicons name={isLastPlayer ? "play" : "swap-horizontal"} size={22} color="#fff" />
+          <Text style={styles.passButtonText}>{isLastPlayer ? t.startDiscussion : `${t.passTo} ${players[(currentPlayerIndex + 1) % players.length]}`}</Text>
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 
@@ -315,7 +335,8 @@ const getStyles = (colors, isDarkMode) => {
     revealButton: { backgroundColor: colors.primary, width: 180, height: 180, borderRadius: 90, justifyContent: "center", alignItems: "center", position: "relative", overflow: "hidden", borderWidth: 2, borderColor: border },
     revealGlow: { position: "absolute", width: "100%", height: "100%", backgroundColor: colors.primary },
     revealText: { color: "#fff", fontWeight: "700", marginTop: 10, fontSize: 15, letterSpacing: 1, textAlign: "center" },
-    passButton: { position: "absolute", bottom: 30, left: 20, right: 20, backgroundColor: colors.primary, paddingVertical: 16, paddingHorizontal: 18, borderRadius: 14, flexDirection: "row", alignItems: "center", gap: 10, borderWidth: 2, borderColor: border },
+    passButtonWrapper: { position: "absolute", bottom: 30, left: 20, right: 20, borderRadius: 14, borderWidth: 2, borderColor: border, overflow: "hidden" },
+    passButton: { paddingVertical: 16, paddingHorizontal: 18, flexDirection: "row", alignItems: "center", gap: 10 },
     passButtonDisabled: { opacity: 0.5 },
     passButtonText: { color: "#fff", fontWeight: "800", fontSize: 16, letterSpacing: 1, flex: 1, textAlign: "center" },
     timerContainer: { alignItems: "center", marginBottom: 30 },

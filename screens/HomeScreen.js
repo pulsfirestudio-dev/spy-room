@@ -209,8 +209,9 @@ export default function HomeScreen({ navigation, route }) {
 
         <View style={styles.buttonContainer}>
           <AnimatedButton style={styles.mainButton} onPress={() => { navigation.navigate('CreateRoom', { language: lang }); }} colors={colors} isDarkMode={isDarkMode}>
+            <View style={styles.btnSlot} />
             <Text style={styles.buttonText}>{t.newGame}</Text>
-            <Ionicons name="arrow-forward" size={20} color="#fff" style={styles.buttonIcon} />
+            <View style={styles.btnSlot}><Ionicons name="arrow-forward" size={20} color="#fff" /></View>
           </AnimatedButton>
 
           <AnimatedButton style={styles.secondaryButton} onPress={() => { navigation.navigate('HowToPlay', { language: lang }); }} colors={colors} isDarkMode={isDarkMode} secondary>
@@ -278,7 +279,7 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   },
   flagText: { fontSize: 24 },
   logoContainer: { alignItems: 'center', marginBottom: 20, marginTop: 40 },
-  logo: { width: 170, height: 170, marginBottom: 15, backgroundColor: 'transparent' },
+  logo: { width: 210, height: 210, marginBottom: 15, backgroundColor: 'transparent' },
 
   titleWrapper: {
     position: 'relative',
@@ -318,7 +319,7 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   buttonContainer: { width: '100%', maxWidth: 320, gap: 12 },
   mainButton: {
     backgroundColor: colors.primary,
-    paddingVertical: 20, paddingHorizontal: 30,
+    paddingVertical: 15, paddingHorizontal: 25,
     borderRadius: 16,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     position: 'relative', overflow: 'hidden',
@@ -327,7 +328,7 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
     shadowOpacity: isDarkMode ? 0.4 : 0.2,
     shadowRadius: 15, elevation: 8,
   },
-  buttonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 3 },
+  buttonText: { color: '#fff', fontSize: 14, fontWeight: '700', letterSpacing: 1, flex: 1, textAlign: 'center' },
   buttonIcon: { marginLeft: 12 },
   multiplayerBtn: {
     backgroundColor: colors.surface,

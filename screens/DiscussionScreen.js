@@ -5,6 +5,7 @@ import {
   Dimensions,
   Easing,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -257,6 +258,7 @@ export default function DiscussionScreen({ route, navigation }) {
     word = null,
     spyIndex = null,
     imposterIndices = [],
+    clueAssist = false,
     timeLimit = false,
     timePerPerson = 15,
     numImposters = 1,
@@ -358,7 +360,7 @@ export default function DiscussionScreen({ route, navigation }) {
       secretWord,
       hintWord,
       imposterIndices: newImposters,
-      clueAssist: false,
+      clueAssist,
       category: categoryId,
       categoryId,
       categoryName,
@@ -383,7 +385,7 @@ export default function DiscussionScreen({ route, navigation }) {
       <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={colors.background} />
       <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFillObject, { backgroundColor: flashBg, zIndex: 10 }]} />
 
-      <View style={styles.layout}>
+      <ScrollView style={styles.layout} contentContainerStyle={styles.layoutContent} showsVerticalScrollIndicator={false}>
 
         <View style={styles.header}>
           <Text style={styles.title}>{t.title}</Text>
@@ -471,7 +473,7 @@ export default function DiscussionScreen({ route, navigation }) {
           </View>
         </View>
 
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -479,10 +481,9 @@ export default function DiscussionScreen({ route, navigation }) {
 const getStyles = (colors, isDarkMode) =>
   StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background },
-    layout: {
-      flex: 1,
+    layout: { flex: 1 },
+    layoutContent: {
       paddingHorizontal: 18,
-      // ↑ Increased top padding so header clears status bar comfortably
       paddingTop: isSmallScreen ? 28 : 38,
       paddingBottom: isSmallScreen ? 20 : 30,
     },
@@ -538,7 +539,7 @@ const getStyles = (colors, isDarkMode) =>
     nextBtnAlert: { backgroundColor: "#ff1a1a", borderColor: "#ff1a1a" },
     // ↑ Bigger next button text
     nextBtnText: { color: "#fff", fontWeight: "800", fontSize: 15, letterSpacing: 1 },
-    section: { flex: 1, marginBottom: isSmallScreen ? 8 : 12 },
+    section: { marginBottom: isSmallScreen ? 8 : 12 },
     // ↑ Bigger section label
     sectionLabel: {
       fontSize: 12, fontWeight: "800", letterSpacing: 3,
