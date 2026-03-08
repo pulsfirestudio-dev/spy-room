@@ -19,8 +19,6 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 
-// Preload logo image
-Image.prefetch(Image.resolveAssetSource(require('../assets/logo.png')).uri);
 
 const { width, height } = Dimensions.get('window');
 
@@ -78,7 +76,7 @@ const Particle = ({ delay, colors, screenWidth, screenHeight }) => {
     );
     animation.start();
 
-  return () => animation.stop();
+    return () => animation.stop();
   }, []);
 
   const particleColor = Math.random() > 0.5 ? colors.primary : colors.accent;
@@ -189,10 +187,10 @@ export default function HomeScreen({ navigation, route }) {
 
         <View style={styles.topBar}>
           <TouchableOpacity style={styles.themeToggle} onPress={toggleTheme} activeOpacity={0.7}>
-            <Ionicons name={isDarkMode ? 'sunny' : 'moon'} size={22} color={isDarkMode ? '#fff' : '#000'} />
+            <Ionicons name={isDarkMode ? 'sunny' : 'moon'} size={22} color={isDarkMode ? '#fff' : '#fff'} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.languageButton} onPress={() => navigation.navigate('Settings', { language: lang })} activeOpacity={0.7}>
-            <Ionicons name="settings-outline" size={22} color={isDarkMode ? '#fff' : '#000'} />
+            <Ionicons name="settings-outline" size={22} color={isDarkMode ? '#fff' : '#fff'} />
           </TouchableOpacity>
         </View>
 
@@ -209,9 +207,8 @@ export default function HomeScreen({ navigation, route }) {
 
         <View style={styles.buttonContainer}>
           <AnimatedButton style={styles.mainButton} onPress={() => { navigation.navigate('CreateRoom', { language: lang }); }} colors={colors} isDarkMode={isDarkMode}>
-            <View style={styles.btnSlot} />
             <Text style={styles.buttonText}>{t.newGame}</Text>
-            <View style={styles.btnSlot}><Ionicons name="arrow-forward" size={20} color="#fff" /></View>
+            <Ionicons name="arrow-forward" size={20} color="#fff" style={styles.buttonIcon} />
           </AnimatedButton>
 
           <AnimatedButton style={styles.secondaryButton} onPress={() => { navigation.navigate('HowToPlay', { language: lang }); }} colors={colors} isDarkMode={isDarkMode} secondary>
@@ -234,9 +231,6 @@ export default function HomeScreen({ navigation, route }) {
             <Text style={styles.secondaryButtonText}>{t.rateAndShare}</Text>
             <View style={styles.btnSlot}><Ionicons name="share-social-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
-
-
-
         </View>
 
         <Text style={styles.version}>v1.0</Text>
@@ -267,19 +261,19 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   },
   themeToggle: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: colors.surface,
+    backgroundColor: isDarkMode ? colors.surface : '#222222',
     justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
   },
   languageButton: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: colors.surface,
+    backgroundColor: isDarkMode ? colors.surface : '#222222',
     justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
   },
   flagText: { fontSize: 24 },
   logoContainer: { alignItems: 'center', marginBottom: 20, marginTop: 40 },
-  logo: { width: 210, height: 210, marginBottom: 15, backgroundColor: 'transparent' },
+  logo: { width: 170, height: 170, marginBottom: 15, backgroundColor: 'transparent' },
 
   titleWrapper: {
     position: 'relative',
@@ -297,7 +291,7 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: '900',
-    color: isDarkMode ? '#fff' : '#fff',
+    color: '#fff',
     letterSpacing: 6,
     textShadowColor: isDarkMode ? colors.primary : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
@@ -319,7 +313,7 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   buttonContainer: { width: '100%', maxWidth: 320, gap: 12 },
   mainButton: {
     backgroundColor: colors.primary,
-    paddingVertical: 15, paddingHorizontal: 25,
+    paddingVertical: 20, paddingHorizontal: 30,
     borderRadius: 16,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     position: 'relative', overflow: 'hidden',
@@ -328,7 +322,7 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
     shadowOpacity: isDarkMode ? 0.4 : 0.2,
     shadowRadius: 15, elevation: 8,
   },
-  buttonText: { color: '#fff', fontSize: 14, fontWeight: '700', letterSpacing: 1, flex: 1, textAlign: 'center' },
+  buttonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 3 },
   buttonIcon: { marginLeft: 12 },
   multiplayerBtn: {
     backgroundColor: colors.surface,
