@@ -187,10 +187,10 @@ export default function HomeScreen({ navigation, route }) {
 
         <View style={styles.topBar}>
           <TouchableOpacity style={styles.themeToggle} onPress={toggleTheme} activeOpacity={0.7}>
-            <Ionicons name={isDarkMode ? 'sunny' : 'moon'} size={22} color={isDarkMode ? '#fff' : '#fff'} />
+            <Ionicons name={isDarkMode ? 'sunny' : 'moon'} size={22} color={isDarkMode ? '#fff' : '#000'} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.languageButton} onPress={() => navigation.navigate('Settings', { language: lang })} activeOpacity={0.7}>
-            <Ionicons name="settings-outline" size={22} color={isDarkMode ? '#fff' : '#fff'} />
+            <Ionicons name="settings-outline" size={22} color={isDarkMode ? '#fff' : '#000'} />
           </TouchableOpacity>
         </View>
 
