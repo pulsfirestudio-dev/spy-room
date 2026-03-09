@@ -388,10 +388,11 @@ export default function DiscussionScreen({ route, navigation }) {
       <ScrollView style={styles.layout} contentContainerStyle={styles.layoutContent} showsVerticalScrollIndicator={false}>
 
         <View style={styles.header}>
-          <Text style={styles.title}>{t.title}</Text>
           <TouchableOpacity style={[styles.closeBtn, { borderColor: border }]} onPress={onNewGame} activeOpacity={0.8}>
             <Ionicons name="close" size={20} color={isDarkMode ? "#fff" : "#000"} />
           </TouchableOpacity>
+          <Text style={styles.title}>{t.title}</Text>
+          <View style={{ width: 44 }} />
         </View>
 
         <Text style={styles.subtitle}>{t.subtitle}</Text>
@@ -494,10 +495,10 @@ const getStyles = (colors, isDarkMode) =>
     // ↑ Bigger title
     title: {
       fontSize: isSmallScreen ? 20 : 24, fontWeight: "900", letterSpacing: 3,
-      color: isDarkMode ? "#fff" : "#000",
+      color: isDarkMode ? "#fff" : "#000", flex: 1, textAlign: "center",
     },
     closeBtn: {
-      width: 38, height: 38, borderRadius: 11, backgroundColor: colors.surface,
+      width: 44, height: 44, borderRadius: 22, backgroundColor: isDarkMode ? "#333333" : "#F5F5F5",
       borderWidth: 2, justifyContent: "center", alignItems: "center",
     },
     // ↑ Bigger subtitle

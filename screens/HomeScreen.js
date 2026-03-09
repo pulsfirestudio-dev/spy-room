@@ -261,13 +261,13 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   },
   themeToggle: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: isDarkMode ? colors.surface : '#222222',
+    backgroundColor: isDarkMode ? '#333333' : '#F5F5F5',
     justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
   },
   languageButton: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: isDarkMode ? colors.surface : '#222222',
+    backgroundColor: isDarkMode ? '#333333' : '#F5F5F5',
     justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
   },
