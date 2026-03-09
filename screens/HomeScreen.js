@@ -233,7 +233,7 @@ export default function HomeScreen({ navigation, route }) {
           </AnimatedButton>
         </View>
 
-        <Text style={styles.version}>v1.0</Text>
+        <Text style={styles.version}>v2.0.0</Text>
       </ScrollView>
     </SafeAreaView>
   );
