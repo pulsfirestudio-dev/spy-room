@@ -110,7 +110,7 @@ export const PremiumProvider = ({ children }) => {
     setError(null);
 
     try {
-      const customerInfo = await Purchases.restoreTransactions();
+      const customerInfo = await Purchases.restorePurchases();
       const hasPremium = customerInfo.entitlements.active['premium'] !== undefined;
 
       if (hasPremium) {
