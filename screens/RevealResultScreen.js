@@ -76,6 +76,6 @@ const getStyles = (colors, isDarkMode) =>
     rowValue: { fontSize: 22, fontWeight: "800", color: isDarkMode ? "#fff" : "#000" },
     wordValue: { fontSize: 36, fontWeight: "900", letterSpacing: 1, color: isDarkMode ? "#fff" : "#000" },
     imposterName: { fontSize: 24, fontWeight: "800", color: isDarkMode ? "#fff" : "#000", marginTop: 2 },
-    backBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 10, paddingVertical: 17, borderRadius: 14, borderWidth: 2, backgroundColor: "transparent" },
+    backBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 10, paddingVertical: 17, borderRadius: 22, borderWidth: 2, backgroundColor: isDarkMode ? colors.surface : "#222222", borderColor: isDarkMode ? "#fff" : "#000" },
     backBtnText: { fontSize: 17, fontWeight: "800", letterSpacing: 1 },
   });

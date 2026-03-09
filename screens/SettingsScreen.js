@@ -206,9 +206,12 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     justifyContent: 'space-between', marginBottom: 32,
   },
   backBtn: {
-    width: 44, height: 44, borderRadius: 14,
-    backgroundColor: colors.surface, justifyContent: 'center',
-    alignItems: 'center', borderWidth: 2,
+    width: 44, height: 44, borderRadius: 22,
+    backgroundColor: isDarkMode ? colors.surface : '#222222',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: isDarkMode ? '#fff' : '#000',
   },
   title: {
     fontSize: 24, fontWeight: '900',
