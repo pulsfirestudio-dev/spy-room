@@ -1,12 +1,13 @@
 // screens/SettingsScreen.js
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  SafeAreaView, StatusBar, ScrollView, Switch,
+  SafeAreaView, StatusBar, ScrollView, Switch, ActivityIndicator, Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { useSettings } from '../context/SettingsContext';
+import { usePremium } from '../context/PremiumContext';
 
 const translations = {
   en: {
@@ -20,6 +21,12 @@ const translations = {
     language: 'LANGUAGE',
     selectLanguage: 'App Language',
     back: 'BACK',
+    premium: 'PREMIUM',
+    premiumStatus: 'Premium Status',
+    premiumActive: 'Premium Unlocked',
+    premiumInactive: 'Unlock Premium',
+    restorePurchases: 'Restore Purchases',
+    restoreSub: 'Recover purchases on this device',
   },
   lt: {
     title: 'NUSTATYMAI',
@@ -32,16 +39,24 @@ const translations = {
     language: 'KALBA',
     selectLanguage: 'Programos kalba',
     back: 'ATGAL',
+    premium: 'PREMIUM',
+    premiumStatus: 'Premium būsena',
+    premiumActive: 'Premium atrakinta',
+    premiumInactive: 'Atrakinti Premium',
+    restorePurchases: 'Atkurti pirkimus',
+    restoreSub: 'Atkurti pirkimus šiame įrenginyje',
   },
 };
 
 export default function SettingsScreen({ navigation, route }) {
   const { colors, isDarkMode, toggleTheme } = useTheme();
   const { soundEnabled, setSoundEnabled } = useSettings();
+  const { isPremium, isLoading, restorePurchases } = usePremium();
   const lang = route.params?.language || 'en';
   const t = translations[lang];
   const styles = useMemo(() => getStyles(colors, isDarkMode), [colors, isDarkMode]);
   const border = isDarkMode ? '#ffffff' : '#000000';
+  const [restoreLoading, setRestoreLoading] = useState(false);
 
   const SettingRow = ({ label, subtitle, value, onValueChange, icon }) => (
     <View style={styles.row}>
@@ -76,6 +91,16 @@ export default function SettingsScreen({ navigation, route }) {
       </View>
     </TouchableOpacity>
   );
+
+  const handleRestorePurchases = async () => {
+    setRestoreLoading(true);
+    const result = await restorePurchases();
+    setRestoreLoading(false);
+    Alert.alert(
+      result.success ? 'Success' : 'Info',
+      result.message
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -127,6 +152,45 @@ export default function SettingsScreen({ navigation, route }) {
               <Text style={styles.flagText}>{lang === 'lt' ? '🇱🇹' : '🇬🇧'}</Text>
             }
           />
+        </View>
+
+        {/* Premium */}
+        <Text style={styles.sectionTitle}>{t.premium}</Text>
+        <View style={[styles.card, { borderColor: border }]}>
+          <View style={styles.row}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="star" size={22} color={isPremium ? colors.primary : isDarkMode ? '#888' : '#999'} style={styles.rowIcon} />
+              <View>
+                <Text style={styles.rowLabel}>{t.premiumStatus}</Text>
+                <Text style={[
+                  styles.rowSub,
+                  { color: isPremium ? colors.primary : isDarkMode ? '#888' : '#999' }
+                ]}>
+                  {isPremium ? t.premiumActive : t.premiumInactive}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.divider} />
+          <TouchableOpacity
+            style={[styles.row, restoreLoading && { opacity: 0.6 }]}
+            onPress={handleRestorePurchases}
+            disabled={restoreLoading}
+            activeOpacity={0.8}
+          >
+            <View style={styles.rowLeft}>
+              <Ionicons name="download-outline" size={22} color={isDarkMode ? '#fff' : '#000'} style={styles.rowIcon} />
+              <View>
+                <Text style={styles.rowLabel}>{t.restorePurchases}</Text>
+                <Text style={styles.rowSub}>{t.restoreSub}</Text>
+              </View>
+            </View>
+            {restoreLoading ? (
+              <ActivityIndicator size="small" color={colors.primary} />
+            ) : (
+              <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : '#999'} />
+            )}
+          </TouchableOpacity>
         </View>
 
       </ScrollView>

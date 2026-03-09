@@ -10,10 +10,12 @@ import {
   ScrollView,
   Alert,
   Modal,
+  ActivityIndicator,
   StatusBar,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
+import { usePremium } from '../context/PremiumContext';
 
 import AppButton from "../components/AppButton";
 
@@ -466,6 +468,7 @@ const translations = {
 /* -------------------- SCREEN -------------------- */
 export default function CreateRoomScreen({ navigation, route }) {
   const { colors, isDarkMode } = useTheme();
+  const { isPremium, isLoading, error, purchasePremium, clearError } = usePremium();
   const lang = route.params?.language || 'en';
   const t = translations[lang];
 
@@ -479,12 +482,10 @@ export default function CreateRoomScreen({ navigation, route }) {
   const [newPlayerName, setNewPlayerName] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(Object.keys(freeCategories)[0]);
   const [numImposters, setNumImposters] = useState(1);
-  // ← All game modes default OFF
-  const [clueAssist, setClueAssist] = useState(false); // OFF by default
+  const [clueAssist, setClueAssist] = useState(false);
   const [chaosRound, setChaosRound] = useState(false);
   const [timeLimit, setTimeLimit] = useState(false);
   const [pressedButton, setPressedButton] = useState(null);
-  const [isPremium, setIsPremium] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   const styles = getStyles(colors, isDarkMode);
@@ -513,7 +514,15 @@ export default function CreateRoomScreen({ navigation, route }) {
     setSelectedCategory(cat);
   };
 
-  const unlockPremium = () => { setIsPremium(true); setShowPremiumModal(false); };
+  const handlePurchasePremium = async () => {
+    const result = await purchasePremium();
+    if (result.success) {
+      setShowPremiumModal(false);
+      Alert.alert('Success', result.message);
+    } else {
+      Alert.alert('Purchase Failed', result.message);
+    }
+  };
 
   const startGame = () => {
     if (!canStart) { Alert.alert('Error', t.needMorePlayers(remainingPlayers)); return; }
@@ -743,10 +752,33 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
             <Text style={styles.modalTitle}>{t.premiumTitle}</Text>
             <Text style={styles.modalDesc}>{t.premiumDesc}</Text>
             <Text style={styles.modalFeatures}>{t.premiumFeatures}</Text>
-            <TouchableOpacity style={styles.unlockPriceButton} onPress={unlockPremium}>
-              <Text style={styles.unlockPriceText}>{t.unlockPrice}</Text>
+
+            {error && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            )}
+
+            <TouchableOpacity
+              style={[styles.unlockPriceButton, isLoading && styles.buttonDisabled]}
+              onPress={handlePurchasePremium}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#fff" size="small" />
+              ) : (
+                <Text style={styles.unlockPriceText}>{t.unlockPrice}</Text>
+              )}
             </TouchableOpacity>
-            <TouchableOpacity style={styles.maybeLaterButton} onPress={() => setShowPremiumModal(false)}>
+
+            <TouchableOpacity
+              style={styles.maybeLaterButton}
+              onPress={() => {
+                setShowPremiumModal(false);
+                clearError();
+              }}
+              disabled={isLoading}
+            >
               <Text style={styles.maybeLaterText}>{t.maybeLater}</Text>
             </TouchableOpacity>
           </View>
@@ -851,5 +883,8 @@ const getStyles = (colors, isDarkMode) => {
     unlockPriceText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 2 },
     maybeLaterButton: { paddingVertical: 12, alignItems: 'center' },
     maybeLaterText: { color: isDarkMode ? '#888888' : '#666666', fontSize: 16, fontWeight: '600' },
+    errorContainer: { backgroundColor: '#ff1a1a' + '22', borderColor: '#ff1a1a', borderWidth: 1, borderRadius: 8, padding: 12, marginVertical: 12 },
+    errorText: { color: '#ff1a1a', fontSize: 14, fontWeight: '600', textAlign: 'center' },
+    buttonDisabled: { opacity: 0.6 },
   });
 };
