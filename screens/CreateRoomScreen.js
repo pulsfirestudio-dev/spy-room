@@ -567,7 +567,7 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton} activeOpacity={0.8}>
-            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : '#000'} />
+            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : colors.primary} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={styles.placeholder} />
@@ -796,8 +796,8 @@ const getStyles = (colors, isDarkMode) => {
     scrollContent: { padding: 20, paddingTop: 36 },
     header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 30 },
     backButton: {
-      width: 44, height: 44, borderRadius: 14, backgroundColor: colors.surface,
-      justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: border,
+      width: 44, height: 44, borderRadius: 22, backgroundColor: isDarkMode ? colors.primary : '#000',
+      justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary,
     },
     strongOutline: { borderWidth: 2, borderColor: border, backgroundColor: colors.surface },
     title: { fontSize: 26, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 3 },

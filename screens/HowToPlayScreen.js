@@ -65,7 +65,7 @@ export default function HowToPlayScreen({ navigation, route }) {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : '#000'} />
+            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : colors.primary} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={styles.placeholder} />
@@ -101,7 +101,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   scrollContent: { padding: 20, paddingTop: 38 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 },
-  backButton: { width: 44, height: 44, borderRadius: 14, backgroundColor: colors.surface, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000' },
+  backButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: isDarkMode ? colors.primary : '#000', justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary },
   title: { fontSize: 26, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 2, textShadowColor: isDarkMode ? colors.primary : 'transparent', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: isDarkMode ? 2 : 0 },
   placeholder: { width: 44 },
   logoContainer: { alignItems: 'center', marginBottom: 30 },
