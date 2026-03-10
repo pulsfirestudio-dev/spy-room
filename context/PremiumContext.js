@@ -98,7 +98,7 @@ export const PremiumProvider = ({ children }) => {
         }
       }
 
-      console.error('Purchase error:', err);
+      console.warn('Purchase error:', err);
       setError(err.message || 'Purchase failed');
       setIsLoading(false);
       return { success: false, message: err.message || 'Purchase failed' };
@@ -125,7 +125,7 @@ export const PremiumProvider = ({ children }) => {
         return { success: false, message: 'No purchases found to restore' };
       }
     } catch (err) {
-      console.error('Restore purchases error:', err);
+      console.warn('Restore purchases error:', err);
       setError(err.message || 'Restore failed');
       setIsLoading(false);
       return { success: false, message: err.message || 'Restore failed' };

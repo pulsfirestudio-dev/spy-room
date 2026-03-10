@@ -109,8 +109,8 @@ export default function SettingsScreen({ navigation, route }) {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { borderColor: border }]} activeOpacity={0.8}>
-            <Ionicons name="arrow-back" size={22} color={isDarkMode ? '#fff' : '#000'} />
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} activeOpacity={0.8}>
+            <Ionicons name="arrow-back" size={22} color={isDarkMode ? '#fff' : colors.primary} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={{ width: 44 }} />
@@ -207,11 +207,11 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   backBtn: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: isDarkMode ? '#333333' : '#F5F5F5',
+    backgroundColor: isDarkMode ? colors.primary : '#000',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: isDarkMode ? '#fff' : '#000',
+    borderColor: isDarkMode ? '#fff' : colors.primary,
   },
   title: {
     fontSize: 24, fontWeight: '900',
