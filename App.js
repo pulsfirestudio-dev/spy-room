@@ -36,7 +36,7 @@ export default function App() {
         // IMPORTANT: Replace 'YOUR_REVENUECAT_API_KEY' with your actual RevenueCat API key
         // Get your API key from https://app.revenuecat.com/
         await Purchases.configure({
-          apiKey: 'test_JZbobWhVdEyCrGlwqEtLbguHiK',
+          apiKey: 'goog_YgxvzPUbckehiMlsMfbvAxzsCES',
         });
 
         await new Promise(resolve => setTimeout(resolve, 1500));
