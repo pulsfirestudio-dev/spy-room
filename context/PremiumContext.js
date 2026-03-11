@@ -86,6 +86,7 @@ export const PremiumProvider = ({ children }) => {
       }
     } catch (err) {
       if (err instanceof PurchasesError) {
+        setIsLoading(false);
         if (err.code === Purchases.ErrorCode.PurchaseCancelledError) {
           setError('Purchase cancelled');
           return { success: false, message: 'Purchase cancelled' };
