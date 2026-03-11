@@ -2,9 +2,9 @@
   "expo": {
     "name": "Spy Room",
     "slug": "spy-room",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "orientation": "portrait",
-    "icon": "./assets/App-logo.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -19,9 +19,9 @@
     },
     "android": {
       "package": "com.pulsfirestudio.spyroom",
-      "versionCode": 9,
+      "versionCode": 10,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/App-logo.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
       "permissions": [
@@ -34,7 +34,8 @@
     },
     "plugins": [
       "expo-video",
-      "expo-audio"
+      "expo-audio",
+      "expo-asset"
     ],
     "extra": {
       "eas": {
