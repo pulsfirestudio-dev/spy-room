@@ -4,7 +4,7 @@
     "slug": "spy-room",
     "version": "2.1.0",
     "orientation": "portrait",
-    "icon": "./assets/App-logo.png",
+    "icon": "./assets/logo1.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -20,7 +20,7 @@
     "android": {
       "package": "com.pulsfirestudio.spyroom",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/App-logo.png",
+        "foregroundImage": "./assets/logo1.png",
         "backgroundColor": "#000000"
       },
       "permissions": [
