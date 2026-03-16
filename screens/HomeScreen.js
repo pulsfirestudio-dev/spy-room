@@ -128,7 +128,6 @@ export default function HomeScreen({ navigation, route }) {
 
   // Idle animations
   const glowAnim = useRef(new Animated.Value(0)).current;
-  const pulseAnim = useRef(new Animated.Value(1)).current;
   const flickerAnim = useRef(new Animated.Value(1)).current;
 
   // Entrance animations
@@ -159,12 +158,6 @@ export default function HomeScreen({ navigation, route }) {
     Animated.loop(Animated.sequence([
       Animated.timing(glowAnim, { toValue: 1, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
       Animated.timing(glowAnim, { toValue: 0, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-    ])).start();
-
-    // Title scale pulse (subtle)
-    Animated.loop(Animated.sequence([
-      Animated.timing(pulseAnim, { toValue: 1.04, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-      Animated.timing(pulseAnim, { toValue: 0.98, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
     ])).start();
 
     // Neon flicker
@@ -328,8 +321,6 @@ export default function HomeScreen({ navigation, route }) {
 
           {/* Title — entrance scale wrapper */}
           <Animated.View style={{ transform: [{ scale: titleEnterScale }] }}>
-            {/* Idle pulse wrapper */}
-            <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
               <Animated.View style={[styles.titleWrapper, { opacity: titleFade }]}>
                 {/* Glow background */}
                 <Animated.View style={[styles.titleGlowBg, { opacity: glowOpacity }]} />
@@ -355,7 +346,6 @@ export default function HomeScreen({ navigation, route }) {
                   {t.title}
                 </Animated.Text>
               </Animated.View>
-            </Animated.View>
           </Animated.View>
 
           {/* Typewriter tagline */}
@@ -476,14 +466,14 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   titleWrapper: {
     position: 'relative', alignItems: 'center', justifyContent: 'center',
-    width: 320, paddingVertical: 14,
+    width: 360, paddingVertical: 16,
   },
   titleGlowBg: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
     backgroundColor: colors.primary, borderRadius: 16,
   },
   title: {
-    fontSize: 36, fontWeight: '900', color: '#fff', letterSpacing: 6,
+    fontSize: 48, fontWeight: '900', color: '#fff', letterSpacing: 6,
     textShadowColor: isDarkMode ? colors.primary : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: isDarkMode ? 22 : 0,
