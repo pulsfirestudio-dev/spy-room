@@ -217,17 +217,14 @@ export default function HomeScreen({ navigation, route }) {
             <View style={styles.btnSlot} />
           </AnimatedButton>
 
-          <TouchableOpacity style={styles.multiplayerBtn} activeOpacity={0.7} disabled>
-            <View style={styles.btnSlot}><Ionicons name="people-outline" size={20} color={isDarkMode ? '#888' : '#999'} /></View>
-            <View style={styles.multiplayerTextGroup}>
-              <Text style={styles.multiplayerTitle}>{t.multiplayer}</Text>
-              <Text style={styles.multiplayerSub}>{t.comingSoon}</Text>
-            </View>
-            <View style={styles.btnSlot} />
-          </TouchableOpacity>
+          <AnimatedButton style={styles.multiplayerBtn} onPress={() => navigation.navigate('MultiplayerMenu', { language: lang })} colors={colors} isDarkMode={isDarkMode} secondary>
+            <View style={styles.btnSlot}><Ionicons name="people-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
+            <Text style={styles.secondaryButtonText}>{t.multiplayer}</Text>
+            <View style={styles.btnSlot}><Ionicons name="wifi" size={17} color={isDarkMode ? '#fff' : '#000'} /></View>
+          </AnimatedButton>
 
           <AnimatedButton style={styles.secondaryButton} onPress={handleRateAndShare} colors={colors} isDarkMode={isDarkMode} secondary>
-            <View style={styles.btnSlot}><Text style={styles.slotEmoji}>⭐</Text></View>
+            <View style={styles.btnSlot}><Ionicons name="star-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
             <Text style={styles.secondaryButtonText}>{t.rateAndShare}</Text>
             <View style={styles.btnSlot}><Ionicons name="share-social-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
@@ -329,18 +326,6 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
     paddingVertical: 15, paddingHorizontal: 25,
     borderRadius: 16,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
-    opacity: 0.5,
-  },
-  multiplayerTextGroup: { flex: 1, alignItems: 'center' },
-  multiplayerTitle: {
-    color: isDarkMode ? '#fff' : '#000',
-    fontSize: 14, fontWeight: '700', letterSpacing: 1,
-  },
-  multiplayerSub: {
-    color: isDarkMode ? '#aaa' : '#777',
-    fontSize: 11, fontWeight: '500', letterSpacing: 1,
-    marginTop: 2,
   },
   secondaryButton: {
     backgroundColor: colors.surface,

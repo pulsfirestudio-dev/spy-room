@@ -432,7 +432,7 @@ export default function DiscussionScreen({ route, navigation }) {
             {orderedPlayers.map((name, idx) => {
               const isCurrent = idx === currentTurnIndex;
               return (
-                <View key={`${name}-${idx}`} style={[styles.playerRow, isCurrent && styles.playerRowActive]}>
+                <TouchableOpacity key={`${name}-${idx}`} style={[styles.playerRow, isCurrent && styles.playerRowActive]} onPress={() => setCurrentTurnIndex(idx)} activeOpacity={0.75}>
                   <View style={[styles.playerIndex, isCurrent && styles.playerIndexActive]}>
                     <Text style={[styles.playerIndexText, isCurrent && styles.playerIndexTextActive]}>{idx + 1}</Text>
                   </View>
@@ -442,7 +442,7 @@ export default function DiscussionScreen({ route, navigation }) {
                       <Text style={styles.talkingPillText}>● TALKING</Text>
                     </View>
                   )}
-                </View>
+                </TouchableOpacity>
               );
             })}
           </View>

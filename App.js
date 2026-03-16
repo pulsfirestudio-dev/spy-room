@@ -12,6 +12,8 @@ import GameScreen from './screens/GameScreen';
 import HowToPlayScreen from './screens/HowToPlayScreen';
 import JoinRoomScreen from './screens/JoinRoomScreen';
 import LobbyScreen from './screens/LobbyScreen';
+import MultiplayerMenuScreen from './screens/MultiplayerMenuScreen';
+import MultiplayerGameScreen from './screens/MultiplayerGameScreen';
 import CustomCategoryScreen from './screens/CustomCategoryScreen';
 import SelectLanguageScreen from './screens/SelectLanguageScreen';
 import SettingsScreen from './screens/SettingsScreen';
@@ -75,6 +77,8 @@ export default function App() {
                 <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
                 <Stack.Screen name="JoinRoom" component={JoinRoomScreen} />
                 <Stack.Screen name="Lobby" component={LobbyScreen} />
+                <Stack.Screen name="MultiplayerMenu" component={MultiplayerMenuScreen} />
+                <Stack.Screen name="MultiplayerGame" component={MultiplayerGameScreen} />
                 <Stack.Screen name="Game" component={GameScreen} />
                 <Stack.Screen name="HowToPlay" component={HowToPlayScreen} />
                 <Stack.Screen name="CustomCategory" component={CustomCategoryScreen} />
