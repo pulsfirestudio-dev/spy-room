@@ -294,7 +294,7 @@ export default function LobbyScreen({ navigation, route }) {
 
 const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, paddingTop: 50, paddingBottom: 40 },
+  content: { padding: 20, paddingTop: 16, paddingBottom: 40 },
   header: {
     flexDirection: 'row', alignItems: 'center',
     justifyContent: 'space-between', marginBottom: 24,

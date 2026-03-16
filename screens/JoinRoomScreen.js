@@ -15,7 +15,7 @@ const T = {
   en: {
     title: 'JOIN ROOM',
     roomCode: 'ROOM CODE',
-    enterCode: 'Enter 6-character code...',
+    enterCode: 'Enter the code...',
     yourName: 'YOUR NAME',
     enterName: 'Enter your name...',
     join: 'JOIN GAME',
@@ -26,7 +26,7 @@ const T = {
   lt: {
     title: 'PRISIJUNGTI',
     roomCode: 'KAMBARIO KODAS',
-    enterCode: 'Įveskite 6 simbolių kodą...',
+    enterCode: 'Įvesk kodą...',
     yourName: 'JŪSŲ VARDAS',
     enterName: 'Įveskite vardą...',
     join: 'PRISIJUNGTI',
@@ -87,7 +87,7 @@ export default function JoinRoomScreen({ navigation, route }) {
               <TextInput
                 style={styles.input}
                 placeholder={t.enterCode}
-                placeholderTextColor={isDarkMode ? '#555' : '#aaa'}
+                placeholderTextColor={isDarkMode ? '#555' : 'rgba(0,0,0,0.4)'}
                 value={roomCode}
                 onChangeText={text => setRoomCode(text.toUpperCase())}
                 maxLength={6}
@@ -101,7 +101,7 @@ export default function JoinRoomScreen({ navigation, route }) {
               <TextInput
                 style={styles.input}
                 placeholder={t.enterName}
-                placeholderTextColor={isDarkMode ? '#555' : '#aaa'}
+                placeholderTextColor={isDarkMode ? '#555' : 'rgba(0,0,0,0.4)'}
                 value={playerName}
                 onChangeText={setPlayerName}
                 maxLength={15}
@@ -117,10 +117,10 @@ export default function JoinRoomScreen({ navigation, route }) {
             activeOpacity={0.85}
           >
             {loading
-              ? <ActivityIndicator color={isDarkMode ? '#000' : '#fff'} />
+              ? <ActivityIndicator color="#fff" />
               : (
                 <>
-                  <Ionicons name="enter" size={20} color={isDarkMode ? '#000' : '#fff'} />
+                  <Ionicons name="enter" size={20} color="#fff" />
                   <Text style={styles.joinButtonText}>{t.join}</Text>
                 </>
               )
@@ -139,7 +139,7 @@ export default function JoinRoomScreen({ navigation, route }) {
 
 const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, paddingTop: 60, paddingBottom: 40 },
+  content: { padding: 20, paddingTop: 16, paddingBottom: 40 },
   header: {
     flexDirection: 'row', alignItems: 'center',
     justifyContent: 'space-between', marginBottom: 40,
@@ -159,16 +159,16 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     fontSize: 20, color: isDarkMode ? '#fff' : '#000', fontWeight: '700', letterSpacing: 4,
   },
   joinButton: {
-    backgroundColor: isDarkMode ? '#fff' : '#000',
+    backgroundColor: isDarkMode ? '#fff' : colors.primary,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     paddingVertical: 18, borderRadius: 14, marginBottom: 14, gap: 10,
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
   },
-  joinButtonText: { color: isDarkMode ? '#000' : '#fff', fontSize: 17, fontWeight: '900', letterSpacing: 2 },
+  joinButtonText: { color: '#fff', fontSize: 17, fontWeight: '900', letterSpacing: 2 },
   backButtonLarge: {
     backgroundColor: colors.surface, paddingVertical: 15,
     borderRadius: 14, alignItems: 'center',
-    borderWidth: 2, borderColor: isDarkMode ? '#333' : '#ccc',
+    borderWidth: 2, borderColor: isDarkMode ? '#333' : '#000',
   },
   backButtonText: { color: isDarkMode ? '#aaa' : colors.text, fontSize: 15, fontWeight: '700', letterSpacing: 1 },
 });
