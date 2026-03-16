@@ -414,7 +414,7 @@ const translations = {
     minPlayers: 'Need at least 3 players!',
     noName: 'Please enter a name',
     duplicateName: 'Name already exists!',
-    freeCategories: '🆓 FREE CATEGORIES',
+    freeCategories: 'FREE CATEGORIES',
     premiumCategories: '💰 PREMIUM',
     unlockPremium: 'Unlock Premium',
     premiumTitle: 'Unlock Premium Categories',
@@ -451,7 +451,7 @@ const translations = {
     minPlayers: 'Reikia bent 3 žaidėjų!',
     noName: 'Įveskite vardą',
     duplicateName: 'Toks vardas jau yra!',
-    freeCategories: '🆓 NEMOKAMOS KATEGORIJOS',
+    freeCategories: 'NEMOKAMOS KATEGORIJOS',
     premiumCategories: '💰 PREMIUM',
     unlockPremium: 'Atrakinti Premium',
     premiumTitle: 'Atrakinti Premium Kategorijas',
@@ -740,8 +740,8 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
           onPressIn={() => setPressedButton("start")}
           onPressOut={() => setPressedButton(null)}
           style={[styles.startButton, pressedButton === "start" && styles.startButtonPressed, !canStart && styles.startButtonDisabled]}
-          textStyle={styles.startButtonText}
-          rightIcon={<Ionicons name="play" size={20} color="#fff" />}
+          textStyle={[styles.startButtonText, !canStart && { flex: 1, textAlign: 'center' }]}
+          rightIcon={canStart ? <Ionicons name="play" size={20} color="#fff" /> : null}
         />
       </ScrollView>
 
@@ -838,8 +838,8 @@ const getStyles = (colors, isDarkMode) => {
     },
     unlockButtonText: { color: isDarkMode ? '#000' : '#000', fontWeight: '800', fontSize: 14 },
     premiumChip: { position: 'relative' },
-    lockedChip: { borderWidth: 2, borderColor: isDarkMode ? colors.primary : colors.text, backgroundColor: 'transparent' },
-    lockedText: { color: isDarkMode ? '#888888' : colors.text },
+    lockedChip: { borderWidth: 2, borderColor: isDarkMode ? colors.primary : colors.primary, backgroundColor: 'transparent' },
+    lockedText: { color: isDarkMode ? '#888888' : colors.primary },
     lockIcon: { position: 'absolute', right: 20, fontSize: 20 },
     counterContainer: { flexDirection: 'row', gap: 12 },
     counterButton: { flex: 1, backgroundColor: colors.surface, paddingVertical: 16, borderRadius: 14, alignItems: 'center' },

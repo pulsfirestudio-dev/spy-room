@@ -51,7 +51,7 @@ const translations = {
 export default function SettingsScreen({ navigation, route }) {
   const { colors, isDarkMode, toggleTheme } = useTheme();
   const { soundEnabled, setSoundEnabled } = useSettings();
-  const { isPremium, isLoading, restorePurchases } = usePremium();
+  const { isPremium, isLoading, restorePurchases, purchasePremium } = usePremium();
   const lang = route.params?.language || 'en';
   const t = translations[lang];
   const styles = useMemo(() => getStyles(colors, isDarkMode), [colors, isDarkMode]);
@@ -91,6 +91,10 @@ export default function SettingsScreen({ navigation, route }) {
       </View>
     </TouchableOpacity>
   );
+
+  const handleUnlockPremium = async () => {
+    if (!isPremium) await purchasePremium();
+  };
 
   const handleRestorePurchases = async () => {
     setRestoreLoading(true);
@@ -157,7 +161,7 @@ export default function SettingsScreen({ navigation, route }) {
         {/* Premium */}
         <Text style={styles.sectionTitle}>{t.premium}</Text>
         <View style={[styles.card, { borderColor: border }]}>
-          <View style={styles.row}>
+          <TouchableOpacity style={styles.row} onPress={handleUnlockPremium} disabled={isPremium} activeOpacity={0.8}>
             <View style={styles.rowLeft}>
               <Ionicons name="star" size={22} color={isPremium ? colors.primary : isDarkMode ? '#888' : colors.textSecondary} style={styles.rowIcon} />
               <View>
@@ -170,7 +174,12 @@ export default function SettingsScreen({ navigation, route }) {
                 </Text>
               </View>
             </View>
-          </View>
+            {!isPremium && (
+              <View style={styles.rowRight}>
+                <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : colors.text} />
+              </View>
+            )}
+          </TouchableOpacity>
           <View style={styles.divider} />
           <TouchableOpacity
             style={[styles.row, restoreLoading && { opacity: 0.6 }]}

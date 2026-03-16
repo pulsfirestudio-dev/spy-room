@@ -4,10 +4,11 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
   ScrollView, Image, Animated, Easing, Dimensions,
-  StatusBar, Linking, Share,
+  StatusBar, Linking, Share, Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 const SCAN_GAP = 8; // px per scanline pair
@@ -36,7 +37,7 @@ const translations = {
 
 // ─── Particle ──────────────────────────────────────────────────────────────────
 const PARTICLE_SIZES = [1.5, 2, 2.5, 3, 1];
-const Particle = ({ delay, colors, screenWidth, screenHeight, index }) => {
+const Particle = ({ delay, colors, screenWidth, screenHeight, index, isDarkMode }) => {
   const x = useRef(Math.random() * screenWidth).current;
   const size = useRef(PARTICLE_SIZES[index % PARTICLE_SIZES.length]).current;
   const posY = useRef(new Animated.Value(screenHeight + 50)).current;
@@ -60,7 +61,9 @@ const Particle = ({ delay, colors, screenWidth, screenHeight, index }) => {
     return () => anim.stop();
   }, []);
 
-  const color = index % 3 === 0 ? colors.primary : index % 3 === 1 ? (colors.accent || '#00ffff') : '#ffffff';
+  const color = isDarkMode
+    ? (index % 3 === 0 ? colors.primary : index % 3 === 1 ? (colors.accent || '#00ffff') : '#ffffff')
+    : (index % 3 === 0 ? 'rgba(255,255,255,0.9)' : index % 3 === 1 ? 'rgba(200,240,255,0.75)' : 'rgba(255,255,255,0.55)');
   return (
     <Animated.View
       style={{
@@ -93,7 +96,7 @@ const AnimatedButton = ({ children, style, onPress, colors, isDarkMode, secondar
   return (
     <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
       <TouchableOpacity
-        style={[style, { borderWidth: 2, borderColor: isDarkMode ? '#ffffff' : '#0E7C78' }]}
+        style={[style, { borderWidth: 2, borderColor: isDarkMode ? '#ffffff' : colors.text }]}
         onPress={onPress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
@@ -269,12 +272,29 @@ export default function HomeScreen({ navigation, route }) {
 
   const styles = getStyles(colors, isDarkMode, lang);
   const particles = Array.from({ length: 22 }, (_, i) => (
-    <Particle key={i} index={i} delay={i * 380} colors={colors} screenWidth={width} screenHeight={height} />
+    <Particle key={i} index={i} delay={i * 380} colors={colors} isDarkMode={isDarkMode} screenWidth={width} screenHeight={height} />
   ));
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
+
+      {/* Gradient background (light mode only) */}
+      {!isDarkMode && (
+        <LinearGradient
+          colors={['#3EC9C1', '#1a7ac7']}
+          style={styles.gradientBg}
+          pointerEvents="none"
+        />
+      )}
+
+      {/* Light mode glow orb behind logo */}
+      {!isDarkMode && (
+        <Animated.View
+          pointerEvents="none"
+          style={[styles.lightGlowOrb, { opacity: glowOpacity }]}
+        />
+      )}
 
       {/* Particles */}
       <View style={styles.particlesContainer} pointerEvents="none">{particles}</View>
@@ -401,6 +421,13 @@ export default function HomeScreen({ navigation, route }) {
 
 const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
+  gradientBg: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
+  lightGlowOrb: {
+    position: 'absolute', width: 320, height: 320, borderRadius: 160,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    top: '20%', alignSelf: 'center',
+    shadowColor: '#fff', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.6, shadowRadius: 60,
+  },
   particlesContainer: { position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' },
   scanlineContainer: {
     position: 'absolute', top: -SCAN_GAP, left: 0, right: 0,
@@ -413,7 +440,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     padding: 20, paddingTop: 60, paddingBottom: 20,
   },
   topBar: {
-    position: 'absolute', top: 50, left: 20, right: 20,
+    position: 'absolute', top: Platform.OS === 'android' ? (StatusBar.currentHeight || 0) + 8 : 50, left: 20, right: 20,
     flexDirection: 'row', justifyContent: 'space-between', zIndex: 10,
   },
   topBtn: {
@@ -430,7 +457,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   titleGlowBg: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: colors.primary, borderRadius: 16,
+    backgroundColor: isDarkMode ? colors.primary : 'rgba(255,255,255,0.3)', borderRadius: 16,
   },
   title: {
     fontSize: 48, fontWeight: '900', color: '#fff', letterSpacing: 6,
