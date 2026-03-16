@@ -61,9 +61,9 @@ export const ThemeProvider = ({ children }) => {
     } : {
       // LIGHT MODE (clean, modern)
       buttonOutline: '#000000',
-      background: '#e8ede9',
-      surface: '#f3f7f4',
-      surfaceElevated: '#f9fbf9',
+      background: '#3EC9C1',
+      surface: '#5dd6cf',
+      surfaceElevated: '#7ae0da',
       primary: '#e63946',
       primaryGlow: '#c1121f',
       accent: '#00b4d8',
