@@ -87,7 +87,7 @@ export default function SettingsScreen({ navigation, route }) {
       </View>
       <View style={styles.rowRight}>
         {rightContent}
-        <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : '#999'} />
+        <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : colors.text} />
       </View>
     </TouchableOpacity>
   );
@@ -159,12 +159,12 @@ export default function SettingsScreen({ navigation, route }) {
         <View style={[styles.card, { borderColor: border }]}>
           <View style={styles.row}>
             <View style={styles.rowLeft}>
-              <Ionicons name="star" size={22} color={isPremium ? colors.primary : isDarkMode ? '#888' : '#999'} style={styles.rowIcon} />
+              <Ionicons name="star" size={22} color={isPremium ? colors.primary : isDarkMode ? '#888' : colors.textSecondary} style={styles.rowIcon} />
               <View>
                 <Text style={styles.rowLabel}>{t.premiumStatus}</Text>
                 <Text style={[
                   styles.rowSub,
-                  { color: isPremium ? colors.primary : isDarkMode ? '#888' : '#999' }
+                  { color: isPremium ? colors.primary : isDarkMode ? '#888' : colors.textSecondary }
                 ]}>
                   {isPremium ? t.premiumActive : t.premiumInactive}
                 </Text>
@@ -188,7 +188,7 @@ export default function SettingsScreen({ navigation, route }) {
             {restoreLoading ? (
               <ActivityIndicator size="small" color={colors.primary} />
             ) : (
-              <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : '#999'} />
+              <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : colors.text} />
             )}
           </TouchableOpacity>
         </View>
@@ -219,7 +219,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 13, fontWeight: '800', letterSpacing: 3,
-    color: isDarkMode ? '#aaa' : '#666', marginBottom: 10, marginLeft: 4,
+    color: isDarkMode ? '#aaa' : colors.text, marginBottom: 10, marginLeft: 4,
   },
   card: {
     backgroundColor: colors.surface, borderRadius: 16,
@@ -236,7 +236,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     color: isDarkMode ? '#fff' : '#000',
   },
   rowSub: {
-    fontSize: 14, color: isDarkMode ? '#888' : '#999',
+    fontSize: 14, color: isDarkMode ? '#888' : colors.textSecondary,
     marginTop: 2,
   },
   rowRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },

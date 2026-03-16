@@ -306,7 +306,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     backgroundColor: colors.surface, borderRadius: 18, padding: 20,
     alignItems: 'center', borderWidth: 2, borderStyle: 'dashed', marginBottom: 24, gap: 8,
   },
-  codeLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 3, color: isDarkMode ? '#aaa' : '#666' },
+  codeLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 3, color: isDarkMode ? '#aaa' : colors.text },
   codeText: { fontSize: 40, fontWeight: '900', letterSpacing: 10, color: isDarkMode ? '#fff' : '#000' },
   shareBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
@@ -315,7 +315,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   shareBtnText: { color: isDarkMode ? '#000' : '#fff', fontSize: 13, fontWeight: '800', letterSpacing: 1 },
   section: { marginBottom: 22 },
-  sectionLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 3, color: isDarkMode ? '#aaa' : '#666', marginBottom: 12 },
+  sectionLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 3, color: isDarkMode ? '#aaa' : colors.text, marginBottom: 12 },
   playerList: { gap: 8 },
   playerRow: {
     flexDirection: 'row', alignItems: 'center',
@@ -329,7 +329,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   badgeText: { color: '#fff', fontSize: 10, fontWeight: '800' },
   configLabel: {
     fontSize: 11, fontWeight: '800', letterSpacing: 2,
-    color: isDarkMode ? '#aaa' : '#666', marginBottom: 6,
+    color: isDarkMode ? '#aaa' : colors.text, marginBottom: 6,
   },
   catChip: {
     paddingVertical: 8, paddingHorizontal: 14, borderRadius: 20,
@@ -337,7 +337,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderColor: isDarkMode ? '#444' : '#ccc', marginRight: 8,
   },
   catChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
-  catChipText: { fontSize: 13, fontWeight: '700', color: isDarkMode ? '#aaa' : '#666' },
+  catChipText: { fontSize: 13, fontWeight: '700', color: isDarkMode ? '#aaa' : colors.text },
   catChipTextActive: { color: '#fff' },
   configRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -355,7 +355,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     minWidth: 40, textAlign: 'center',
   },
   waitingText: {
-    textAlign: 'center', color: isDarkMode ? '#aaa' : '#666',
+    textAlign: 'center', color: isDarkMode ? '#aaa' : colors.text,
     fontSize: 14, fontStyle: 'italic', marginBottom: 24,
   },
   actions: { gap: 12 },

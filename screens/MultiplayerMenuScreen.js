@@ -122,7 +122,7 @@ export default function MultiplayerMenuScreen({ navigation, route }) {
             >
               <Ionicons name="enter-outline" size={36} color={isDarkMode ? '#fff' : '#000'} />
               <Text style={[styles.cardTitle, { color: isDarkMode ? '#fff' : '#000' }]}>{t.joinGame}</Text>
-              <Text style={[styles.cardDesc, { color: isDarkMode ? '#aaa' : '#666' }]}>{t.joinDesc}</Text>
+              <Text style={[styles.cardDesc, { color: isDarkMode ? '#aaa' : colors.text }]}>{t.joinDesc}</Text>
             </TouchableOpacity>
           </View>
 
@@ -144,9 +144,9 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
   },
   title: { fontSize: 22, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 3 },
-  subtitle: { textAlign: 'center', color: isDarkMode ? '#aaa' : '#666', fontSize: 14, marginBottom: 32 },
+  subtitle: { textAlign: 'center', color: isDarkMode ? '#aaa' : colors.text, fontSize: 14, marginBottom: 32 },
   nameSection: { marginBottom: 28 },
-  label: { fontSize: 12, fontWeight: '800', letterSpacing: 2, color: isDarkMode ? '#aaa' : '#666', marginBottom: 8 },
+  label: { fontSize: 12, fontWeight: '800', letterSpacing: 2, color: isDarkMode ? '#aaa' : colors.text, marginBottom: 8 },
   input: {
     backgroundColor: colors.surface, borderRadius: 14, padding: 16,
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',

@@ -70,7 +70,7 @@ export const ThemeProvider = ({ children }) => {
       accentPurple: '#9d4edd',
       text: '#1d3557',
       textSecondary: '#457b9d',
-      textMuted: '#a8dadc',
+      textMuted: '#2c5f7a',
       border: '#e9ecef',
       borderActive: '#e63946',
       card: '#ffffff',

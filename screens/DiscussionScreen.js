@@ -460,7 +460,7 @@ export default function DiscussionScreen({ route, navigation }) {
               onPress={onRestartGame}
               activeOpacity={0.8}
             >
-              <Ionicons name="refresh" size={15} color={isDarkMode ? "#aaa" : "#555"} />
+              <Ionicons name="refresh" size={15} color={isDarkMode ? "#aaa" : colors.text} />
               <Text style={styles.smallBtnText}>{t.restartGame}</Text>
             </TouchableOpacity>
 
@@ -503,7 +503,7 @@ const getStyles = (colors, isDarkMode) =>
     },
     // ↑ Bigger subtitle
     subtitle: {
-      fontSize: isSmallScreen ? 13 : 15, color: isDarkMode ? "#aaa" : "#555",
+      fontSize: isSmallScreen ? 13 : 15, color: isDarkMode ? "#aaa" : colors.text,
       marginBottom: isSmallScreen ? 10 : 14,
     },
     currentCard: {
@@ -514,7 +514,7 @@ const getStyles = (colors, isDarkMode) =>
     // ↑ Bigger "NOW TALKING" label
     nowTalkingLabel: {
       fontSize: 12, fontWeight: "800", letterSpacing: 3,
-      color: isDarkMode ? "#aaa" : "#666", marginBottom: 4,
+      color: isDarkMode ? "#aaa" : colors.text, marginBottom: 4,
     },
     // ↑ Bigger current player name
     currentPlayerName: {
@@ -523,7 +523,7 @@ const getStyles = (colors, isDarkMode) =>
       marginBottom: 3, textAlign: "center",
     },
     // ↑ Bigger starts convo text
-    startsConvo: { fontSize: 14, color: isDarkMode ? "#aaa" : "#555", fontWeight: "600" },
+    startsConvo: { fontSize: 14, color: isDarkMode ? "#aaa" : colors.text, fontWeight: "600" },
     timerSection: { alignItems: "center", marginBottom: isSmallScreen ? 8 : 12, gap: 7 },
     // ↑ Bigger timer number
     timerNumber: { fontSize: isSmallScreen ? 42 : 52, fontWeight: "900", letterSpacing: 1, textAlign: 'center', width: '100%' },
@@ -544,7 +544,7 @@ const getStyles = (colors, isDarkMode) =>
     // ↑ Bigger section label
     sectionLabel: {
       fontSize: 12, fontWeight: "800", letterSpacing: 3,
-      color: isDarkMode ? "#aaa" : "#666", marginBottom: 7,
+      color: isDarkMode ? "#aaa" : colors.text, marginBottom: 7,
     },
     playerList: { gap: 5 },
     playerRow: {
@@ -561,7 +561,7 @@ const getStyles = (colors, isDarkMode) =>
     },
     playerIndexActive: { backgroundColor: colors.primary },
     // ↑ Bigger player index number
-    playerIndexText: { fontSize: 13, fontWeight: "800", color: isDarkMode ? "#aaa" : "#555" },
+    playerIndexText: { fontSize: 13, fontWeight: "800", color: isDarkMode ? "#aaa" : colors.text },
     playerIndexTextActive: { color: "#fff" },
     // ↑ Bigger player name in list
     playerRowName: { flex: 1, fontSize: 16, fontWeight: "700", color: isDarkMode ? "#ccc" : "#444" },
@@ -584,5 +584,5 @@ const getStyles = (colors, isDarkMode) =>
       gap: 5, paddingVertical: isSmallScreen ? 10 : 12, borderRadius: 11, borderWidth: 1.5,
     },
     // ↑ Bigger small button text
-    smallBtnText: { color: isDarkMode ? "#aaa" : "#555", fontSize: 14, fontWeight: "700" },
+    smallBtnText: { color: isDarkMode ? "#aaa" : colors.text, fontSize: 14, fontWeight: "700" },
   });

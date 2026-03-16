@@ -149,7 +149,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   title: { fontSize: 22, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 2 },
   form: { gap: 24, marginBottom: 36 },
   inputGroup: { gap: 8 },
-  label: { fontSize: 12, fontWeight: '800', color: isDarkMode ? '#aaa' : '#666', letterSpacing: 2 },
+  label: { fontSize: 12, fontWeight: '800', color: isDarkMode ? '#aaa' : colors.text, letterSpacing: 2 },
   input: {
     backgroundColor: colors.surface, borderRadius: 14, padding: 18,
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
@@ -167,5 +167,5 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderRadius: 14, alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#333' : '#ccc',
   },
-  backButtonText: { color: isDarkMode ? '#aaa' : '#666', fontSize: 15, fontWeight: '700', letterSpacing: 1 },
+  backButtonText: { color: isDarkMode ? '#aaa' : colors.text, fontSize: 15, fontWeight: '700', letterSpacing: 1 },
 });

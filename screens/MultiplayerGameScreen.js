@@ -194,7 +194,7 @@ export default function MultiplayerGameScreen({ navigation, route }) {
 
           {iAmReady && !allReady && (
             <View style={styles.waitingBadge}>
-              <Ionicons name="time-outline" size={18} color={isDarkMode ? '#aaa' : '#666'} />
+              <Ionicons name="time-outline" size={18} color={isDarkMode ? '#aaa' : colors.text} />
               <Text style={styles.waitingBadgeText}>{t.readyStatus(readyPlayers.length, totalPlayers)}</Text>
             </View>
           )}
@@ -452,30 +452,30 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
   },
   phaseLabel: { fontSize: 18, fontWeight: '900', letterSpacing: 3, color: isDarkMode ? '#fff' : '#000' },
-  phaseDesc: { fontSize: 14, color: isDarkMode ? '#aaa' : '#666', textAlign: 'center', marginBottom: 18 },
+  phaseDesc: { fontSize: 14, color: isDarkMode ? '#aaa' : colors.text, textAlign: 'center', marginBottom: 18 },
   progressText: {
     textAlign: 'center', fontSize: 13,
-    color: isDarkMode ? '#aaa' : '#888', marginBottom: 18, fontStyle: 'italic',
+    color: isDarkMode ? '#aaa' : colors.text, marginBottom: 18, fontStyle: 'italic',
   },
   roleCard: {
     backgroundColor: colors.surface, borderRadius: 18, padding: 24,
     alignItems: 'center', borderWidth: 3, marginBottom: 16, gap: 12,
   },
   roleName: { fontSize: 38, fontWeight: '900', letterSpacing: 4 },
-  roleDesc: { fontSize: 14, color: isDarkMode ? '#aaa' : '#666', textAlign: 'center', lineHeight: 22 },
+  roleDesc: { fontSize: 14, color: isDarkMode ? '#aaa' : colors.text, textAlign: 'center', lineHeight: 22 },
   wordCard: {
     backgroundColor: colors.surface, borderRadius: 18, padding: 20,
     alignItems: 'center', marginBottom: 20,
     borderWidth: 2, borderColor: isDarkMode ? '#333' : '#ddd', gap: 8,
   },
-  wordLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 3, color: isDarkMode ? '#aaa' : '#666' },
+  wordLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 3, color: isDarkMode ? '#aaa' : colors.text },
   wordText: { fontSize: 32, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 2 },
-  hintText: { fontSize: 14, color: isDarkMode ? '#aaa' : '#888', fontStyle: 'italic' },
+  hintText: { fontSize: 14, color: isDarkMode ? '#aaa' : colors.text, fontStyle: 'italic' },
   waitingBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
     justifyContent: 'center', paddingVertical: 14,
   },
-  waitingBadgeText: { color: isDarkMode ? '#aaa' : '#666', fontSize: 14, fontStyle: 'italic' },
+  waitingBadgeText: { color: isDarkMode ? '#aaa' : colors.text, fontSize: 14, fontStyle: 'italic' },
   primaryBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
     backgroundColor: isDarkMode ? '#fff' : '#000',
@@ -483,7 +483,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000', marginTop: 10,
   },
   primaryBtnText: { color: isDarkMode ? '#000' : '#fff', fontSize: 16, fontWeight: '900', letterSpacing: 2 },
-  inputLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 2, color: isDarkMode ? '#aaa' : '#666' },
+  inputLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 2, color: isDarkMode ? '#aaa' : colors.text },
   clueInput: {
     backgroundColor: colors.surface, borderRadius: 14, padding: 16,
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
@@ -501,13 +501,13 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   listCardTitle: {
     fontSize: 11, fontWeight: '800', letterSpacing: 3,
-    color: isDarkMode ? '#aaa' : '#666', marginBottom: 4,
+    color: isDarkMode ? '#aaa' : colors.text, marginBottom: 4,
   },
   listRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: isDarkMode ? '#222' : '#eee',
   },
-  listRowLeft: { fontSize: 14, color: isDarkMode ? '#aaa' : '#666', fontWeight: '600' },
+  listRowLeft: { fontSize: 14, color: isDarkMode ? '#aaa' : colors.text, fontWeight: '600' },
   listRowRight: { fontSize: 15, fontWeight: '800', color: isDarkMode ? '#fff' : '#000' },
   videoBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10,
