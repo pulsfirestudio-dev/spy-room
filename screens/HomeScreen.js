@@ -1,26 +1,17 @@
 // HomeScreen.js
 import AppButton from "../components/AppButton";
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  Image,
-  Animated,
-  Easing,
-  Dimensions,
-  StatusBar,
-  Linking,
-  Share,
+  View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
+  ScrollView, Image, Animated, Easing, Dimensions,
+  StatusBar, Linking, Share,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 
-
 const { width, height } = Dimensions.get('window');
+const SCAN_GAP = 8; // px per scanline pair
+const NUM_SCANLINES = Math.ceil(height / SCAN_GAP) + 2;
 
 const translations = {
   en: {
@@ -30,10 +21,7 @@ const translations = {
     howToPlay: 'HOW TO PLAY',
     rateAndShare: 'RATE & SHARE',
     multiplayer: 'MULTIPLAYER',
-    comingSoon: 'Coming Soon',
     language: 'LANGUAGE',
-    leaveReview: 'LEAVE A REVIEW',
-    supportShare: 'SUPPORT & SHARE',
   },
   lt: {
     title: 'SPY ROOM',
@@ -42,58 +30,66 @@ const translations = {
     howToPlay: 'KAIP ŽAISTI',
     rateAndShare: 'ĮVERTINK IR DALINKIS',
     multiplayer: 'DAUGIAŽAIDIS',
-    comingSoon: 'Jau Greitai',
     language: 'KALBA',
-    leaveReview: 'PALIKTI ATSILIEPIMĄ',
-    supportShare: 'PALAIKYK IR DALINKIS',
-  }
+  },
 };
 
-const Particle = ({ delay, colors, screenWidth, screenHeight }) => {
-  const position = useRef(new Animated.ValueXY({
-    x: Math.random() * screenWidth,
-    y: screenHeight + 50
-  })).current;
+// ─── Particle ──────────────────────────────────────────────────────────────────
+const PARTICLE_SIZES = [1.5, 2, 2.5, 3, 1];
+const Particle = ({ delay, colors, screenWidth, screenHeight, index }) => {
+  const x = useRef(Math.random() * screenWidth).current;
+  const size = useRef(PARTICLE_SIZES[index % PARTICLE_SIZES.length]).current;
+  const posY = useRef(new Animated.Value(screenHeight + 50)).current;
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    const animation = Animated.loop(
+    const duration = 7000 + Math.random() * 6000;
+    const anim = Animated.loop(
       Animated.sequence([
         Animated.delay(delay),
         Animated.parallel([
-          Animated.timing(position.y, {
-            toValue: -50,
-            duration: 8000 + Math.random() * 4000,
-            easing: Easing.linear,
-            useNativeDriver: true,
-          }),
+          Animated.timing(posY, { toValue: -60, duration, easing: Easing.linear, useNativeDriver: true }),
           Animated.sequence([
-            Animated.timing(opacity, { toValue: 0.6, duration: 1000, useNativeDriver: true }),
-            Animated.timing(opacity, { toValue: 0, duration: 1000, delay: 6000, useNativeDriver: true }),
+            Animated.timing(opacity, { toValue: 0.7, duration: 800, useNativeDriver: true }),
+            Animated.timing(opacity, { toValue: 0, duration: 800, delay: duration - 1800, useNativeDriver: true }),
           ]),
         ]),
       ])
     );
-    animation.start();
-
-    return () => animation.stop();
+    anim.start();
+    return () => anim.stop();
   }, []);
 
-  const particleColor = Math.random() > 0.5 ? colors.primary : colors.accent;
+  const color = index % 3 === 0 ? colors.primary : index % 3 === 1 ? (colors.accent || '#00ffff') : '#ffffff';
   return (
     <Animated.View
-      style={[
-        particleStyles.particle,
-        { transform: position.getTranslateTransform(), opacity, backgroundColor: particleColor },
-      ]}
+      style={{
+        position: 'absolute',
+        left: x,
+        width: size, height: size, borderRadius: size / 2,
+        backgroundColor: color,
+        transform: [{ translateY: posY }],
+        opacity,
+      }}
     />
   );
 };
 
-const particleStyles = StyleSheet.create({
-  particle: { position: 'absolute', width: 2, height: 2, borderRadius: 1 },
-});
+// ─── Radar Ring ────────────────────────────────────────────────────────────────
+const RadarRing = ({ scale, opacity, color }) => (
+  <Animated.View
+    pointerEvents="none"
+    style={{
+      position: 'absolute',
+      width: 170, height: 170, borderRadius: 85,
+      borderWidth: 1.5, borderColor: color,
+      transform: [{ scale }],
+      opacity,
+    }}
+  />
+);
 
+// ─── Animated Button ───────────────────────────────────────────────────────────
 const AnimatedButton = ({ children, style, onPress, colors, isDarkMode, secondary }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const glowAnim = useRef(new Animated.Value(0)).current;
@@ -116,7 +112,7 @@ const AnimatedButton = ({ children, style, onPress, colors, isDarkMode, secondar
         onPressOut={onPressOut}
       >
         {!secondary && isDarkMode && (
-          <Animated.View style={[buttonStyles.buttonGlow, { opacity: glowAnim, shadowColor: colors.primary, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.8, shadowRadius: 20 }]} />
+          <Animated.View style={[bStyles.buttonGlow, { opacity: glowAnim, shadowColor: colors.primary }]} />
         )}
         {children}
       </TouchableOpacity>
@@ -124,40 +120,184 @@ const AnimatedButton = ({ children, style, onPress, colors, isDarkMode, secondar
   );
 };
 
-const buttonStyles = StyleSheet.create({
-  buttonGlow: { position: 'absolute', width: '100%', height: '100%', backgroundColor: 'transparent' },
+const bStyles = StyleSheet.create({
+  buttonGlow: {
+    position: 'absolute', width: '100%', height: '100%',
+    backgroundColor: 'transparent',
+    shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.8, shadowRadius: 20,
+  },
 });
 
+// ─── Static scanlines (rendered once) ─────────────────────────────────────────
+const scanlineViews = Array.from({ length: NUM_SCANLINES }, (_, i) => (
+  <View key={i} style={{ height: 1, marginBottom: SCAN_GAP - 1, backgroundColor: '#000' }} />
+));
+
+// ─── HomeScreen ────────────────────────────────────────────────────────────────
 export default function HomeScreen({ navigation, route }) {
   const { colors, isDarkMode, toggleTheme } = useTheme();
   const lang = route.params?.language || 'en';
   const t = translations[lang];
 
+  // Idle animations
   const glowAnim = useRef(new Animated.Value(0)).current;
-  const pulseAnim = useRef(new Animated.Value(0)).current;
+  const pulseAnim = useRef(new Animated.Value(1)).current;
   const flickerAnim = useRef(new Animated.Value(1)).current;
 
-  useEffect(() => {
+  // Entrance animations
+  const logoSlideY = useRef(new Animated.Value(-90)).current;
+  const logoFade = useRef(new Animated.Value(0)).current;
+  const titleFade = useRef(new Animated.Value(0)).current;
+  const titleEnterScale = useRef(new Animated.Value(0.7)).current;
+  const buttonsY = useRef(new Animated.Value(50)).current;
+  const buttonsFade = useRef(new Animated.Value(0)).current;
+
+  // Glitch
+  const glitchX = useRef(new Animated.Value(0)).current;
+  const glitchOverlay = useRef(new Animated.Value(0)).current;
+
+  // Radar
+  const r1Scale = useRef(new Animated.Value(0.1)).current;
+  const r1Opacity = useRef(new Animated.Value(0)).current;
+  const r2Scale = useRef(new Animated.Value(0.1)).current;
+  const r2Opacity = useRef(new Animated.Value(0)).current;
+  const r3Scale = useRef(new Animated.Value(0.1)).current;
+  const r3Opacity = useRef(new Animated.Value(0)).current;
+
+  // Scanlines
+  const scanlineY = useRef(new Animated.Value(0)).current;
+
+  // Typewriter
+  const [taglineDisplay, setTaglineDisplay] = useState('');
+  const [cursorVisible, setCursorVisible] = useState(true);
+  const typewriterDone = useRef(false);
+
+  const startIdleAnimations = useCallback(() => {
+    // Glow bg pulse
     Animated.loop(Animated.sequence([
-      Animated.timing(glowAnim, { toValue: 1, duration: 1400, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-      Animated.timing(glowAnim, { toValue: 0, duration: 1400, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      Animated.timing(glowAnim, { toValue: 1, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      Animated.timing(glowAnim, { toValue: 0, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
     ])).start();
 
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulseAnim, { toValue: 1, duration: 1400, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-        Animated.timing(pulseAnim, { toValue: 0, duration: 1400, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-      ])
-    ).start();
+    // Title scale pulse (subtle)
+    Animated.loop(Animated.sequence([
+      Animated.timing(pulseAnim, { toValue: 1.04, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      Animated.timing(pulseAnim, { toValue: 0.98, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+    ])).start();
 
+    // Neon flicker
     const flicker = () => {
       Animated.sequence([
-        Animated.timing(flickerAnim, { toValue: 0.8, duration: 50, useNativeDriver: true }),
-        Animated.timing(flickerAnim, { toValue: 1, duration: 50, useNativeDriver: true }),
-        Animated.delay(3000 + Math.random() * 2000),
+        Animated.timing(flickerAnim, { toValue: 0.75, duration: 40, useNativeDriver: true }),
+        Animated.timing(flickerAnim, { toValue: 1, duration: 40, useNativeDriver: true }),
+        Animated.timing(flickerAnim, { toValue: 0.9, duration: 30, useNativeDriver: true }),
+        Animated.timing(flickerAnim, { toValue: 1, duration: 30, useNativeDriver: true }),
+        Animated.delay(2500 + Math.random() * 3500),
       ]).start(flicker);
     };
     flicker();
+
+    // Glitch effect
+    const triggerGlitch = () => {
+      Animated.sequence([
+        Animated.parallel([
+          Animated.sequence([
+            Animated.timing(glitchX, { toValue: 6, duration: 50, useNativeDriver: true }),
+            Animated.timing(glitchX, { toValue: -5, duration: 50, useNativeDriver: true }),
+            Animated.timing(glitchX, { toValue: 3, duration: 40, useNativeDriver: true }),
+            Animated.timing(glitchX, { toValue: -2, duration: 40, useNativeDriver: true }),
+            Animated.timing(glitchX, { toValue: 1, duration: 30, useNativeDriver: true }),
+            Animated.timing(glitchX, { toValue: 0, duration: 50, useNativeDriver: true }),
+          ]),
+          Animated.sequence([
+            Animated.timing(glitchOverlay, { toValue: 1, duration: 60, useNativeDriver: true }),
+            Animated.timing(glitchOverlay, { toValue: 0, duration: 200, useNativeDriver: true }),
+          ]),
+        ]),
+        Animated.delay(3500 + Math.random() * 5000),
+      ]).start(triggerGlitch);
+    };
+    triggerGlitch();
+
+    // Radar ping
+    const pingRing = (scale, opacity, delay) => {
+      setTimeout(() => {
+        scale.setValue(0.1);
+        opacity.setValue(0);
+        Animated.parallel([
+          Animated.timing(scale, { toValue: 3.2, duration: 2500, easing: Easing.out(Easing.ease), useNativeDriver: true }),
+          Animated.sequence([
+            Animated.timing(opacity, { toValue: 0.85, duration: 150, useNativeDriver: true }),
+            Animated.timing(opacity, { toValue: 0, duration: 2200, useNativeDriver: true }),
+          ]),
+        ]).start();
+      }, delay);
+    };
+
+    const radarLoop = () => {
+      pingRing(r1Scale, r1Opacity, 0);
+      pingRing(r2Scale, r2Opacity, 750);
+      pingRing(r3Scale, r3Opacity, 1500);
+      setTimeout(radarLoop, 4000);
+    };
+    radarLoop();
+
+    // Scanlines scroll
+    Animated.loop(
+      Animated.timing(scanlineY, {
+        toValue: SCAN_GAP,
+        duration: 120,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
+    ).start();
+
+    // Cursor blink (after typewriter)
+    const blinkInterval = setInterval(() => {
+      if (typewriterDone.current) setCursorVisible(v => !v);
+    }, 530);
+    return () => clearInterval(blinkInterval);
+  }, []);
+
+  useEffect(() => {
+    // Cinematic entrance sequence
+    Animated.sequence([
+      // 1. Logo drops in from top
+      Animated.parallel([
+        Animated.timing(logoSlideY, { toValue: 0, duration: 650, easing: Easing.out(Easing.back(1.3)), useNativeDriver: true }),
+        Animated.timing(logoFade, { toValue: 1, duration: 500, useNativeDriver: true }),
+      ]),
+      // 2. Title scales + fades in
+      Animated.parallel([
+        Animated.timing(titleFade, { toValue: 1, duration: 450, useNativeDriver: true }),
+        Animated.spring(titleEnterScale, { toValue: 1, friction: 7, tension: 50, useNativeDriver: true }),
+      ]),
+      // 3. Buttons slide up
+      Animated.parallel([
+        Animated.timing(buttonsY, { toValue: 0, duration: 400, easing: Easing.out(Easing.ease), useNativeDriver: true }),
+        Animated.timing(buttonsFade, { toValue: 1, duration: 400, useNativeDriver: true }),
+      ]),
+    ]).start(() => {
+      const cleanup = startIdleAnimations();
+      return cleanup;
+    });
+
+    // Typewriter tagline — starts after logo entrance
+    const tagline = t.tagline;
+    let i = 0;
+    const typeStart = setTimeout(() => {
+      const iv = setInterval(() => {
+        i++;
+        setTaglineDisplay(tagline.slice(0, i));
+        if (i >= tagline.length) {
+          clearInterval(iv);
+          typewriterDone.current = true;
+        }
+      }, 55);
+      return () => clearInterval(iv);
+    }, 500);
+
+    return () => clearTimeout(typeStart);
   }, []);
 
   const handleRateAndShare = async () => {
@@ -171,141 +311,221 @@ export default function HomeScreen({ navigation, route }) {
     }
   };
 
-  const glowOpacity = glowAnim.interpolate({ inputRange: [0, 1], outputRange: [0.55, 0.85] });
-  const pulseScale = pulseAnim.interpolate({ inputRange: [0, 1], outputRange: [0.93, 1.07] });
-  const styles = getStyles(colors, isDarkMode, glowOpacity, lang);
+  const glowOpacity = glowAnim.interpolate({ inputRange: [0, 1], outputRange: [0.5, 0.88] });
+  const glitchRedX = glitchX.interpolate({ inputRange: [-10, 10], outputRange: [-14, 6] });
+  const glitchCyanX = glitchX.interpolate({ inputRange: [-10, 10], outputRange: [6, -14] });
 
-  const particles = Array.from({ length: 15 }, (_, i) => (
-    <Particle key={i} delay={i * 500} colors={colors} screenWidth={width} screenHeight={height} />
+  const styles = getStyles(colors, isDarkMode, lang);
+  const particles = Array.from({ length: 22 }, (_, i) => (
+    <Particle key={i} index={i} delay={i * 380} colors={colors} screenWidth={width} screenHeight={height} />
   ));
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
-      <View style={styles.particlesContainer}>{particles}</View>
-      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
 
+      {/* Particles */}
+      <View style={styles.particlesContainer} pointerEvents="none">{particles}</View>
+
+      {/* Scanline overlay */}
+      {isDarkMode && (
+        <Animated.View
+          pointerEvents="none"
+          style={[styles.scanlineContainer, { transform: [{ translateY: scanlineY }] }]}
+        >
+          {scanlineViews}
+        </Animated.View>
+      )}
+
+      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+
+        {/* Top bar */}
         <View style={styles.topBar}>
-          <TouchableOpacity style={styles.themeToggle} onPress={toggleTheme} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.topBtn} onPress={toggleTheme} activeOpacity={0.7}>
             <Ionicons name={isDarkMode ? 'sunny' : 'moon'} size={22} color={isDarkMode ? '#fff' : colors.primary} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.languageButton} onPress={() => navigation.navigate('Settings', { language: lang })} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.topBtn} onPress={() => navigation.navigate('Settings', { language: lang })} activeOpacity={0.7}>
             <Ionicons name="settings-outline" size={22} color={isDarkMode ? '#fff' : colors.primary} />
           </TouchableOpacity>
         </View>
 
-        <View style={styles.logoContainer}>
-          <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+        {/* Logo + Title area (entrance animated) */}
+        <Animated.View style={[styles.logoContainer, { opacity: logoFade, transform: [{ translateY: logoSlideY }] }]}>
 
-          <Animated.View style={[styles.titleWrapper, { transform: [{ scale: pulseScale }] }]}>
-            <Animated.View style={[styles.titleGlowBg, { opacity: glowOpacity }]} />
-            <Animated.Text style={[styles.title, { opacity: flickerAnim }]}>{t.title}</Animated.Text>
+          {/* Logo with radar rings */}
+          <View style={styles.logoWrapper}>
+            <RadarRing scale={r1Scale} opacity={r1Opacity} color={colors.primary} />
+            <RadarRing scale={r2Scale} opacity={r2Opacity} color={isDarkMode ? '#00ffff' : colors.primary} />
+            <RadarRing scale={r3Scale} opacity={r3Opacity} color={colors.primary} />
+            <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+          </View>
+
+          {/* Title — entrance scale wrapper */}
+          <Animated.View style={{ transform: [{ scale: titleEnterScale }] }}>
+            {/* Idle pulse wrapper */}
+            <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
+              <Animated.View style={[styles.titleWrapper, { opacity: titleFade }]}>
+                {/* Glow background */}
+                <Animated.View style={[styles.titleGlowBg, { opacity: glowOpacity }]} />
+                {/* Red glitch ghost */}
+                <Animated.Text style={[styles.title, styles.titleGlitchRed, {
+                  opacity: Animated.multiply(glitchOverlay, new Animated.Value(0.65)),
+                  transform: [{ translateX: glitchRedX }],
+                }]}>
+                  {t.title}
+                </Animated.Text>
+                {/* Cyan glitch ghost */}
+                <Animated.Text style={[styles.title, styles.titleGlitchCyan, {
+                  opacity: Animated.multiply(glitchOverlay, new Animated.Value(0.5)),
+                  transform: [{ translateX: glitchCyanX }],
+                }]}>
+                  {t.title}
+                </Animated.Text>
+                {/* Main title */}
+                <Animated.Text style={[styles.title, {
+                  opacity: flickerAnim,
+                  transform: [{ translateX: glitchX }],
+                }]}>
+                  {t.title}
+                </Animated.Text>
+              </Animated.View>
+            </Animated.View>
           </Animated.View>
 
-          <Text style={styles.tagline}>{t.tagline}</Text>
-        </View>
+          {/* Typewriter tagline */}
+          <Text style={styles.tagline}>
+            {taglineDisplay}
+            <Text style={[styles.cursor, { opacity: cursorVisible ? 1 : 0 }]}>|</Text>
+          </Text>
 
-        <View style={styles.buttonContainer}>
-          <AnimatedButton style={styles.mainButton} onPress={() => { navigation.navigate('CreateRoom', { language: lang }); }} colors={colors} isDarkMode={isDarkMode}>
+        </Animated.View>
+
+        {/* Buttons (entrance animated) */}
+        <Animated.View style={[styles.buttonContainer, { opacity: buttonsFade, transform: [{ translateY: buttonsY }] }]}>
+
+          <AnimatedButton
+            style={styles.mainButton}
+            onPress={() => navigation.navigate('CreateRoom', { language: lang })}
+            colors={colors}
+            isDarkMode={isDarkMode}
+          >
             <Text style={styles.buttonText}>{t.newGame}</Text>
-            <Ionicons name="arrow-forward" size={20} color="#fff" style={styles.buttonIcon} />
+            <Ionicons name="arrow-forward" size={20} color="#fff" style={{ marginLeft: 12 }} />
           </AnimatedButton>
 
-          <AnimatedButton style={styles.secondaryButton} onPress={() => { navigation.navigate('HowToPlay', { language: lang }); }} colors={colors} isDarkMode={isDarkMode} secondary>
+          <AnimatedButton
+            style={styles.secondaryButton}
+            onPress={() => navigation.navigate('HowToPlay', { language: lang })}
+            colors={colors}
+            isDarkMode={isDarkMode}
+            secondary
+          >
             <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
             <Text style={styles.secondaryButtonText}>{t.howToPlay}</Text>
             <View style={styles.btnSlot} />
           </AnimatedButton>
 
-          <AnimatedButton style={styles.multiplayerBtn} onPress={() => navigation.navigate('MultiplayerMenu', { language: lang })} colors={colors} isDarkMode={isDarkMode} secondary>
+          <AnimatedButton
+            style={styles.multiplayerBtn}
+            onPress={() => navigation.navigate('MultiplayerMenu', { language: lang })}
+            colors={colors}
+            isDarkMode={isDarkMode}
+            secondary
+          >
             <View style={styles.btnSlot}><Ionicons name="people-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
             <Text style={styles.secondaryButtonText}>{t.multiplayer}</Text>
             <View style={styles.btnSlot}><Ionicons name="wifi" size={17} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
-          <AnimatedButton style={styles.secondaryButton} onPress={handleRateAndShare} colors={colors} isDarkMode={isDarkMode} secondary>
+          <AnimatedButton
+            style={styles.secondaryButton}
+            onPress={handleRateAndShare}
+            colors={colors}
+            isDarkMode={isDarkMode}
+            secondary
+          >
             <View style={styles.btnSlot}><Ionicons name="star-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
             <Text style={styles.secondaryButtonText}>{t.rateAndShare}</Text>
             <View style={styles.btnSlot}><Ionicons name="share-social-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
-        </View>
 
-        <Text style={styles.version}>v2.0.0</Text>
+        </Animated.View>
+
+        <Text style={styles.version}>v2.1.0</Text>
+
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
+const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   particlesContainer: { position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' },
+  scanlineContainer: {
+    position: 'absolute', top: -SCAN_GAP, left: 0, right: 0,
+    height: height + SCAN_GAP * 2,
+    opacity: 0.055,
+    pointerEvents: 'none',
+  },
   scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    paddingTop: 100,
-    paddingBottom: 40,
+    flexGrow: 1, justifyContent: 'center', alignItems: 'center',
+    padding: 20, paddingTop: 100, paddingBottom: 40,
   },
   topBar: {
-    position: 'absolute',
-    top: 50,
-    left: 20,
-    right: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    zIndex: 10,
+    position: 'absolute', top: 50, left: 20, right: 20,
+    flexDirection: 'row', justifyContent: 'space-between', zIndex: 10,
   },
-  themeToggle: {
+  topBtn: {
     width: 44, height: 44, borderRadius: 22,
     backgroundColor: isDarkMode ? colors.primary : '#000',
     justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary,
   },
-  languageButton: {
-    width: 44, height: 44, borderRadius: 22,
-    backgroundColor: isDarkMode ? colors.primary : '#000',
-    justifyContent: 'center', alignItems: 'center',
-    borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary,
+  logoContainer: { alignItems: 'center', marginBottom: 16, marginTop: 30 },
+  logoWrapper: {
+    width: 170, height: 170,
+    alignItems: 'center', justifyContent: 'center',
+    marginBottom: 18,
   },
-  flagText: { fontSize: 24 },
-  logoContainer: { alignItems: 'center', marginBottom: 20, marginTop: 40 },
-  logo: { width: 170, height: 170, marginBottom: 15, backgroundColor: 'transparent' },
-
+  logo: { width: 170, height: 170, backgroundColor: 'transparent' },
   titleWrapper: {
-    position: 'relative',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 320,
-    paddingVertical: 14,
+    position: 'relative', alignItems: 'center', justifyContent: 'center',
+    width: 320, paddingVertical: 14,
   },
   titleGlowBg: {
-    position: 'absolute',
-    top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: colors.primary,
-    borderRadius: 16,
+    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: colors.primary, borderRadius: 16,
   },
   title: {
-    fontSize: 36,
-    fontWeight: '900',
-    color: '#fff',
-    letterSpacing: 6,
+    fontSize: 36, fontWeight: '900', color: '#fff', letterSpacing: 6,
     textShadowColor: isDarkMode ? colors.primary : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: isDarkMode ? 20 : 0,
+    textShadowRadius: isDarkMode ? 22 : 0,
     zIndex: 1,
   },
+  titleGlitchRed: {
+    position: 'absolute', color: '#ff3333',
+    textShadowColor: 'transparent', zIndex: 0,
+  },
+  titleGlitchCyan: {
+    position: 'absolute', color: '#00ffff',
+    textShadowColor: 'transparent', zIndex: 0,
+  },
   tagline: {
-    fontSize: lang === 'lt' ? 14 : 18,
+    fontSize: lang === 'lt' ? 13 : 17,
     color: isDarkMode ? '#00ffff' : '#5b21b6',
-    marginTop: 15,
-    marginBottom: 50,
+    marginTop: 14, marginBottom: 44,
     fontWeight: '700',
     letterSpacing: lang === 'lt' ? 2 : 4,
     textTransform: 'uppercase',
     textShadowColor: isDarkMode ? '#00ffff' : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: isDarkMode ? 10 : 0,
+    minHeight: 28,
+  },
+  cursor: {
+    color: isDarkMode ? '#00ffff' : '#5b21b6',
+    fontWeight: '300',
   },
   buttonContainer: { width: '100%', maxWidth: 320, gap: 12 },
   mainButton: {
@@ -316,11 +536,10 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
     position: 'relative', overflow: 'hidden',
     shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: isDarkMode ? 0.4 : 0.2,
-    shadowRadius: 15, elevation: 8,
+    shadowOpacity: isDarkMode ? 0.5 : 0.2,
+    shadowRadius: 18, elevation: 10,
   },
   buttonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 3 },
-  buttonIcon: { marginLeft: 12 },
   multiplayerBtn: {
     backgroundColor: colors.surface,
     paddingVertical: 15, paddingHorizontal: 25,
@@ -336,14 +555,12 @@ const getStyles = (colors, isDarkMode, glowOpacity, lang) => StyleSheet.create({
   secondaryButtonText: {
     color: isDarkMode ? '#fff' : '#000',
     fontSize: 14, fontWeight: '700', letterSpacing: 1,
-    textAlign: 'center',
-    flex: 1,
+    textAlign: 'center', flex: 1,
   },
   btnSlot: { width: 32, alignItems: 'center', justifyContent: 'center' },
-  slotEmoji: { fontSize: 18 },
   version: {
     marginTop: 24,
-    color: isDarkMode ? '#ffffff55' : '#00000055',
+    color: isDarkMode ? '#ffffff44' : '#00000044',
     fontSize: 12, letterSpacing: 2,
   },
 });
