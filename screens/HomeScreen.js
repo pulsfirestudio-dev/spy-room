@@ -425,7 +425,7 @@ export default function HomeScreen({ navigation, route }) {
 }
 
 const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
-  container: { flex: 1, backgroundColor: isDarkMode ? colors.background : '#3EC9C1' },
+  container: { flex: 1, backgroundColor: isDarkMode ? colors.background : '#e0e0e0' },
   particlesContainer: { position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' },
   scanlineContainer: {
     position: 'absolute', top: -SCAN_GAP, left: 0, right: 0,
