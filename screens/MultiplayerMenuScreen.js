@@ -1,13 +1,15 @@
 // screens/MultiplayerMenuScreen.js
 import React, { useState } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
+  View, Text, TouchableOpacity, StyleSheet,
   TextInput, ActivityIndicator, Alert, KeyboardAvoidingView,
   Platform, ScrollView, StatusBar,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { createRoom } from '../utils/RoomManager';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const T = {
   en: {
@@ -67,7 +69,8 @@ export default function MultiplayerMenuScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+      {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
 
@@ -86,7 +89,7 @@ export default function MultiplayerMenuScreen({ navigation, route }) {
             <TextInput
               style={styles.input}
               placeholder={t.namePlaceholder}
-              placeholderTextColor={isDarkMode ? '#555' : '#aaa'}
+              placeholderTextColor={isDarkMode ? '#555' : 'rgba(0,0,0,0.4)'}
               value={name}
               onChangeText={setName}
               maxLength={15}
@@ -154,7 +157,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   cards: { gap: 14 },
   card: { borderRadius: 18, padding: 28, alignItems: 'center', gap: 10, borderWidth: 2 },
-  cardPrimary: { backgroundColor: colors.primary, borderColor: colors.primary },
+  cardPrimary: { backgroundColor: colors.primary, borderColor: isDarkMode ? colors.primary : '#000000' },
   cardSecondary: { backgroundColor: colors.surface, borderColor: isDarkMode ? '#fff' : '#000' },
   cardTitle: { fontSize: 18, fontWeight: '900', letterSpacing: 2, color: '#fff' },
   cardDesc: { fontSize: 13, color: 'rgba(255,255,255,0.7)', textAlign: 'center' },

@@ -1,16 +1,18 @@
 // screens/MultiplayerGameScreen.js — Each player's view during multiplayer game
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
+  View, Text, TouchableOpacity, StyleSheet,
   ScrollView, TextInput, Linking, Alert, ActivityIndicator,
   StatusBar, KeyboardAvoidingView, Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import {
   listenToRoom, markReady, advancePhase,
   submitClue, submitVote, leaveRoom,
 } from '../utils/RoomManager';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const T = {
   en: {
@@ -158,7 +160,8 @@ export default function MultiplayerGameScreen({ navigation, route }) {
 
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+        {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
         <ScrollView contentContainerStyle={styles.content}>
           <Header label={t.yourRole} />
 
@@ -220,7 +223,8 @@ export default function MultiplayerGameScreen({ navigation, route }) {
 
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+        {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
             <Header label={t.clues} />
@@ -282,7 +286,8 @@ export default function MultiplayerGameScreen({ navigation, route }) {
 
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+        {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
         <ScrollView contentContainerStyle={styles.content}>
           <Header label={t.discussion} />
           <Text style={styles.phaseDesc}>{t.discussionDesc}</Text>
@@ -331,7 +336,8 @@ export default function MultiplayerGameScreen({ navigation, route }) {
 
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+        {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
         <ScrollView contentContainerStyle={styles.content}>
           <Header label={t.voting} />
           <Text style={styles.phaseDesc}>{t.votingDesc}</Text>
@@ -385,7 +391,8 @@ export default function MultiplayerGameScreen({ navigation, route }) {
 
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+        {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
         <ScrollView contentContainerStyle={styles.content}>
           <Header label={t.reveal} />
 

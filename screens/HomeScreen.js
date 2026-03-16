@@ -2,10 +2,11 @@
 import AppButton from "../components/AppButton";
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
+  View, Text, TouchableOpacity, StyleSheet,
   ScrollView, Image, Animated, Easing, Dimensions,
   StatusBar, Linking, Share, Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -148,6 +149,10 @@ export default function HomeScreen({ navigation, route }) {
   // Logo glow
   const logoGlow = useRef(new Animated.Value(0)).current;
 
+  // Title box pulse
+  const titleBoxScale = useRef(new Animated.Value(1)).current;
+  const titleBoxGlow = useRef(new Animated.Value(0)).current;
+
   // Scanlines
   const scanlineY = useRef(new Animated.Value(0)).current;
 
@@ -209,6 +214,20 @@ export default function HomeScreen({ navigation, route }) {
       Animated.sequence([
         Animated.timing(logoGlow, { toValue: 1, duration: 2000, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
         Animated.timing(logoGlow, { toValue: 0, duration: 2000, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+      ])
+    ).start();
+
+    // Title box scale + glow pulse
+    Animated.loop(
+      Animated.sequence([
+        Animated.parallel([
+          Animated.timing(titleBoxScale, { toValue: 1.025, duration: 900, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+          Animated.timing(titleBoxGlow, { toValue: 1, duration: 900, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        ]),
+        Animated.parallel([
+          Animated.timing(titleBoxScale, { toValue: 1, duration: 900, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+          Animated.timing(titleBoxGlow, { toValue: 0, duration: 900, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        ]),
       ])
     ).start();
 
@@ -288,14 +307,6 @@ export default function HomeScreen({ navigation, route }) {
         />
       )}
 
-      {/* Light mode glow orb behind logo */}
-      {!isDarkMode && (
-        <Animated.View
-          pointerEvents="none"
-          style={[styles.lightGlowOrb, { opacity: glowOpacity }]}
-        />
-      )}
-
       {/* Particles */}
       <View style={styles.particlesContainer} pointerEvents="none">{particles}</View>
 
@@ -329,9 +340,17 @@ export default function HomeScreen({ navigation, route }) {
 
           {/* Title — entrance scale wrapper */}
           <Animated.View style={{ transform: [{ scale: titleEnterScale }] }}>
-              <Animated.View style={[styles.titleWrapper, { opacity: titleFade }]}>
+              <Animated.View style={[styles.titleWrapper, {
+                opacity: titleFade,
+                transform: [{ scale: titleBoxScale }],
+                shadowOpacity: titleBoxGlow.interpolate({ inputRange: [0, 1], outputRange: [0.2, 0.75] }),
+                shadowColor: isDarkMode ? colors.primary : '#1a7ac7',
+                shadowRadius: 24, shadowOffset: { width: 0, height: 0 },
+              }]}>
                 {/* Glow background */}
-                <Animated.View style={[styles.titleGlowBg, { opacity: glowOpacity }]} />
+                <Animated.View style={[styles.titleGlowBg, {
+                  opacity: titleBoxGlow.interpolate({ inputRange: [0, 1], outputRange: [isDarkMode ? 0.4 : 0.3, isDarkMode ? 0.85 : 0.7] }),
+                }]} />
                 {/* Red glitch ghost */}
                 <Animated.Text style={[styles.title, styles.titleGlitchRed, {
                   opacity: Animated.multiply(glitchOverlay, new Animated.Value(0.65)),
@@ -422,12 +441,6 @@ export default function HomeScreen({ navigation, route }) {
 const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   gradientBg: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
-  lightGlowOrb: {
-    position: 'absolute', width: 320, height: 320, borderRadius: 160,
-    backgroundColor: 'rgba(255,255,255,0.18)',
-    top: '20%', alignSelf: 'center',
-    shadowColor: '#fff', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.6, shadowRadius: 60,
-  },
   particlesContainer: { position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' },
   scanlineContainer: {
     position: 'absolute', top: -SCAN_GAP, left: 0, right: 0,
@@ -440,7 +453,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     padding: 20, paddingTop: 60, paddingBottom: 20,
   },
   topBar: {
-    position: 'absolute', top: Platform.OS === 'android' ? (StatusBar.currentHeight || 0) + 8 : 50, left: 20, right: 20,
+    position: 'absolute', top: 8, left: 20, right: 20,
     flexDirection: 'row', justifyContent: 'space-between', zIndex: 10,
   },
   topBtn: {
@@ -457,7 +470,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   titleGlowBg: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: isDarkMode ? colors.primary : 'rgba(255,255,255,0.3)', borderRadius: 16,
+    backgroundColor: isDarkMode ? colors.primary : '#1a7ac7', borderRadius: 16,
   },
   title: {
     fontSize: 48, fontWeight: '900', color: '#fff', letterSpacing: 6,

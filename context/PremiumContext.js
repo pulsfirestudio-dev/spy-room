@@ -1,6 +1,16 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Purchases, { PurchasesError } from 'react-native-purchases';
+import Purchases, { PurchasesError, LOG_LEVEL } from 'react-native-purchases';
+
+const REVENUECAT_API_KEY = 'goog_YgxvzPUbckehiMlsMfbvAxzsCES';
+let purchasesConfigured = false;
+
+const ensurePurchasesConfigured = async () => {
+  if (purchasesConfigured) return;
+  Purchases.setLogLevel(LOG_LEVEL.SILENT);
+  await Purchases.configure({ apiKey: REVENUECAT_API_KEY });
+  purchasesConfigured = true;
+};
 
 const PremiumContext = createContext();
 
@@ -9,37 +19,18 @@ export const PremiumProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Initialize premium status on app launch
+  // Load premium status from cache only — no RevenueCat call at startup
   useEffect(() => {
     const initializePremium = async () => {
       try {
-        // First, check AsyncStorage for cached premium status
-        const cachedPremium = await AsyncStorage.getItem('premiumStatus');
-        if (cachedPremium === 'true') {
-          setIsPremium(true);
-        }
-
-        // Then check with RevenueCat in the background
-        const customerInfo = await Purchases.getCustomerInfo();
-        const hasPremium = customerInfo.entitlements.active['premium'] !== undefined;
-
-        if (hasPremium) {
-          setIsPremium(true);
-          await AsyncStorage.setItem('premiumStatus', 'true');
-        } else {
-          setIsPremium(false);
-          await AsyncStorage.setItem('premiumStatus', 'false');
-        }
-      } catch (err) {
-        console.warn('Error initializing premium status:', err);
-        // Fall back to cached value if RevenueCat check fails
         const cachedPremium = await AsyncStorage.getItem('premiumStatus');
         setIsPremium(cachedPremium === 'true');
+      } catch (err) {
+        console.warn('Error loading premium status:', err);
       } finally {
         setIsLoading(false);
       }
     };
-
     initializePremium();
   }, []);
 
@@ -48,6 +39,7 @@ export const PremiumProvider = ({ children }) => {
     setError(null);
 
     try {
+      await ensurePurchasesConfigured();
       // Get available packages/products
       const offerings = await Purchases.getOfferings();
 
@@ -111,6 +103,7 @@ export const PremiumProvider = ({ children }) => {
     setError(null);
 
     try {
+      await ensurePurchasesConfigured();
       const customerInfo = await Purchases.restorePurchases();
       const hasPremium = customerInfo.entitlements.active['premium'] !== undefined;
 

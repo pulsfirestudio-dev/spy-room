@@ -1,12 +1,14 @@
 // RevealResultScreen.js — all cards red outlined, pure black bg, back button white/black outlined
 import React, { useEffect, useMemo } from "react";
 import {
-  View, Text, TouchableOpacity, StyleSheet, SafeAreaView, StatusBar, ScrollView,
+  View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import SoundManager from "../utils/SoundManager";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../context/ThemeContext";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function RevealResultScreen({ route, navigation }) {
   const { colors, isDarkMode } = useTheme();
@@ -36,7 +38,8 @@ export default function RevealResultScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={colors.background} />
+      {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>{t.title}</Text>
 

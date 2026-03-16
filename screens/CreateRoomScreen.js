@@ -6,18 +6,19 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Alert,
   Modal,
   ActivityIndicator,
   StatusBar,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { usePremium } from '../context/PremiumContext';
 
 import AppButton from "../components/AppButton";
+import { LinearGradient } from 'expo-linear-gradient';
 
 /* -------------------- DATA -------------------- */
 const freeCategoriesEN = {
@@ -561,7 +562,8 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+      {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Header */}
@@ -838,7 +840,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     unlockButtonText: { color: isDarkMode ? '#000' : '#000', fontWeight: '800', fontSize: 14 },
     premiumChip: { position: 'relative' },
-    lockedChip: { borderWidth: 2, borderColor: isDarkMode ? colors.primary : colors.primary, backgroundColor: 'transparent' },
+    lockedChip: { borderWidth: 2, borderColor: isDarkMode ? colors.primary : '#000000', backgroundColor: 'transparent' },
     lockedText: { color: isDarkMode ? '#888888' : colors.primary },
     lockIcon: { position: 'absolute', right: 20, fontSize: 20 },
     counterContainer: { flexDirection: 'row', gap: 12 },

@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import Purchases from 'react-native-purchases';
 
 import HomeScreen from './screens/HomeScreen';
 import CreateRoomScreen from './screens/CreateRoomScreen';
@@ -34,13 +33,6 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        // Initialize RevenueCat
-        // IMPORTANT: Replace 'YOUR_REVENUECAT_API_KEY' with your actual RevenueCat API key
-        // Get your API key from https://app.revenuecat.com/
-        await Purchases.configure({
-          apiKey: 'goog_YgxvzPUbckehiMlsMfbvAxzsCES',
-        });
-
         await new Promise(resolve => setTimeout(resolve, 1500));
       } catch (e) {
         console.warn(e);

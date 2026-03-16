@@ -1,14 +1,16 @@
 // screens/LobbyScreen.js — Multiplayer lobby (host & guest)
 import React, { useEffect, useState, useRef } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
+  View, Text, TouchableOpacity, StyleSheet,
   ScrollView, Share, Alert, ActivityIndicator,
   StatusBar, Switch,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { listenToRoom, startGame, leaveRoom } from '../utils/RoomManager';
 import { CATEGORY_NAMES } from '../utils/wordCategories';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const T = {
   en: {
@@ -122,7 +124,8 @@ export default function LobbyScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+      {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
 
         {/* Header */}
@@ -279,7 +282,7 @@ export default function LobbyScreen({ navigation, route }) {
             </TouchableOpacity>
           )}
           <TouchableOpacity style={styles.leaveBtn} onPress={handleLeave} activeOpacity={0.8}>
-            <Ionicons name="exit-outline" size={18} color="#ff1a1a" />
+            <Ionicons name="exit-outline" size={18} color={isDarkMode ? '#ff1a1a' : '#000'} />
             <Text style={styles.leaveBtnText}>{t.leave}</Text>
           </TouchableOpacity>
         </View>
@@ -320,7 +323,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   playerRow: {
     flexDirection: 'row', alignItems: 'center',
     backgroundColor: colors.surface, borderRadius: 12,
-    padding: 14, borderWidth: 1.5, borderColor: isDarkMode ? '#333' : '#ddd', gap: 10,
+    padding: 14, borderWidth: 1.5, borderColor: isDarkMode ? '#333' : '#000', gap: 10,
   },
   playerDot: { width: 10, height: 10, borderRadius: 5 },
   playerName: { flex: 1, fontSize: 16, fontWeight: '700', color: isDarkMode ? '#fff' : '#000' },
@@ -334,7 +337,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   catChip: {
     paddingVertical: 8, paddingHorizontal: 14, borderRadius: 20,
     backgroundColor: colors.surface, borderWidth: 1.5,
-    borderColor: isDarkMode ? '#444' : '#ccc', marginRight: 8,
+    borderColor: isDarkMode ? '#444' : '#000', marginRight: 8,
   },
   catChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
   catChipText: { fontSize: 13, fontWeight: '700', color: isDarkMode ? '#aaa' : colors.text },
@@ -342,7 +345,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   configRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     marginBottom: 10, backgroundColor: colors.surface,
-    padding: 14, borderRadius: 12, borderWidth: 1.5, borderColor: isDarkMode ? '#333' : '#ddd',
+    padding: 14, borderRadius: 12, borderWidth: 1.5, borderColor: isDarkMode ? '#333' : '#000',
   },
   stepper: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   stepBtn: {
@@ -368,7 +371,8 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   startBtnText: { color: isDarkMode ? '#000' : '#fff', fontSize: 17, fontWeight: '900', letterSpacing: 2 },
   leaveBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: 8, paddingVertical: 15, borderRadius: 14, borderWidth: 2, borderColor: '#ff1a1a',
+    gap: 8, paddingVertical: 15, borderRadius: 14, borderWidth: 2,
+    borderColor: isDarkMode ? '#ff1a1a' : '#000',
   },
-  leaveBtnText: { color: '#ff1a1a', fontSize: 15, fontWeight: '700' },
+  leaveBtnText: { color: isDarkMode ? '#ff1a1a' : '#000', fontSize: 15, fontWeight: '700' },
 });
