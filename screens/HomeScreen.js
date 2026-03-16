@@ -3,7 +3,7 @@ import AppButton from "../components/AppButton";
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet, SafeAreaView,
-  ScrollView, Animated, Easing, Dimensions,
+  ScrollView, Image, Animated, Easing, Dimensions,
   StatusBar, Linking, Share,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -75,118 +75,6 @@ const Particle = ({ delay, colors, screenWidth, screenHeight, index }) => {
   );
 };
 
-// ─── Radar Ring (pulse rings behind reticle) ───────────────────────────────────
-const RadarRing = ({ scale, opacity, color }) => (
-  <Animated.View
-    pointerEvents="none"
-    style={{
-      position: 'absolute',
-      width: 160, height: 160, borderRadius: 80,
-      borderWidth: 1.5, borderColor: color,
-      transform: [{ scale }],
-      opacity,
-    }}
-  />
-);
-
-// ─── Spy Reticle Logo ──────────────────────────────────────────────────────────
-const SpyReticle = ({ colors, isDarkMode, rotateAnim, scanAnim, pulseAnim: corePulse }) => {
-  const SIZE = 160;
-  const HALF = SIZE / 2;
-  const red = colors.primary;
-  const cyan = isDarkMode ? '#00ffff' : colors.primary;
-
-  const rotate = rotateAnim.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
-  const rotateReverse = rotateAnim.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '-360deg'] });
-  const scanY = scanAnim.interpolate({ inputRange: [0, 1], outputRange: [-HALF + 10, HALF - 10] });
-  const coreScale = corePulse.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1.15] });
-  const coreGlow = corePulse.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1.0] });
-
-  return (
-    <View style={{ width: SIZE, height: SIZE, alignItems: 'center', justifyContent: 'center' }}>
-
-      {/* Outer rotating dashed ring */}
-      <Animated.View style={{
-        position: 'absolute',
-        width: SIZE, height: SIZE, borderRadius: HALF,
-        borderWidth: 1.5, borderColor: red,
-        borderStyle: 'dashed',
-        transform: [{ rotate }],
-        opacity: 0.7,
-      }} />
-
-      {/* Inner counter-rotating ring */}
-      <Animated.View style={{
-        position: 'absolute',
-        width: SIZE * 0.72, height: SIZE * 0.72, borderRadius: SIZE * 0.36,
-        borderWidth: 1, borderColor: cyan,
-        borderStyle: 'dashed',
-        transform: [{ rotate: rotateReverse }],
-        opacity: 0.5,
-      }} />
-
-      {/* Static middle ring */}
-      <View style={{
-        position: 'absolute',
-        width: SIZE * 0.55, height: SIZE * 0.55, borderRadius: SIZE * 0.275,
-        borderWidth: 1, borderColor: red,
-        opacity: 0.4,
-      }} />
-
-      {/* Crosshair lines */}
-      {/* Horizontal left */}
-      <View style={{ position: 'absolute', left: 0, width: HALF * 0.35, height: 1.5, backgroundColor: red, top: HALF - 0.75, opacity: 0.9 }} />
-      {/* Horizontal right */}
-      <View style={{ position: 'absolute', right: 0, width: HALF * 0.35, height: 1.5, backgroundColor: red, top: HALF - 0.75, opacity: 0.9 }} />
-      {/* Vertical top */}
-      <View style={{ position: 'absolute', top: 0, height: HALF * 0.35, width: 1.5, backgroundColor: red, left: HALF - 0.75, opacity: 0.9 }} />
-      {/* Vertical bottom */}
-      <View style={{ position: 'absolute', bottom: 0, height: HALF * 0.35, width: 1.5, backgroundColor: red, left: HALF - 0.75, opacity: 0.9 }} />
-
-      {/* Diagonal corner ticks */}
-      {[[-1,-1],[1,-1],[-1,1],[1,1]].map(([sx, sy], i) => (
-        <View key={i} style={{
-          position: 'absolute',
-          width: 12, height: 1.5,
-          backgroundColor: cyan,
-          opacity: 0.7,
-          transform: [
-            { translateX: sx * (HALF * 0.6) },
-            { translateY: sy * (HALF * 0.6) },
-            { rotate: `${sx * sy * 45}deg` },
-          ],
-        }} />
-      ))}
-
-      {/* Scanning line */}
-      <Animated.View style={{
-        position: 'absolute',
-        left: 12, right: 12, height: 1.5,
-        backgroundColor: cyan,
-        opacity: 0.5,
-        transform: [{ translateY: scanY }],
-      }} />
-
-      {/* Core pulsing eye */}
-      <Animated.View style={{
-        width: 36, height: 36, borderRadius: 18,
-        backgroundColor: red,
-        opacity: coreGlow,
-        transform: [{ scale: coreScale }],
-        shadowColor: red,
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 1,
-        shadowRadius: 12,
-        elevation: 10,
-        alignItems: 'center', justifyContent: 'center',
-      }}>
-        {/* Inner dot */}
-        <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#fff', opacity: 0.9 }} />
-      </Animated.View>
-
-    </View>
-  );
-};
 
 // ─── Animated Button ───────────────────────────────────────────────────────────
 const AnimatedButton = ({ children, style, onPress, colors, isDarkMode, secondary }) => {
@@ -255,18 +143,8 @@ export default function HomeScreen({ navigation, route }) {
   const glitchX = useRef(new Animated.Value(0)).current;
   const glitchOverlay = useRef(new Animated.Value(0)).current;
 
-  // Radar
-  const r1Scale = useRef(new Animated.Value(0.1)).current;
-  const r1Opacity = useRef(new Animated.Value(0)).current;
-  const r2Scale = useRef(new Animated.Value(0.1)).current;
-  const r2Opacity = useRef(new Animated.Value(0)).current;
-  const r3Scale = useRef(new Animated.Value(0.1)).current;
-  const r3Opacity = useRef(new Animated.Value(0)).current;
-
-  // Reticle
-  const reticleRotate = useRef(new Animated.Value(0)).current;
-  const reticleScan = useRef(new Animated.Value(0)).current;
-  const reticleCore = useRef(new Animated.Value(0)).current;
+  // Logo glow
+  const logoGlow = useRef(new Animated.Value(0)).current;
 
   // Scanlines
   const scanlineY = useRef(new Animated.Value(0)).current;
@@ -323,57 +201,19 @@ export default function HomeScreen({ navigation, route }) {
     };
     triggerGlitch();
 
-    // Radar ping
-    const pingRing = (scale, opacity, delay) => {
-      setTimeout(() => {
-        scale.setValue(0.1);
-        opacity.setValue(0);
-        Animated.parallel([
-          Animated.timing(scale, { toValue: 3.2, duration: 2500, easing: Easing.out(Easing.ease), useNativeDriver: true }),
-          Animated.sequence([
-            Animated.timing(opacity, { toValue: 0.85, duration: 150, useNativeDriver: true }),
-            Animated.timing(opacity, { toValue: 0, duration: 2200, useNativeDriver: true }),
-          ]),
-        ]).start();
-      }, delay);
-    };
-
-    const radarLoop = () => {
-      pingRing(r1Scale, r1Opacity, 0);
-      pingRing(r2Scale, r2Opacity, 750);
-      pingRing(r3Scale, r3Opacity, 1500);
-      setTimeout(radarLoop, 4000);
-    };
-    radarLoop();
-
     // Scanlines scroll
     Animated.loop(
       Animated.timing(scanlineY, {
-        toValue: SCAN_GAP,
-        duration: 120,
-        easing: Easing.linear,
-        useNativeDriver: true,
+        toValue: SCAN_GAP, duration: 120,
+        easing: Easing.linear, useNativeDriver: true,
       })
     ).start();
 
-    // Reticle rotate
-    Animated.loop(
-      Animated.timing(reticleRotate, { toValue: 1, duration: 8000, easing: Easing.linear, useNativeDriver: true })
-    ).start();
-
-    // Reticle scan line sweep
+    // Logo red glow breathe
     Animated.loop(
       Animated.sequence([
-        Animated.timing(reticleScan, { toValue: 1, duration: 1800, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-        Animated.timing(reticleScan, { toValue: 0, duration: 1800, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-      ])
-    ).start();
-
-    // Reticle core pulse
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(reticleCore, { toValue: 1, duration: 900, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-        Animated.timing(reticleCore, { toValue: 0, duration: 900, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.timing(logoGlow, { toValue: 1, duration: 2000, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.timing(logoGlow, { toValue: 0, duration: 2000, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
       ])
     ).start();
 
@@ -477,18 +317,13 @@ export default function HomeScreen({ navigation, route }) {
         {/* Logo + Title area (entrance animated) */}
         <Animated.View style={[styles.logoContainer, { opacity: logoFade, transform: [{ translateY: logoSlideY }] }]}>
 
-          {/* Reticle with radar rings */}
+          {/* Logo with glow */}
           <View style={styles.logoWrapper}>
-            <RadarRing scale={r1Scale} opacity={r1Opacity} color={colors.primary} />
-            <RadarRing scale={r2Scale} opacity={r2Opacity} color={isDarkMode ? '#00ffff' : colors.primary} />
-            <RadarRing scale={r3Scale} opacity={r3Opacity} color={colors.primary} />
-            <SpyReticle
-              colors={colors}
-              isDarkMode={isDarkMode}
-              rotateAnim={reticleRotate}
-              scanAnim={reticleScan}
-              pulseAnim={reticleCore}
-            />
+            <Animated.View style={[styles.logoGlowBehind, {
+              opacity: logoGlow.interpolate({ inputRange: [0, 1], outputRange: [0.3, 0.75] }),
+              transform: [{ scale: logoGlow.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1.05] }) }],
+            }]} />
+            <Image source={require('../assets/Logo2.png')} style={styles.logo} resizeMode="contain" />
           </View>
 
           {/* Title — entrance scale wrapper */}
@@ -614,9 +449,20 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   logoContainer: { alignItems: 'center', marginBottom: 16, marginTop: 30 },
   logoWrapper: {
-    width: 160, height: 160,
+    width: 200, height: 200,
     alignItems: 'center', justifyContent: 'center',
-    marginBottom: 22,
+    marginBottom: 10,
+  },
+  logo: { width: 200, height: 200 },
+  logoGlowBehind: {
+    position: 'absolute',
+    width: 180, height: 180, borderRadius: 90,
+    backgroundColor: '#ff1a1a',
+    shadowColor: '#ff1a1a',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 40,
+    elevation: 20,
   },
   titleWrapper: {
     position: 'relative', alignItems: 'center', justifyContent: 'center',
