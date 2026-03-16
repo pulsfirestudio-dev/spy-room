@@ -363,7 +363,7 @@ export default function HomeScreen({ navigation, route }) {
           >
             <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
             <Text style={styles.secondaryButtonText}>{t.howToPlay}</Text>
-            <View style={styles.btnSlot} />
+            <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
           <AnimatedButton
