@@ -221,8 +221,8 @@ export default function HomeScreen({ navigation, route }) {
       ]),
       // 2. Title scales + fades in
       Animated.parallel([
-        Animated.timing(titleFade, { toValue: 1, duration: 450, useNativeDriver: true }),
-        Animated.spring(titleEnterScale, { toValue: 1, friction: 7, tension: 50, useNativeDriver: true }),
+        Animated.timing(titleFade, { toValue: 1, duration: 1800, useNativeDriver: true }),
+        Animated.spring(titleEnterScale, { toValue: 1, friction: 14, tension: 20, useNativeDriver: true }),
       ]),
       // 3. Buttons slide up
       Animated.parallel([
