@@ -426,7 +426,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   logo: { width: 360, height: 360, marginBottom: 4, opacity: 0.72 },
   titleWrapper: {
     position: 'relative', alignItems: 'center', justifyContent: 'center',
-    width: 360, paddingVertical: 16,
+    width: 360, paddingVertical: 16, marginTop: -40,
   },
   titleGlowBg: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
