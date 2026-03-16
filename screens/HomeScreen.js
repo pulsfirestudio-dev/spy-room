@@ -419,7 +419,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1, justifyContent: 'center', alignItems: 'center',
-    padding: 20, paddingTop: 100, paddingBottom: 40,
+    padding: 20, paddingTop: 60, paddingBottom: 20,
   },
   topBar: {
     position: 'absolute', top: 50, left: 20, right: 20,
@@ -431,7 +431,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary,
   },
-  logoContainer: { alignItems: 'center', marginBottom: 16, marginTop: 30 },
+  logoContainer: { alignItems: 'center', marginBottom: 8, marginTop: 0 },
   logo: { width: 360, height: 360, marginBottom: 4, opacity: 0.72 },
   titleWrapper: {
     position: 'relative', alignItems: 'center', justifyContent: 'center',
@@ -459,7 +459,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   tagline: {
     fontSize: lang === 'lt' ? 13 : 17,
     color: isDarkMode ? '#00ffff' : '#5b21b6',
-    marginTop: 14, marginBottom: 44,
+    marginTop: 10, marginBottom: 16,
     fontWeight: '700',
     letterSpacing: lang === 'lt' ? 2 : 4,
     textTransform: 'uppercase',
@@ -472,7 +472,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     color: isDarkMode ? '#00ffff' : '#5b21b6',
     fontWeight: '300',
   },
-  buttonContainer: { width: '100%', maxWidth: 320, gap: 12 },
+  buttonContainer: { width: '100%', maxWidth: 320, gap: 8 },
   mainButton: {
     backgroundColor: colors.primary,
     paddingVertical: 20, paddingHorizontal: 30,
