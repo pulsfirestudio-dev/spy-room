@@ -71,7 +71,7 @@ export default function HowToPlayScreen({ navigation, route }) {
           <View style={styles.placeholder} />
         </View>
         <View style={styles.logoContainer}>
-          <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+          <Image source={require('../assets/logo3.png')} style={styles.logo} resizeMode="contain" />
         </View>
         <View style={styles.stepsContainer}>
           {steps.map((step, i) => (
@@ -105,7 +105,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   title: { fontSize: 26, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 2, textShadowColor: isDarkMode ? colors.primary : 'transparent', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: isDarkMode ? 2 : 0 },
   placeholder: { width: 44 },
   logoContainer: { alignItems: 'center', marginBottom: 30 },
-  logo: { width: 120, height: 120 },
+  logo: { width: 120, height: 120, opacity: 0.72 },
   stepsContainer: { gap: 15, marginBottom: 25 },
   stepCard: { backgroundColor: colors.surface, padding: 22, borderRadius: 16, borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000' },
   stepEmoji: { fontSize: 34, marginBottom: 10 },
