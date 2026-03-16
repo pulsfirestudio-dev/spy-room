@@ -93,7 +93,7 @@ const AnimatedButton = ({ children, style, onPress, colors, isDarkMode, secondar
   return (
     <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
       <TouchableOpacity
-        style={[style, { borderWidth: 2, borderColor: isDarkMode ? '#ffffff' : '#000000' }]}
+        style={[style, { borderWidth: 2, borderColor: isDarkMode ? '#ffffff' : '#0E7C78' }]}
         onPress={onPress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
@@ -310,14 +310,8 @@ export default function HomeScreen({ navigation, route }) {
         {/* Logo + Title area (entrance animated) */}
         <Animated.View style={[styles.logoContainer, { opacity: logoFade, transform: [{ translateY: logoSlideY }] }]}>
 
-          {/* Logo with glow */}
-          <View style={styles.logoWrapper}>
-            <Animated.View style={[styles.logoGlowBehind, {
-              opacity: logoGlow.interpolate({ inputRange: [0, 1], outputRange: [0.3, 0.75] }),
-              transform: [{ scale: logoGlow.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1.05] }) }],
-            }]} />
-            <Image source={require('../assets/Logo2.png')} style={styles.logo} resizeMode="contain" />
-          </View>
+          {/* Logo */}
+          <Image source={require('../assets/logo3.png')} style={styles.logo} resizeMode="contain" />
 
           {/* Title — entrance scale wrapper */}
           <Animated.View style={{ transform: [{ scale: titleEnterScale }] }}>
@@ -415,7 +409,7 @@ export default function HomeScreen({ navigation, route }) {
 }
 
 const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
-  container: { flex: 1, backgroundColor: isDarkMode ? colors.background : '#87CEEB' },
+  container: { flex: 1, backgroundColor: isDarkMode ? colors.background : '#3EC9C1' },
   particlesContainer: { position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' },
   scanlineContainer: {
     position: 'absolute', top: -SCAN_GAP, left: 0, right: 0,
@@ -438,32 +432,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary,
   },
   logoContainer: { alignItems: 'center', marginBottom: 16, marginTop: 30 },
-  logoWrapper: {
-    width: 200, height: 200,
-    alignItems: 'center', justifyContent: 'center',
-    marginBottom: 10,
-    borderRadius: 24,
-    overflow: 'hidden',
-    backgroundColor: '#0a0a0a',
-    borderWidth: 2,
-    borderColor: isDarkMode ? '#333' : '#222',
-    shadowColor: '#ff1a1a',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: isDarkMode ? 0 : 0.35,
-    shadowRadius: 20,
-    elevation: isDarkMode ? 0 : 8,
-  },
-  logo: { width: 200, height: 200 },
-  logoGlowBehind: {
-    position: 'absolute',
-    width: 180, height: 180, borderRadius: 90,
-    backgroundColor: '#ff1a1a',
-    shadowColor: '#ff1a1a',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 40,
-    elevation: 20,
-  },
+  logo: { width: 360, height: 360, marginBottom: 4, opacity: 0.72 },
   titleWrapper: {
     position: 'relative', alignItems: 'center', justifyContent: 'center',
     width: 360, paddingVertical: 16,
@@ -517,19 +486,19 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   buttonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 3 },
   multiplayerBtn: {
-    backgroundColor: colors.surface,
+    backgroundColor: isDarkMode ? colors.surface : 'rgba(255,255,255,0.45)',
     paddingVertical: 15, paddingHorizontal: 25,
     borderRadius: 16,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
   },
   secondaryButton: {
-    backgroundColor: colors.surface,
+    backgroundColor: isDarkMode ? colors.surface : 'rgba(255,255,255,0.45)',
     paddingVertical: 15, paddingHorizontal: 25,
     borderRadius: 16,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
   },
   secondaryButtonText: {
-    color: isDarkMode ? '#fff' : '#000',
+    color: isDarkMode ? '#fff' : '#0A4A47',
     fontSize: 14, fontWeight: '700', letterSpacing: 1,
     textAlign: 'center', flex: 1,
   },
