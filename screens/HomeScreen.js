@@ -294,10 +294,10 @@ export default function HomeScreen({ navigation, route }) {
         {/* Top bar */}
         <View style={styles.topBar}>
           <TouchableOpacity style={styles.topBtn} onPress={toggleTheme} activeOpacity={0.7}>
-            <Ionicons name={isDarkMode ? 'sunny' : 'moon'} size={22} color={isDarkMode ? '#fff' : colors.primary} />
+            <Ionicons name={isDarkMode ? 'sunny' : 'moon'} size={22} color={isDarkMode ? '#fff' : colors.text} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.topBtn} onPress={() => navigation.navigate('Settings', { language: lang })} activeOpacity={0.7}>
-            <Ionicons name="settings-outline" size={22} color={isDarkMode ? '#fff' : colors.primary} />
+            <Ionicons name="settings-outline" size={22} color={isDarkMode ? '#fff' : colors.text} />
           </TouchableOpacity>
         </View>
 
@@ -418,9 +418,9 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   topBtn: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: isDarkMode ? colors.primary : '#000',
+    backgroundColor: isDarkMode ? colors.primary : colors.surface,
     justifyContent: 'center', alignItems: 'center',
-    borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary,
+    borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
   },
   logoContainer: { alignItems: 'center', marginBottom: 8, marginTop: 0 },
   logo: { width: 360, height: 360, marginBottom: 4, opacity: 0.72 },

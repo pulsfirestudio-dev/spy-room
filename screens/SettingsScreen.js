@@ -110,7 +110,7 @@ export default function SettingsScreen({ navigation, route }) {
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} activeOpacity={0.8}>
-            <Ionicons name="arrow-back" size={22} color={isDarkMode ? '#fff' : colors.primary} />
+            <Ionicons name="arrow-back" size={22} color={isDarkMode ? '#fff' : colors.text} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={{ width: 44 }} />
@@ -207,11 +207,11 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   backBtn: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: isDarkMode ? colors.primary : '#000',
+    backgroundColor: isDarkMode ? colors.primary : colors.surface,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: isDarkMode ? '#fff' : colors.primary,
+    borderColor: isDarkMode ? '#fff' : colors.text,
   },
   title: {
     fontSize: 24, fontWeight: '900',

@@ -58,8 +58,8 @@ export default function RevealResultScreen({ route, navigation }) {
         </View>
 
         <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()} activeOpacity={0.85}>
-          <Ionicons name="arrow-back" size={20} color={isDarkMode ? "#fff" : colors.primary} />
-          <Text style={[styles.backBtnText, { color: isDarkMode ? "#fff" : colors.primary }]}>{t.back}</Text>
+          <Ionicons name="arrow-back" size={20} color={isDarkMode ? "#fff" : colors.text} />
+          <Text style={[styles.backBtnText, { color: isDarkMode ? "#fff" : colors.text }]}>{t.back}</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -76,6 +76,6 @@ const getStyles = (colors, isDarkMode) =>
     rowValue: { fontSize: 22, fontWeight: "800", color: isDarkMode ? "#fff" : "#000" },
     wordValue: { fontSize: 36, fontWeight: "900", letterSpacing: 1, color: isDarkMode ? "#fff" : "#000" },
     imposterName: { fontSize: 24, fontWeight: "800", color: isDarkMode ? "#fff" : "#000", marginTop: 2 },
-    backBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 10, paddingVertical: 17, borderRadius: 22, borderWidth: 2, backgroundColor: isDarkMode ? colors.primary : "#000", borderColor: isDarkMode ? "#fff" : colors.primary },
+    backBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 10, paddingVertical: 17, borderRadius: 22, borderWidth: 2, backgroundColor: isDarkMode ? colors.primary : colors.surface, borderColor: isDarkMode ? "#fff" : colors.text },
     backBtnText: { fontSize: 17, fontWeight: "800", letterSpacing: 1 },
   });

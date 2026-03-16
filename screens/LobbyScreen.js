@@ -128,7 +128,7 @@ export default function LobbyScreen({ navigation, route }) {
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity onPress={handleLeave} style={styles.backBtn}>
-            <Ionicons name="arrow-back" size={22} color={isDarkMode ? '#fff' : '#000'} />
+            <Ionicons name="arrow-back" size={22} color={isDarkMode ? '#fff' : colors.text} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={{ width: 44 }} />
@@ -299,7 +299,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   backBtn: {
     width: 44, height: 44, borderRadius: 22,
     backgroundColor: colors.surface, justifyContent: 'center', alignItems: 'center',
-    borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
+    borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
   },
   title: { fontSize: 22, fontWeight: '900', letterSpacing: 3, color: isDarkMode ? '#fff' : '#000' },
   codeCard: {

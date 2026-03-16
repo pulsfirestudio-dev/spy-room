@@ -135,7 +135,7 @@ export default function MultiplayerGameScreen({ navigation, route }) {
   const Header = ({ label }) => (
     <View style={styles.header}>
       <TouchableOpacity onPress={handleLeave} style={styles.closeBtn}>
-        <Ionicons name="close" size={20} color={isDarkMode ? '#fff' : '#000'} />
+        <Ionicons name="close" size={20} color={isDarkMode ? '#fff' : colors.text} />
       </TouchableOpacity>
       <Text style={styles.phaseLabel}>{label}</Text>
       <View style={{ width: 44 }} />
@@ -449,7 +449,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   closeBtn: {
     width: 44, height: 44, borderRadius: 22,
     backgroundColor: colors.surface, justifyContent: 'center', alignItems: 'center',
-    borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
+    borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
   },
   phaseLabel: { fontSize: 18, fontWeight: '900', letterSpacing: 3, color: isDarkMode ? '#fff' : '#000' },
   phaseDesc: { fontSize: 14, color: isDarkMode ? '#aaa' : '#666', textAlign: 'center', marginBottom: 18 },

@@ -388,8 +388,8 @@ export default function DiscussionScreen({ route, navigation }) {
       <ScrollView style={styles.layout} contentContainerStyle={styles.layoutContent} showsVerticalScrollIndicator={false}>
 
         <View style={styles.header}>
-          <TouchableOpacity style={[styles.closeBtn, { backgroundColor: isDarkMode ? colors.primary : '#000', borderColor: isDarkMode ? '#fff' : colors.primary }]} onPress={onNewGame} activeOpacity={0.8}>
-            <Ionicons name="close" size={20} color={isDarkMode ? "#fff" : colors.primary} />
+          <TouchableOpacity style={[styles.closeBtn, { backgroundColor: isDarkMode ? colors.primary : colors.surface, borderColor: isDarkMode ? '#fff' : colors.text }]} onPress={onNewGame} activeOpacity={0.8}>
+            <Ionicons name="close" size={20} color={isDarkMode ? "#fff" : colors.text} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={{ width: 44 }} />

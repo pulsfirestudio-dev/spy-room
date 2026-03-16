@@ -65,7 +65,7 @@ export default function HowToPlayScreen({ navigation, route }) {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : colors.primary} />
+            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : colors.text} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={styles.placeholder} />
@@ -101,7 +101,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   scrollContent: { padding: 20, paddingTop: 38 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 },
-  backButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: isDarkMode ? colors.primary : '#000', justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.primary },
+  backButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: isDarkMode ? colors.primary : colors.surface, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text },
   title: { fontSize: 26, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 2, textShadowColor: isDarkMode ? colors.primary : 'transparent', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: isDarkMode ? 2 : 0 },
   placeholder: { width: 44 },
   logoContainer: { alignItems: 'center', marginBottom: 30 },
@@ -114,6 +114,6 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   tipsCard: { backgroundColor: colors.primary + '15', padding: 22, borderRadius: 16, borderWidth: 2, borderColor: colors.primary, marginBottom: 25 },
   tipsTitle: { fontSize: 20, fontWeight: '800', color: isDarkMode ? '#fff' : '#000', marginBottom: 15, letterSpacing: 1 },
   tipText: { fontSize: 16, color: isDarkMode ? '#fff' : '#000', marginBottom: 8, lineHeight: 23 },
-  backButtonLarge: { backgroundColor: colors.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 18, borderRadius: 12, gap: 10, borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000' },
+  backButtonLarge: { backgroundColor: colors.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 18, borderRadius: 12, gap: 10, borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text },
   backButtonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 1 },
 });

@@ -35,7 +35,7 @@ export default function SelectLanguageScreen({ navigation, route }) {
       <View style={styles.content}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : '#000'} />
+            <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : colors.text} />
           </TouchableOpacity>
           <Text style={styles.title}>{t.title}</Text>
           <View style={styles.placeholder} />
@@ -67,15 +67,15 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   content: { flex: 1, padding: 20, paddingTop: 20 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 40 },
-  backButton: { 
-    width: 44, 
-    height: 44, 
-    borderRadius: 22, 
-    backgroundColor: colors.surface, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    borderWidth: 2, 
-    borderColor: '#000' 
+  backButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: colors.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: isDarkMode ? '#fff' : colors.text
   },
   title: { 
     fontSize: 24, 
