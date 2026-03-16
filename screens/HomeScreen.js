@@ -150,7 +150,6 @@ export default function HomeScreen({ navigation, route }) {
 
   // Typewriter
   const [taglineDisplay, setTaglineDisplay] = useState('');
-  const [cursorVisible, setCursorVisible] = useState(true);
   const typewriterDone = useRef(false);
 
   const startIdleAnimations = useCallback(() => {
@@ -210,11 +209,6 @@ export default function HomeScreen({ navigation, route }) {
       ])
     ).start();
 
-    // Cursor blink (after typewriter)
-    const blinkInterval = setInterval(() => {
-      if (typewriterDone.current) setCursorVisible(v => !v);
-    }, 530);
-    return () => clearInterval(blinkInterval);
   }, []);
 
   useEffect(() => {
@@ -295,7 +289,7 @@ export default function HomeScreen({ navigation, route }) {
         </Animated.View>
       )}
 
-      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} scrollEnabled={false}>
 
         {/* Top bar */}
         <View style={styles.topBar}>
@@ -343,10 +337,7 @@ export default function HomeScreen({ navigation, route }) {
           </Animated.View>
 
           {/* Typewriter tagline */}
-          <Text style={styles.tagline}>
-            {taglineDisplay}
-            <Text style={[styles.cursor, { opacity: cursorVisible ? 1 : 0 }]}>|</Text>
-          </Text>
+          <Text style={styles.tagline}>{taglineDisplay}</Text>
 
         </Animated.View>
 
