@@ -841,7 +841,7 @@ const getStyles = (colors, isDarkMode) => {
     unlockButtonText: { color: isDarkMode ? '#000' : '#000', fontWeight: '800', fontSize: 14 },
     premiumChip: { position: 'relative' },
     lockedChip: { borderWidth: 2, borderColor: isDarkMode ? colors.primary : '#000000', backgroundColor: 'transparent' },
-    lockedText: { color: isDarkMode ? '#888888' : '#C45000' },
+    lockedText: { color: isDarkMode ? '#888888' : '#000', textShadowColor: 'rgba(180,0,0,0.35)', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 4 },
     lockIcon: { position: 'absolute', right: 20, fontSize: 20 },
     counterContainer: { flexDirection: 'row', gap: 12 },
     counterButton: { flex: 1, backgroundColor: colors.surface, paddingVertical: 16, borderRadius: 14, alignItems: 'center' },
