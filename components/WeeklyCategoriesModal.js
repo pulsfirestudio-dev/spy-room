@@ -1,11 +1,28 @@
-import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet, Dimensions, Animated } from 'react-native';
+import React, { useState } from 'react';
+import { Modal, View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTheme } from '../context/ThemeContext';
 
 const { width } = Dimensions.get('window');
 
-export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, isPremium }) {
+export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, isPremium, onVote }) {
+  const { colors, isDarkMode } = useTheme();
+
   if (isPremium) return null;
+
+  const getGradientColors = () => {
+    if (isDarkMode) {
+      return ['#FF006E', '#8338EC', '#3A86FF'];
+    } else {
+      return ['#FF1744', '#F50057', '#D81B60'];
+    }
+  };
+
+  const getAccentColor = () => {
+    return isDarkMode ? '#FF006E' : '#F50057';
+  };
+
+  const styles = getStyles(colors, isDarkMode);
 
   return (
     <Modal
@@ -16,62 +33,74 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
     >
       <View style={styles.overlay}>
         <LinearGradient
-          colors={['#FF006E', '#8338EC', '#3A86FF']}
+          colors={getGradientColors()}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.gradientBorder}
         >
-          <View style={styles.modalContainer}>
+          <View style={[styles.modalContainer, { backgroundColor: colors.background }]}>
             {/* Close button */}
-            <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
-              <Text style={styles.closeBtnText}>✕</Text>
+            <TouchableOpacity style={[styles.closeBtn, { backgroundColor: getAccentColor() + '20' }]} onPress={onClose}>
+              <Text style={[styles.closeBtnText, { color: getAccentColor() }]}>✕</Text>
             </TouchableOpacity>
 
             {/* Icon */}
             <View style={styles.iconContainer}>
               <LinearGradient
-                colors={['#FF006E', '#8338EC']}
+                colors={getGradientColors()}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.iconGradient}
               >
-                <Text style={styles.icon}>✨</Text>
+                <Text style={styles.icon}>🎮</Text>
               </LinearGradient>
             </View>
 
             {/* Content */}
-            <Text style={styles.title}>Weekly Challenges</Text>
-            <Text style={styles.subtitle}>Unlock premium categories</Text>
+            <Text style={[styles.title, { color: colors.text }]}>Weekly Categories</Text>
+            <Text style={[styles.subtitle, { color: colors.textSub }]}>New challenges every week</Text>
 
-            <View style={styles.featuresList}>
-              <View style={styles.featureRow}>
-                <Text style={styles.featureIcon}>🔥</Text>
-                <Text style={styles.featureText}>New challenges every week</Text>
+            {/* This Week's Category */}
+            <View style={[styles.upcomingCard, { backgroundColor: getAccentColor() + '10', borderColor: getAccentColor() }]}>
+              <View style={styles.upcomingHeader}>
+                <Text style={[styles.upcomingLabel, { color: getAccentColor() }]}>THIS WEEK</Text>
+                <Text style={[styles.upcomingEmoji]}>⭐</Text>
               </View>
-              <View style={styles.featureRow}>
-                <Text style={styles.featureIcon}>⚡</Text>
-                <Text style={styles.featureText}>Trending topics & exclusive games</Text>
-              </View>
-              <View style={styles.featureRow}>
-                <Text style={styles.featureIcon}>👑</Text>
-                <Text style={styles.featureText}>Premium member perks</Text>
-              </View>
+              <Text style={[styles.upcomingTitle, { color: colors.text }]}>Movie Celebrities</Text>
+              <Text style={[styles.upcomingDesc, { color: colors.textSub }]}>Guess famous actors and directors!</Text>
+            </View>
+
+            {/* Coming Soon Section */}
+            <TouchableOpacity 
+              style={[styles.comingCard, { backgroundColor: colors.surface }]}
+              onPress={onVote}
+              activeOpacity={0.7}
+            >
+              <Text style={[styles.comingEmoji]}>🗳️</Text>
+              <Text style={[styles.comingTitle, { color: colors.text }]}>Vote for Categories</Text>
+              <Text style={[styles.comingDesc, { color: colors.textSub }]}>Help choose next week's topics</Text>
+            </TouchableOpacity>
+
+            {/* Features */}
+            <View style={styles.featureRow}>
+              <Text style={styles.featureIcon}>🔥</Text>
+              <Text style={[styles.featureText, { color: colors.text }]}>Exclusive premium content</Text>
             </View>
 
             {/* Buttons */}
             <LinearGradient
-              colors={['#FF006E', '#8338EC']}
+              colors={getGradientColors()}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.purchaseBtnGradient}
             >
               <TouchableOpacity style={styles.purchaseBtn} onPress={onPurchase}>
-                <Text style={styles.purchaseBtnText}>Go Premium</Text>
+                <Text style={styles.purchaseBtnText}>Go Premium Now</Text>
               </TouchableOpacity>
             </LinearGradient>
 
-            <TouchableOpacity style={styles.laterBtn} onPress={onClose}>
-              <Text style={styles.laterBtnText}>Not now</Text>
+            <TouchableOpacity style={[styles.laterBtn, { borderColor: getAccentColor() + '50' }]} onPress={onClose}>
+              <Text style={[styles.laterBtnText, { color: getAccentColor() }]}>Not now</Text>
             </TouchableOpacity>
           </View>
         </LinearGradient>
@@ -80,139 +109,176 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
   );
 }
 
-const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  gradientBorder: {
-    width: width * 0.88,
-    padding: 2,
-    borderRadius: 28,
-    shadowColor: '#FF006E',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 16,
-    elevation: 20,
-  },
-  modalContainer: {
-    backgroundColor: '#1A1A2E',
-    borderRadius: 26,
-    padding: 28,
-    alignItems: 'center',
-  },
-  closeBtn: {
-    position: 'absolute',
-    top: 16,
-    right: 16,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: 'rgba(255, 0, 110, 0.2)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10,
-  },
-  closeBtnText: {
-    fontSize: 20,
-    color: '#FF006E',
-    fontWeight: '700',
-  },
-  iconContainer: {
-    marginBottom: 20,
-  },
-  iconGradient: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#FF006E',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.5,
-    shadowRadius: 12,
-    elevation: 15,
-  },
-  icon: {
-    fontSize: 48,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '900',
-    color: '#FFFFFF',
-    marginBottom: 8,
-    textAlign: 'center',
-    letterSpacing: -0.5,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#B0B0B0',
-    marginBottom: 28,
-    textAlign: 'center',
-    fontWeight: '500',
-  },
-  featuresList: {
-    width: '100%',
-    marginBottom: 32,
-    gap: 14,
-  },
-  featureRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-    backgroundColor: 'rgba(255, 0, 110, 0.08)',
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    borderRadius: 14,
-    borderLeftWidth: 3,
-    borderLeftColor: '#FF006E',
-  },
-  featureIcon: {
-    fontSize: 20,
-    width: 28,
-  },
-  featureText: {
-    flex: 1,
-    fontSize: 14,
-    color: '#E0E0E0',
-    lineHeight: 20,
-    fontWeight: '500',
-  },
-  purchaseBtnGradient: {
-    width: '100%',
-    borderRadius: 14,
-    marginBottom: 12,
-    shadowColor: '#FF006E',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    elevation: 12,
-  },
-  purchaseBtn: {
-    width: '100%',
-    paddingVertical: 16,
-    alignItems: 'center',
-    borderRadius: 14,
-  },
-  purchaseBtnText: {
-    fontSize: 17,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    letterSpacing: 0.5,
-  },
-  laterBtn: {
-    width: '100%',
-    paddingVertical: 13,
-    alignItems: 'center',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 0, 110, 0.3)',
-  },
-  laterBtnText: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#FF006E',
-  },
-});
+const getStyles = (colors, isDarkMode) => {
+  return StyleSheet.create({
+    overlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.75)',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 20,
+    },
+    gradientBorder: {
+      padding: 2,
+      borderRadius: 28,
+      shadowColor: '#FF006E',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.5,
+      shadowRadius: 20,
+      elevation: 25,
+    },
+    modalContainer: {
+      borderRadius: 26,
+      overflow: 'hidden',
+      paddingVertical: 24,
+      paddingHorizontal: 22,
+      alignItems: 'center',
+    },
+    closeBtn: {
+      position: 'absolute',
+      top: 14,
+      right: 14,
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 10,
+    },
+    closeBtnText: {
+      fontSize: 18,
+      fontWeight: '700',
+    },
+    iconContainer: {
+      marginBottom: 14,
+    },
+    iconGradient: {
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: '#FF006E',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.6,
+      shadowRadius: 16,
+      elevation: 18,
+    },
+    icon: {
+      fontSize: 40,
+    },
+    title: {
+      fontSize: 26,
+      fontWeight: '900',
+      marginBottom: 4,
+      textAlign: 'center',
+      letterSpacing: -0.5,
+    },
+    subtitle: {
+      fontSize: 13,
+      marginBottom: 16,
+      textAlign: 'center',
+      fontWeight: '500',
+    },
+    upcomingCard: {
+      width: '100%',
+      borderRadius: 14,
+      padding: 14,
+      marginBottom: 12,
+      borderWidth: 2,
+    },
+    upcomingHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 6,
+    },
+    upcomingLabel: {
+      fontSize: 10,
+      fontWeight: '800',
+      letterSpacing: 1.5,
+    },
+    upcomingEmoji: {
+      fontSize: 16,
+    },
+    upcomingTitle: {
+      fontSize: 17,
+      fontWeight: '800',
+      marginBottom: 4,
+    },
+    upcomingDesc: {
+      fontSize: 12,
+      lineHeight: 16,
+    },
+    comingCard: {
+      width: '100%',
+      borderRadius: 14,
+      padding: 14,
+      marginBottom: 14,
+      alignItems: 'center',
+    },
+    comingEmoji: {
+      fontSize: 24,
+      marginBottom: 6,
+    },
+    comingTitle: {
+      fontSize: 15,
+      fontWeight: '800',
+      marginBottom: 2,
+      textAlign: 'center',
+    },
+    comingDesc: {
+      fontSize: 12,
+      textAlign: 'center',
+    },
+    featureRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      width: '100%',
+      marginBottom: 16,
+    },
+    featureIcon: {
+      fontSize: 16,
+      width: 20,
+    },
+    featureText: {
+      flex: 1,
+      fontSize: 13,
+      fontWeight: '500',
+    },
+    purchaseBtnGradient: {
+      width: '100%',
+      borderRadius: 12,
+      marginBottom: 10,
+      shadowColor: '#FF006E',
+      shadowOffset: { width: 0, height: 6 },
+      shadowOpacity: 0.5,
+      shadowRadius: 16,
+      elevation: 15,
+    },
+    purchaseBtn: {
+      width: '100%',
+      paddingVertical: 14,
+      alignItems: 'center',
+      borderRadius: 12,
+    },
+    purchaseBtnText: {
+      fontSize: 16,
+      fontWeight: '800',
+      color: '#FFFFFF',
+      letterSpacing: 0.5,
+    },
+    laterBtn: {
+      width: '100%',
+      paddingVertical: 12,
+      alignItems: 'center',
+      borderRadius: 10,
+      borderWidth: 1.5,
+    },
+    laterBtnText: {
+      fontSize: 14,
+      fontWeight: '600',
+    },
+  });
+};

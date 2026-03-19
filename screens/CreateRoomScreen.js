@@ -554,6 +554,13 @@ export default function CreateRoomScreen({ navigation, route }) {
     }
   };
 
+  const handleWeeklyModalVote = () => {
+    setShowWeeklyModal(false);
+    navigation.navigate('VoteCategories', {
+      onPurchase: purchasePremium
+    });
+  };
+
   const startGame = () => {
     if (!canStart) { Alert.alert('Error', t.needMorePlayers(remainingPlayers)); return; }
 
@@ -821,6 +828,7 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
         visible={showWeeklyModal}
         onClose={handleWeeklyModalClose}
         onPurchase={handleWeeklyModalPurchase}
+        onVote={handleWeeklyModalVote}
         isPremium={isPremium}
       />
     </SafeAreaView>

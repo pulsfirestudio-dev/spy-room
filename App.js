@@ -18,6 +18,7 @@ import SelectLanguageScreen from './screens/SelectLanguageScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import DiscussionScreen from './screens/DiscussionScreen';
 import RevealResultScreen from './screens/RevealResultScreen';
+import VoteCategoriesScreen from './screens/VoteCategoriesScreen';
 
 import { ThemeProvider } from './context/ThemeContext';
 import { SettingsProvider } from './context/SettingsContext';
@@ -67,6 +68,7 @@ export default function App() {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Settings" component={SettingsScreen} />
                 <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />
+                <Stack.Screen name="VoteCategories" component={VoteCategoriesScreen} />
                 <Stack.Screen name="JoinRoom" component={JoinRoomScreen} />
                 <Stack.Screen name="Lobby" component={LobbyScreen} />
                 <Stack.Screen name="MultiplayerMenu" component={MultiplayerMenuScreen} />
