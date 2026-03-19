@@ -149,3 +149,5 @@ export const usePremium = () => {
   }
   return context;
 };
+
+export { PremiumContext };
