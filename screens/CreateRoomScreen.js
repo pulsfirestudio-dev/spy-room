@@ -1,5 +1,5 @@
 // CreateRoomScreen.js
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,12 +12,14 @@ import {
   ActivityIndicator,
   StatusBar,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { usePremium } from '../context/PremiumContext';
 
 import AppButton from "../components/AppButton";
+import WeeklyCategoriesModal from "../components/WeeklyCategoriesModal";
 import { LinearGradient } from 'expo-linear-gradient';
 
 /* -------------------- DATA -------------------- */
@@ -488,8 +490,24 @@ export default function CreateRoomScreen({ navigation, route }) {
   const [timeLimit, setTimeLimit] = useState(false);
   const [pressedButton, setPressedButton] = useState(null);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [showWeeklyModal, setShowWeeklyModal] = useState(false);
 
   const styles = getStyles(colors, isDarkMode);
+
+  // Show weekly categories modal when screen opens
+  useEffect(() => {
+    const showPromotionalModal = async () => {
+      try {
+        if (!isPremium) {
+          setShowWeeklyModal(true);
+        }
+      } catch (e) {
+        console.warn('Error showing modal:', e);
+      }
+    };
+    
+    showPromotionalModal();
+  }, [isPremium]);
 
   const remainingPlayers = Math.max(0, MIN_PLAYERS - players.length);
   const canStart = players.length >= MIN_PLAYERS;
@@ -522,6 +540,17 @@ export default function CreateRoomScreen({ navigation, route }) {
       Alert.alert('Success', result.message);
     } else {
       Alert.alert('Purchase Failed', result.message);
+    }
+  };
+
+  const handleWeeklyModalClose = () => {
+    setShowWeeklyModal(false);
+  };
+
+  const handleWeeklyModalPurchase = async () => {
+    const result = await purchasePremium();
+    if (result.success) {
+      setShowWeeklyModal(false);
     }
   };
 
@@ -786,6 +815,14 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
           </View>
         </View>
       </Modal>
+
+      {/* Weekly Categories Modal */}
+      <WeeklyCategoriesModal
+        visible={showWeeklyModal}
+        onClose={handleWeeklyModalClose}
+        onPurchase={handleWeeklyModalPurchase}
+        isPremium={isPremium}
+      />
     </SafeAreaView>
   );
 }

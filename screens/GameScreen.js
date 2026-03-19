@@ -10,12 +10,9 @@ import {
   Easing,
   StatusBar,
 } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../context/ThemeContext";
-import { usePremium } from "../context/PremiumContext";
-import WeeklyCategoriesModal from "../components/WeeklyCategoriesModal";
 import { LinearGradient } from 'expo-linear-gradient';
 
 const PLAYER_COLORS = [
@@ -57,7 +54,6 @@ const translations = {
 
 export default function GameScreen({ navigation, route }) {
   const { colors, isDarkMode } = useTheme();
-  const { isPremium, purchasePremium } = usePremium();
   const {
     players = [], secretWord, imposterIndices = [], clueAssist = false,
     category, language = "en", timeLimit = false, timePerPerson = 15, numImposters = 1, usedWords = [],
@@ -75,7 +71,6 @@ export default function GameScreen({ navigation, route }) {
   const [pressedButton, setPressedButton] = useState(null);
   const [votes, setVotes] = useState({});
   const [voterIndex, setVoterIndex] = useState(0);
-  const [showWeeklyModal, setShowWeeklyModal] = useState(false);
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const glowAnim = useRef(new Animated.Value(0)).current;
   const holdExpandAnim = useRef(new Animated.Value(1)).current;
@@ -85,27 +80,6 @@ export default function GameScreen({ navigation, route }) {
   const isCurrentPlayerSpy = imposterIndices.includes(currentPlayerIndex);
   const currentColor = playerColors[currentPlayerIndex] ?? { bg: "#FFE066", text: "#1a1a1a" };
   const styles = useMemo(() => getStyles(colors, isDarkMode), [colors, isDarkMode]);
-
-  // Show weekly categories modal on game start
-  useEffect(() => {
-    const showPromotionalModal = async () => {
-      try {
-        const lastShownTime = await AsyncStorage.getItem('weeklyModalLastShown');
-        const now = Date.now();
-        
-        // Show modal if it hasn't been shown in the last 24 hours (86400000 ms)
-        if (!isPremium && (!lastShownTime || now - parseInt(lastShownTime) > 86400000)) {
-          // Show after 3 seconds to let the game UI settle
-          setTimeout(() => setShowWeeklyModal(true), 3000);
-          await AsyncStorage.setItem('weeklyModalLastShown', now.toString());
-        }
-      } catch (e) {
-        console.warn('Error checking modal timing:', e);
-      }
-    };
-    
-    showPromotionalModal();
-  }, [isPremium]);
 
   useEffect(() => {
     const pulse = Animated.loop(Animated.sequence([
@@ -336,13 +310,6 @@ export default function GameScreen({ navigation, route }) {
         {phase === "voting" && renderVoting()}
         {phase === "results" && renderResults()}
       </ScrollView>
-      
-      <WeeklyCategoriesModal
-        visible={showWeeklyModal}
-        onClose={() => setShowWeeklyModal(false)}
-        onPurchase={purchasePremium}
-        isPremium={isPremium}
-      />
     </SafeAreaView>
   );
 }
