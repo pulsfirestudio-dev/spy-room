@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Modal, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Modal, ActivityIndicator, Alert, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../context/ThemeContext';
 import { usePremium } from '../context/PremiumContext';
@@ -20,6 +20,7 @@ export default function VoteCategoriesScreen({ navigation, route }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showPurchasePrompt, setShowPurchasePrompt] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const getGradientColors = () => {
     if (isDarkMode) {
@@ -63,6 +64,10 @@ export default function VoteCategoriesScreen({ navigation, route }) {
     navigation.goBack();
   };
 
+  const currentCategories = VOTING_CATEGORIES.slice(currentIndex, currentIndex + 2);
+  const hasMore = currentIndex + 2 < VOTING_CATEGORIES.length;
+  const hasPrev = currentIndex > 0;
+
   const styles = getStyles(colors, isDarkMode);
 
   return (
@@ -87,41 +92,73 @@ export default function VoteCategoriesScreen({ navigation, route }) {
           <Text style={[styles.subtitle, { color: colors.textSub }]}>Vote for the next weekly challenge</Text>
         </View>
 
-        {/* Categories Grid */}
-        <View style={styles.categoriesGrid}>
-          {VOTING_CATEGORIES.map((category) => (
+        {/* Categories - 2 at a time */}
+        <View style={styles.categoriesContainer}>
+          {currentCategories.map((category) => (
             <TouchableOpacity
               key={category.id}
               style={[
-                styles.categoryCard,
+                styles.smallCategoryCard,
                 {
                   backgroundColor: colors.card,
-                  borderColor: colors.border,
-                  borderWidth: 1,
+                  borderColor: getAccentColor() + '30'
                 }
               ]}
               onPress={() => handleCategorySelect(category)}
               activeOpacity={0.7}
             >
-              <View style={styles.categoryContent}>
-                <Text style={styles.categoryEmoji}>{category.emoji}</Text>
-                <Text style={[styles.categoryName, { color: colors.text }]}>
+              <View style={styles.smallCategoryContent}>
+                <Text style={styles.smallCategoryEmoji}>{category.emoji}</Text>
+                <Text style={[styles.smallCategoryName, { color: colors.text }]}>
                   {category.name}
                 </Text>
-                <Text style={[styles.categoryDesc, { color: colors.textSub }]}>
-                  {category.description}
-                </Text>
               </View>
-              <View style={[styles.checkCircle, { borderColor: getAccentColor() }]}>
-                <LinearGradient
-                  colors={getGradientColors()}
-                  style={styles.checkGradient}
-                >
-                  <Text style={styles.checkmark}>✓</Text>
-                </LinearGradient>
-              </View>
+              
+              <LinearGradient
+                colors={getGradientColors()}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.smallVoteBtn}
+              >
+                <Text style={styles.voteBtnText}>Vote</Text>
+              </LinearGradient>
             </TouchableOpacity>
           ))}
+        </View>
+
+        {/* Pagination Dots */}
+        <View style={styles.paginationContainer}>
+          {Array.from({ length: Math.ceil(VOTING_CATEGORIES.length / 2) }).map((_, idx) => (
+            <TouchableOpacity
+              key={idx}
+              style={[
+                styles.paginationDot,
+                {
+                  backgroundColor: Math.floor(currentIndex / 2) === idx ? getAccentColor() : colors.textSub + '40'
+                }
+              ]}
+              onPress={() => setCurrentIndex(idx * 2)}
+            />
+          ))}
+        </View>
+
+        {/* Navigation Buttons */}
+        <View style={styles.navigationRow}>
+          <TouchableOpacity
+            style={[styles.navBtn, !hasPrev && styles.navBtnDisabled]}
+            onPress={() => setCurrentIndex(Math.max(0, currentIndex - 2))}
+            disabled={!hasPrev}
+          >
+            <Text style={[styles.navBtnText, !hasPrev && styles.navBtnTextDisabled]}>← Previous</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.navBtn, !hasMore && styles.navBtnDisabled]}
+            onPress={() => setCurrentIndex(Math.min(currentIndex + 2, VOTING_CATEGORIES.length - 2))}
+            disabled={!hasMore}
+          >
+            <Text style={[styles.navBtnText, !hasMore && styles.navBtnTextDisabled]}>Next →</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -241,35 +278,86 @@ const getStyles = (colors, isDarkMode) => {
       fontSize: 14,
       textAlign: 'center',
     },
-    categoriesGrid: {
-      paddingHorizontal: 12,
-      gap: 12,
+    categoriesContainer: {
+      paddingHorizontal: 16,
+      paddingVertical: 24,
+      gap: 14,
     },
-    categoryCard: {
+    smallCategoryCard: {
       borderRadius: 16,
       padding: 16,
-      marginHorizontal: 4,
-      minHeight: 120,
-      justifyContent: 'space-between',
+      borderWidth: 1,
       flexDirection: 'row',
-      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      minHeight: 100,
+      shadowColor: '#FF006E',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.15,
+      shadowRadius: 8,
+      elevation: 5,
     },
-    categoryContent: {
+    smallCategoryContent: {
       flex: 1,
-      marginRight: 12,
+      gap: 8,
     },
-    categoryEmoji: {
-      fontSize: 32,
-      marginBottom: 8,
+    smallCategoryEmoji: {
+      fontSize: 36,
     },
-    categoryName: {
-      fontSize: 17,
+    smallCategoryName: {
+      fontSize: 16,
       fontWeight: '800',
-      marginBottom: 4,
     },
-    categoryDesc: {
-      fontSize: 12,
-      lineHeight: 16,
+    smallVoteBtn: {
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderRadius: 10,
+      marginLeft: 12,
+    },
+    voteBtnText: {
+      color: '#FFFFFF',
+      fontSize: 14,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
+    paginationContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 8,
+      paddingVertical: 16,
+    },
+    paginationDot: {
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+    },
+    navigationRow: {
+      flexDirection: 'row',
+      gap: 12,
+      paddingHorizontal: 16,
+      paddingBottom: 24,
+    },
+    navBtn: {
+      flex: 1,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      borderRadius: 12,
+      borderWidth: 1.5,
+      borderColor: '#FF006E',
+      alignItems: 'center',
+    },
+    navBtnDisabled: {
+      borderColor: '#CCCCCC',
+      opacity: 0.5,
+    },
+    navBtnText: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: '#FF006E',
+    },
+    navBtnTextDisabled: {
+      color: '#999999',
     },
     checkCircle: {
       width: 48,
@@ -279,13 +367,6 @@ const getStyles = (colors, isDarkMode) => {
       justifyContent: 'center',
       alignItems: 'center',
       overflow: 'hidden',
-    },
-    checkGradient: {
-      width: '100%',
-      height: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
-      opacity: 0,
     },
     checkmark: {
       color: '#FFFFFF',
