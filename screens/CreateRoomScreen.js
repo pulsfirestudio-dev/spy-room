@@ -556,9 +556,7 @@ export default function CreateRoomScreen({ navigation, route }) {
 
   const handleWeeklyModalVote = () => {
     setShowWeeklyModal(false);
-    navigation.navigate('VoteCategories', {
-      onPurchase: purchasePremium
-    });
+    navigation.navigate('VoteCategories');
   };
 
   const startGame = () => {

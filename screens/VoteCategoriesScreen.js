@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Modal, ActivityIndicator, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../context/ThemeContext';
+import { usePremium } from '../context/PremiumContext';
 
 const { width } = Dimensions.get('window');
 
@@ -15,9 +16,10 @@ const VOTING_CATEGORIES = [
 
 export default function VoteCategoriesScreen({ navigation, route }) {
   const { colors, isDarkMode } = useTheme();
-  const { onPurchase } = route.params || {};
+  const { purchasePremium, isPremium } = usePremium();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showPurchasePrompt, setShowPurchasePrompt] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getGradientColors = () => {
     if (isDarkMode) {
@@ -37,12 +39,22 @@ export default function VoteCategoriesScreen({ navigation, route }) {
   };
 
   const handlePurchase = async () => {
-    if (onPurchase) {
-      const result = await onPurchase();
+    setIsLoading(true);
+    try {
+      const result = await purchasePremium();
       if (result?.success) {
         setShowPurchasePrompt(false);
-        navigation.goBack();
+        Alert.alert('Success!', 'Welcome to Premium! Enjoy all categories.', [
+          {
+            text: 'Continue',
+            onPress: () => navigation.goBack()
+          }
+        ]);
       }
+    } catch (error) {
+      Alert.alert('Purchase Error', error.message || 'Failed to process purchase. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -162,8 +174,16 @@ export default function VoteCategoriesScreen({ navigation, route }) {
                 end={{ x: 1, y: 1 }}
                 style={styles.purchaseBtnGradient}
               >
-                <TouchableOpacity style={styles.purchaseBtn} onPress={handlePurchase}>
-                  <Text style={styles.purchaseBtnText}>Go Premium Now</Text>
+                <TouchableOpacity 
+                  style={styles.purchaseBtn} 
+                  onPress={handlePurchase}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <ActivityIndicator color="#FFFFFF" size="small" />
+                  ) : (
+                    <Text style={styles.purchaseBtnText}>Go Premium Now</Text>
+                  )}
                 </TouchableOpacity>
               </LinearGradient>
 
