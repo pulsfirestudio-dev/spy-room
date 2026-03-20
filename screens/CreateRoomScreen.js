@@ -499,13 +499,13 @@ export default function CreateRoomScreen({ navigation, route }) {
     const showPromotionalModal = async () => {
       try {
         if (!isPremium) {
-          setShowWeeklyModal(true);
+          setTimeout(() => setShowWeeklyModal(true), 1000);
         }
       } catch (e) {
         console.warn('Error showing modal:', e);
       }
     };
-    
+
     showPromotionalModal();
   }, [isPremium]);
 

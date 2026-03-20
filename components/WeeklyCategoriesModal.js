@@ -12,14 +12,14 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
 
   const getGradientColors = () => {
     if (isDarkMode) {
-      return ['#FF006E', '#8338EC', '#3A86FF'];
+      return ['#9B00FF', '#CC0055', '#FF4500'];
     } else {
-      return ['#FF1744', '#F50057', '#D81B60'];
+      return ['#7B00E0', '#C2005A', '#FF2200'];
     }
   };
 
   const getAccentColor = () => {
-    return isDarkMode ? '#FF006E' : '#F50057';
+    return isDarkMode ? '#CC0055' : '#C2005A';
   };
 
   const styles = getStyles(colors, isDarkMode);
@@ -52,7 +52,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
                 end={{ x: 1, y: 1 }}
                 style={styles.iconGradient}
               >
-                <Text style={styles.icon}>🎮</Text>
+                <Text style={styles.icon}>🕵️</Text>
               </LinearGradient>
             </View>
 
@@ -121,7 +121,7 @@ const getStyles = (colors, isDarkMode) => {
     gradientBorder: {
       padding: 2,
       borderRadius: 28,
-      shadowColor: '#FF006E',
+      shadowColor: '#9B00FF',
       shadowOffset: { width: 0, height: 8 },
       shadowOpacity: 0.5,
       shadowRadius: 20,
@@ -158,7 +158,7 @@ const getStyles = (colors, isDarkMode) => {
       borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
-      shadowColor: '#FF006E',
+      shadowColor: '#9B00FF',
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.6,
       shadowRadius: 16,
@@ -251,7 +251,7 @@ const getStyles = (colors, isDarkMode) => {
       width: '100%',
       borderRadius: 12,
       marginBottom: 10,
-      shadowColor: '#FF006E',
+      shadowColor: '#9B00FF',
       shadowOffset: { width: 0, height: 6 },
       shadowOpacity: 0.5,
       shadowRadius: 16,
