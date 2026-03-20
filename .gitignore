@@ -42,3 +42,5 @@ out/
 # Package manager locks (keep one, delete the other)
 # yarn.lock
 # package-lock.json
+# Local build artifacts
+.aab/
