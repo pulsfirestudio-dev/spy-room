@@ -45,3 +45,6 @@ out/
 # Local build artifacts
 .aab/
 spy-room/
+
+# Claude Code
+.claude/
