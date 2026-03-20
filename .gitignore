@@ -44,3 +44,4 @@ out/
 # package-lock.json
 # Local build artifacts
 .aab/
+spy-room/
