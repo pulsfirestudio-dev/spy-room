@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 
 const { width } = Dimensions.get('window');
@@ -52,7 +53,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
                 end={{ x: 1, y: 1 }}
                 style={styles.iconGradient}
               >
-                <Text style={styles.icon}>🕵️</Text>
+                <Ionicons name="diamond" size={48} color="#fff" />
               </LinearGradient>
             </View>
 
@@ -99,7 +100,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               </TouchableOpacity>
             </LinearGradient>
 
-            <TouchableOpacity style={[styles.laterBtn, { borderColor: getAccentColor() + '50' }]} onPress={onClose}>
+            <TouchableOpacity style={[styles.laterBtn, { borderColor: getAccentColor() }]} onPress={onClose}>
               <Text style={[styles.laterBtnText, { color: getAccentColor() }]}>Not now</Text>
             </TouchableOpacity>
           </View>
@@ -251,6 +252,8 @@ const getStyles = (colors, isDarkMode) => {
       width: '100%',
       borderRadius: 12,
       marginBottom: 10,
+      borderWidth: 2,
+      borderColor: '#ffffff',
       shadowColor: '#9B00FF',
       shadowOffset: { width: 0, height: 6 },
       shadowOpacity: 0.5,
@@ -261,7 +264,7 @@ const getStyles = (colors, isDarkMode) => {
       width: '100%',
       paddingVertical: 16,
       alignItems: 'center',
-      borderRadius: 12,
+      borderRadius: 10,
     },
     purchaseBtnText: {
       fontSize: 17,
@@ -274,7 +277,7 @@ const getStyles = (colors, isDarkMode) => {
       paddingVertical: 14,
       alignItems: 'center',
       borderRadius: 10,
-      borderWidth: 1.5,
+      borderWidth: 2,
     },
     laterBtnText: {
       fontSize: 15,
