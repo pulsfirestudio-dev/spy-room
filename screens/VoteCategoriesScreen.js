@@ -194,7 +194,7 @@ const BASE_VOTES = { 1: 142, 2: 89 };
             end={{ x: 1, y: 1 }}
             style={styles.promptGradientBorder}
           >
-            <View style={[styles.promptContainer, { backgroundColor: colors.background }]}>
+            <View style={[styles.promptContainer, { backgroundColor: isDarkMode ? colors.background : '#ffffff' }]}>
               {/* Icon */}
               <View style={styles.promptIconContainer}>
                 <LinearGradient
@@ -211,7 +211,7 @@ const BASE_VOTES = { 1: 142, 2: 89 };
               {selectedCategory && (
                 <View style={styles.selectedCategoryDisplay}>
                   <Text style={styles.selectedEmoji}>{selectedCategory.emoji}</Text>
-                  <Text style={[styles.selectedName, { color: colors.text }]}>
+                  <Text style={[styles.selectedName, { color: isDarkMode ? colors.text : '#1d3557' }]}>
                     {selectedCategory.name}
                   </Text>
                   <Text style={[styles.selectedVoteCount, { color: getAccentColor() }]}>
@@ -221,8 +221,8 @@ const BASE_VOTES = { 1: 142, 2: 89 };
               )}
 
               {/* Message */}
-              <Text style={[styles.promptTitle, { color: colors.text }]}>{t.voteSubmitted}</Text>
-              <Text style={[styles.promptMessage, { color: colors.textSecondary }]}>
+              <Text style={[styles.promptTitle, { color: isDarkMode ? colors.text : '#1d3557' }]}>{t.voteSubmitted}</Text>
+              <Text style={[styles.promptMessage, { color: isDarkMode ? colors.textSecondary : '#2c5f7a' }]}>
                 {t.thankYou}
               </Text>
 

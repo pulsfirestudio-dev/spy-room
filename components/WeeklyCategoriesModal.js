@@ -39,6 +39,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
   };
 
   const styles = getStyles(colors, isDarkMode);
+  const ltFont = language === 'lt' ? { fontFamily: 'serif' } : {};
 
   return (
     <Modal
@@ -73,8 +74,8 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
             </View>
 
             {/* Content */}
-            <Text style={[styles.title, { color: colors.text }]}>{t.title}</Text>
-            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>{t.subtitle}</Text>
+            <Text style={[styles.title, { color: colors.text }, ltFont]}>{t.title}</Text>
+            <Text style={[styles.subtitle, { color: colors.textSecondary }, ltFont]}>{t.subtitle}</Text>
 
             {/* This Week's Category */}
             <TouchableOpacity
@@ -89,10 +90,10 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               ]}
             >
               <View style={styles.upcomingHeader}>
-                <Text style={[styles.upcomingLabel, { color: getAccentColor() }]}>{t.thisWeek}</Text>
+                <Text style={[styles.upcomingLabel, { color: getAccentColor() }, ltFont]}>{t.thisWeek}</Text>
               </View>
-              <Text style={[styles.upcomingTitle, { color: colors.text }]}>{t.thisWeekName}</Text>
-              <Text style={[styles.upcomingDesc, { color: colors.textSecondary }]}>{t.thisWeekDesc}</Text>
+              <Text style={[styles.upcomingTitle, { color: colors.text }, ltFont]}>{t.thisWeekName}</Text>
+              <Text style={[styles.upcomingDesc, { color: colors.textSecondary }, ltFont]}>{t.thisWeekDesc}</Text>
             </TouchableOpacity>
 
             {/* Vote for Categories */}
@@ -111,14 +112,14 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               activeOpacity={0.7}
             >
               <Ionicons name="people" size={28} color={selectedSection === 'vote' ? getAccentColor() : colors.text} style={{ marginBottom: 8 }} />
-              <Text style={[styles.comingTitle, { color: colors.text }]}>{t.voteTitle}</Text>
-              <Text style={[styles.comingDesc, { color: colors.textSecondary }]}>{t.voteDesc}</Text>
+              <Text style={[styles.comingTitle, { color: colors.text }, ltFont]}>{t.voteTitle}</Text>
+              <Text style={[styles.comingDesc, { color: colors.textSecondary }, ltFont]}>{t.voteDesc}</Text>
             </TouchableOpacity>
 
             {/* Features */}
             <View style={styles.featureRow}>
               <Text style={styles.featureIcon}>🔥</Text>
-              <Text style={[styles.featureText, { color: colors.text }]}>{t.feature}</Text>
+              <Text style={[styles.featureText, { color: colors.text }, ltFont]}>{t.feature}</Text>
             </View>
 
             {/* Buttons */}
@@ -129,12 +130,12 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               style={styles.purchaseBtnGradient}
             >
               <TouchableOpacity style={styles.purchaseBtn} onPress={onPurchase}>
-                <Text style={styles.purchaseBtnText}>{t.goPremium}</Text>
+                <Text style={[styles.purchaseBtnText, ltFont]}>{t.goPremium}</Text>
               </TouchableOpacity>
             </LinearGradient>
 
             <TouchableOpacity style={[styles.laterBtn, { borderColor: getAccentColor() }]} onPress={onClose}>
-              <Text style={[styles.laterBtnText, { color: getAccentColor() }]}>{t.notNow}</Text>
+              <Text style={[styles.laterBtnText, { color: getAccentColor() }, ltFont]}>{t.notNow}</Text>
             </TouchableOpacity>
           </View>
         </LinearGradient>
