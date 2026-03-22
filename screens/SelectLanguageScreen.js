@@ -15,11 +15,27 @@ import { LinearGradient } from 'expo-linear-gradient';
 const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'lt', name: 'Lietuvių', flag: '🇱🇹' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+  { code: 'pt', name: 'Português', flag: '🇧🇷' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+  { code: 'ro', name: 'Română', flag: '🇷🇴' },
 ];
 
 const translations = {
   en: { title: 'SELECT LANGUAGE', back: 'BACK' },
-  lt: { title: 'PASIRINKTI KALBĄ', back: 'ATGAL' }
+  lt: { title: 'PASIRINKTI KALBĄ', back: 'ATGAL' },
+  es: { title: 'SELECCIONAR IDIOMA', back: 'ATRÁS' },
+  fr: { title: 'CHOISIR LA LANGUE', back: 'RETOUR' },
+  de: { title: 'SPRACHE WÄHLEN', back: 'ZURÜCK' },
+  pl: { title: 'WYBIERZ JĘZYK', back: 'WRÓĆ' },
+  pt: { title: 'SELECIONAR IDIOMA', back: 'VOLTAR' },
+  it: { title: 'SELEZIONA LINGUA', back: 'INDIETRO' },
+  nl: { title: 'TAAL SELECTEREN', back: 'TERUG' },
+  ro: { title: 'SELECTEAZĂ LIMBA', back: 'ÎNAPOI' },
 };
 
 export default function SelectLanguageScreen({ navigation, route }) {
