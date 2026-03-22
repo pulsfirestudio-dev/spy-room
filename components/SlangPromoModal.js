@@ -254,20 +254,20 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontSize: 20,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     marginBottom: 6,
     textAlign: 'center',
   },
   catName: {
     fontSize: 14,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     marginBottom: 10,
     textAlign: 'center',
     letterSpacing: 0.5,
   },
   sub: {
     fontSize: 13,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     textAlign: 'center',
     lineHeight: 20,
     marginBottom: 18,
@@ -283,13 +283,13 @@ const styles = StyleSheet.create({
   },
   examplesLabel: {
     fontSize: 10,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     letterSpacing: 2,
     marginBottom: 4,
   },
   exampleWord: {
     fontSize: 15,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     textAlign: 'center',
   },
   premiumBtnGradient: {
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
   },
   premiumBtnText: {
     fontSize: 13,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     color: '#fff',
     letterSpacing: 0.5,
   },
@@ -325,6 +325,6 @@ const styles = StyleSheet.create({
   },
   dismissBtnText: {
     fontSize: 13,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
   },
 });

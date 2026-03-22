@@ -182,7 +182,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     closeBtnText: {
       fontSize: 16,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
     },
     iconContainer: {
       marginBottom: 18,
@@ -204,7 +204,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     title: {
       fontSize: 29,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
       marginBottom: 6,
       textAlign: 'center',
       letterSpacing: -0.5,
@@ -213,7 +213,7 @@ const getStyles = (colors, isDarkMode) => {
       fontSize: 13,
       marginBottom: 20,
       textAlign: 'center',
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
     },
     upcomingCard: {
       width: '100%',
@@ -230,7 +230,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     upcomingLabel: {
       fontSize: 10,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
       letterSpacing: 1.5,
     },
     upcomingEmoji: {
@@ -238,13 +238,13 @@ const getStyles = (colors, isDarkMode) => {
     },
     upcomingTitle: {
       fontSize: 17,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
       marginBottom: 6,
     },
     upcomingDesc: {
       fontSize: 13,
       lineHeight: 18,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
     },
     comingCard: {
       width: '100%',
@@ -256,14 +256,14 @@ const getStyles = (colors, isDarkMode) => {
     },
     comingTitle: {
       fontSize: 15,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
       marginBottom: 4,
       textAlign: 'center',
     },
     comingDesc: {
       fontSize: 13,
       textAlign: 'center',
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
     },
     featureRow: {
       flexDirection: 'row',
@@ -279,7 +279,7 @@ const getStyles = (colors, isDarkMode) => {
     featureText: {
       flex: 1,
       fontSize: 13,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
     },
     purchaseBtnGradient: {
       width: '100%',
@@ -301,7 +301,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     purchaseBtnText: {
       fontSize: 15,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
       color: '#FFFFFF',
       letterSpacing: 0.5,
     },
@@ -314,7 +314,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     laterBtnText: {
       fontSize: 13,
-      fontFamily: 'Special_Elite_400Regular',
+      fontFamily: 'SpecialElite_400Regular',
     },
   });
 };

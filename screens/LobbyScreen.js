@@ -304,21 +304,21 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     backgroundColor: colors.surface, justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
   },
-  title: { fontSize: 20, fontFamily: 'Special_Elite_400Regular', letterSpacing: 3, color: isDarkMode ? '#fff' : '#000' },
+  title: { fontSize: 20, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3, color: isDarkMode ? '#fff' : '#000' },
   codeCard: {
     backgroundColor: colors.surface, borderRadius: 18, padding: 20,
     alignItems: 'center', borderWidth: 2, borderStyle: 'dashed', marginBottom: 24, gap: 8,
   },
-  codeLabel: { fontSize: 11, fontFamily: 'Special_Elite_400Regular', letterSpacing: 3, color: isDarkMode ? '#aaa' : colors.text },
-  codeText: { fontSize: 40, fontFamily: 'Special_Elite_400Regular', letterSpacing: 10, color: isDarkMode ? '#fff' : '#000' },
+  codeLabel: { fontSize: 11, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3, color: isDarkMode ? '#aaa' : colors.text },
+  codeText: { fontSize: 40, fontFamily: 'SpecialElite_400Regular', letterSpacing: 10, color: isDarkMode ? '#fff' : '#000' },
   shareBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
     backgroundColor: isDarkMode ? '#fff' : '#000',
     paddingVertical: 9, paddingHorizontal: 20, borderRadius: 20, marginTop: 4,
   },
-  shareBtnText: { color: isDarkMode ? '#000' : '#fff', fontSize: 13, fontFamily: 'Special_Elite_400Regular', letterSpacing: 1 },
+  shareBtnText: { color: isDarkMode ? '#000' : '#fff', fontSize: 13, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1 },
   section: { marginBottom: 22 },
-  sectionLabel: { fontSize: 11, fontFamily: 'Special_Elite_400Regular', letterSpacing: 3, color: isDarkMode ? '#aaa' : colors.text, marginBottom: 12 },
+  sectionLabel: { fontSize: 11, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3, color: isDarkMode ? '#aaa' : colors.text, marginBottom: 12 },
   playerList: { gap: 8 },
   playerRow: {
     flexDirection: 'row', alignItems: 'center',
@@ -326,12 +326,12 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     padding: 14, borderWidth: 1.5, borderColor: isDarkMode ? '#333' : '#000', gap: 10,
   },
   playerDot: { width: 10, height: 10, borderRadius: 5 },
-  playerName: { flex: 1, fontSize: 14, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? '#fff' : '#000' },
+  playerName: { flex: 1, fontSize: 14, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? '#fff' : '#000' },
   badges: { flexDirection: 'row', gap: 6 },
   badge: { backgroundColor: colors.primary, paddingVertical: 3, paddingHorizontal: 8, borderRadius: 10 },
-  badgeText: { color: '#fff', fontSize: 10, fontFamily: 'Special_Elite_400Regular' },
+  badgeText: { color: '#fff', fontSize: 10, fontFamily: 'SpecialElite_400Regular' },
   configLabel: {
-    fontSize: 11, fontFamily: 'Special_Elite_400Regular', letterSpacing: 2,
+    fontSize: 11, fontFamily: 'SpecialElite_400Regular', letterSpacing: 2,
     color: isDarkMode ? '#aaa' : colors.text, marginBottom: 6,
   },
   catChip: {
@@ -340,7 +340,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderColor: isDarkMode ? '#444' : '#000', marginRight: 8,
   },
   catChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
-  catChipText: { fontSize: 13, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? '#aaa' : colors.text },
+  catChipText: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? '#aaa' : colors.text },
   catChipTextActive: { color: '#fff' },
   configRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -352,9 +352,9 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     width: 32, height: 32, borderRadius: 8,
     backgroundColor: colors.primary, justifyContent: 'center', alignItems: 'center',
   },
-  stepBtnText: { color: '#fff', fontSize: 18, fontFamily: 'Special_Elite_400Regular', lineHeight: 22 },
+  stepBtnText: { color: '#fff', fontSize: 18, fontFamily: 'SpecialElite_400Regular', lineHeight: 22 },
   stepValue: {
-    fontSize: 16, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? '#fff' : '#000',
+    fontSize: 16, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? '#fff' : '#000',
     minWidth: 40, textAlign: 'center',
   },
   waitingText: {
@@ -368,11 +368,11 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     paddingVertical: 18, borderRadius: 14, borderWidth: 2,
     borderColor: isDarkMode ? '#fff' : '#000',
   },
-  startBtnText: { color: isDarkMode ? '#000' : '#fff', fontSize: 15, fontFamily: 'Special_Elite_400Regular', letterSpacing: 2 },
+  startBtnText: { color: isDarkMode ? '#000' : '#fff', fontSize: 15, fontFamily: 'SpecialElite_400Regular', letterSpacing: 2 },
   leaveBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     gap: 8, paddingVertical: 15, borderRadius: 14, borderWidth: 2,
     borderColor: isDarkMode ? '#ff1a1a' : '#000',
   },
-  leaveBtnText: { color: isDarkMode ? '#ff1a1a' : '#000', fontSize: 13, fontFamily: 'Special_Elite_400Regular' },
+  leaveBtnText: { color: isDarkMode ? '#ff1a1a' : '#000', fontSize: 13, fontFamily: 'SpecialElite_400Regular' },
 });

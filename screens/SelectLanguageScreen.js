@@ -129,7 +129,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     color: isDarkMode ? '#fff' : '#000',
     letterSpacing: 1,
     textShadowColor: isDarkMode ? colors.primary : 'transparent',
@@ -153,7 +153,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   languageName: {
     flex: 1,
     fontSize: 13,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     color: isDarkMode ? '#fff' : '#000',
   },
   selectedText: { color: isDarkMode ? '#fff' : '#000' },
@@ -165,5 +165,5 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderWidth: 2,
     borderColor: '#000',
   },
-  backButtonText: { color: '#fff', fontSize: 13, fontFamily: 'Special_Elite_400Regular', letterSpacing: 1 },
+  backButtonText: { color: '#fff', fontSize: 13, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1 },
 });

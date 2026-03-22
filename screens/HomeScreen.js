@@ -545,7 +545,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     backgroundColor: isDarkMode ? colors.primary : '#1a7ac7', borderRadius: 16,
   },
   title: {
-    fontSize: 48, fontFamily: 'Special_Elite_400Regular', color: '#fff', letterSpacing: 6,
+    fontSize: 48, fontFamily: 'SpecialElite_400Regular', color: '#fff', letterSpacing: 6,
     textShadowColor: isDarkMode ? colors.primary : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: isDarkMode ? 22 : 0,
@@ -563,7 +563,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     fontSize: 15,
     color: isDarkMode ? '#00ffff' : '#5b21b6',
     marginTop: 10, marginBottom: 16,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     letterSpacing: 3,
     textTransform: 'uppercase',
     textShadowColor: isDarkMode ? '#00ffff' : 'transparent',
@@ -573,7 +573,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   cursor: {
     color: isDarkMode ? '#00ffff' : '#5b21b6',
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
   },
   buttonContainer: { width: '100%', maxWidth: 320, gap: 8 },
   mainButton: {
@@ -587,7 +587,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     shadowOpacity: isDarkMode ? 0.5 : 0.2,
     shadowRadius: 18, elevation: 10,
   },
-  buttonText: { color: '#fff', fontSize: 16, fontFamily: 'Special_Elite_400Regular', letterSpacing: 3 },
+  buttonText: { color: '#fff', fontSize: 16, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3 },
   multiplayerBtn: {
     backgroundColor: isDarkMode ? colors.surface : 'rgba(255,255,255,0.45)',
     paddingVertical: 15, paddingHorizontal: 25,
@@ -602,13 +602,13 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   },
   secondaryButtonText: {
     color: isDarkMode ? '#fff' : '#0A4A47',
-    fontSize: 13, fontFamily: 'Special_Elite_400Regular', letterSpacing: 1,
+    fontSize: 13, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1,
     textAlign: 'center', flex: 1,
   },
   btnSlot: { width: 32, alignItems: 'center', justifyContent: 'center' },
   version: {
     marginTop: 24,
     color: isDarkMode ? '#ffffff44' : '#00000044',
-    fontSize: 12, letterSpacing: 2, fontFamily: 'Special_Elite_400Regular',
+    fontSize: 12, letterSpacing: 2, fontFamily: 'SpecialElite_400Regular',
   },
 });

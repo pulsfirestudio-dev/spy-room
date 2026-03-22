@@ -390,7 +390,7 @@ export default function OnboardingScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#050505', alignItems: 'center' },
   skipBtn: { alignSelf: 'flex-end', paddingHorizontal: 24, paddingTop: 12, paddingBottom: 4 },
-  skipText: { fontSize: 13, fontFamily: 'Special_Elite_400Regular', letterSpacing: 1 },
+  skipText: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1 },
   slide: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
   },
   slideTitle: {
     fontSize: 29,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
     letterSpacing: 2,
     textAlign: 'center',
     lineHeight: 38,
@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     lineHeight: 27,
-    fontFamily: 'Special_Elite_400Regular',
+    fontFamily: 'SpecialElite_400Regular',
   },
   dots: { flexDirection: 'row', gap: 6, marginBottom: 28 },
   dot: { height: 8, borderRadius: 4 },
@@ -438,5 +438,5 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     width: width - 64,
   },
-  nextText: { fontSize: 16, fontFamily: 'Special_Elite_400Regular', color: '#fff', letterSpacing: 2 },
+  nextText: { fontSize: 16, fontFamily: 'SpecialElite_400Regular', color: '#fff', letterSpacing: 2 },
 });
