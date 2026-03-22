@@ -6,9 +6,23 @@ import { useTheme } from '../context/ThemeContext';
 
 const { width } = Dimensions.get('window');
 
-export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, isPremium, onVote }) {
+const wt = {
+  en: { title: 'Weekly Categories', subtitle: 'New challenges every week', thisWeek: 'THIS WEEK', thisWeekName: 'Movie Celebrities', thisWeekDesc: 'Guess famous actors and directors!', voteTitle: 'Vote for Categories', voteDesc: "Help choose next week's topics", feature: 'Exclusive premium content', goPremium: 'Go Premium Now', notNow: 'Not now' },
+  lt: { title: 'Savaitės Kategorijos', subtitle: 'Nauji iššūkiai kiekvieną savaitę', thisWeek: 'ŠI SAVAITĖ', thisWeekName: 'Kino Žvaigždės', thisWeekDesc: 'Atspėk garsias aktorius ir režisierius!', voteTitle: 'Balsuoti už kategorijas', voteDesc: 'Padėkite pasirinkti kitos savaitės temas', feature: 'Išskirtinis premium turinys', goPremium: 'Gauti Premium', notNow: 'Ne dabar' },
+  es: { title: 'Categorías Semanales', subtitle: 'Nuevos retos cada semana', thisWeek: 'ESTA SEMANA', thisWeekName: 'Celebridades del Cine', thisWeekDesc: '¡Adivina actores y directores famosos!', voteTitle: 'Votar por categorías', voteDesc: 'Ayuda a elegir los temas de la próxima semana', feature: 'Contenido premium exclusivo', goPremium: 'Ir a Premium', notNow: 'Ahora no' },
+  fr: { title: 'Catégories Hebdomadaires', subtitle: 'Nouveaux défis chaque semaine', thisWeek: 'CETTE SEMAINE', thisWeekName: 'Célébrités du Cinéma', thisWeekDesc: 'Devinez des acteurs et réalisateurs célèbres !', voteTitle: 'Voter pour des catégories', voteDesc: 'Aidez à choisir les thèmes de la semaine prochaine', feature: 'Contenu premium exclusif', goPremium: 'Passer Premium', notNow: 'Pas maintenant' },
+  de: { title: 'Wöchentliche Kategorien', subtitle: 'Jede Woche neue Herausforderungen', thisWeek: 'DIESE WOCHE', thisWeekName: 'Film-Promis', thisWeekDesc: 'Rate berühmte Schauspieler und Regisseure!', voteTitle: 'Für Kategorien abstimmen', voteDesc: 'Hilf dabei, die Themen der nächsten Woche zu wählen', feature: 'Exklusiver Premium-Inhalt', goPremium: 'Jetzt Premium', notNow: 'Nicht jetzt' },
+  pl: { title: 'Tygodniowe Kategorie', subtitle: 'Nowe wyzwania każdego tygodnia', thisWeek: 'W TYM TYGODNIU', thisWeekName: 'Gwiazdy Kina', thisWeekDesc: 'Zgaduj znanych aktorów i reżyserów!', voteTitle: 'Głosuj na kategorie', voteDesc: 'Pomóż wybrać tematy na następny tydzień', feature: 'Ekskluzywna zawartość premium', goPremium: 'Zdobądź Premium', notNow: 'Nie teraz' },
+  pt: { title: 'Categorias Semanais', subtitle: 'Novos desafios toda semana', thisWeek: 'ESTA SEMANA', thisWeekName: 'Celebridades do Cinema', thisWeekDesc: 'Adivinhe atores e diretores famosos!', voteTitle: 'Votar em categorias', voteDesc: 'Ajude a escolher os temas da próxima semana', feature: 'Conteúdo premium exclusivo', goPremium: 'Ir para Premium', notNow: 'Agora não' },
+  it: { title: 'Categorie Settimanali', subtitle: 'Nuove sfide ogni settimana', thisWeek: 'QUESTA SETTIMANA', thisWeekName: 'Celebrità del Cinema', thisWeekDesc: 'Indovina attori e registi famosi!', voteTitle: 'Vota per le categorie', voteDesc: 'Aiuta a scegliere i temi della prossima settimana', feature: 'Contenuto premium esclusivo', goPremium: 'Vai a Premium', notNow: 'Non ora' },
+  nl: { title: 'Wekelijkse Categorieën', subtitle: 'Elke week nieuwe uitdagingen', thisWeek: 'DEZE WEEK', thisWeekName: 'Filmsterren', thisWeekDesc: 'Raad beroemde acteurs en regisseurs!', voteTitle: 'Stem op categorieën', voteDesc: 'Help de thema\'s van volgende week te kiezen', feature: 'Exclusieve premium-inhoud', goPremium: 'Ga naar Premium', notNow: 'Niet nu' },
+  ro: { title: 'Categorii Săptămânale', subtitle: 'Provocări noi în fiecare săptămână', thisWeek: 'SĂPTĂMÂNA ACEASTA', thisWeekName: 'Celebrități de Film', thisWeekDesc: 'Ghicește actori și regizori celebri!', voteTitle: 'Votează pentru categorii', voteDesc: 'Ajută la alegerea temelor pentru săptămâna viitoare', feature: 'Conținut premium exclusiv', goPremium: 'Mergi la Premium', notNow: 'Nu acum' },
+};
+
+export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, isPremium, onVote, language }) {
   const { colors, isDarkMode } = useTheme();
   const [selectedSection, setSelectedSection] = useState('thisWeek');
+  const t = wt[language] || wt.en;
 
   if (isPremium) return null;
 
@@ -59,8 +73,8 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
             </View>
 
             {/* Content */}
-            <Text style={[styles.title, { color: colors.text }]}>Weekly Categories</Text>
-            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>New challenges every week</Text>
+            <Text style={[styles.title, { color: colors.text }]}>{t.title}</Text>
+            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>{t.subtitle}</Text>
 
             {/* This Week's Category */}
             <TouchableOpacity
@@ -75,10 +89,10 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               ]}
             >
               <View style={styles.upcomingHeader}>
-                <Text style={[styles.upcomingLabel, { color: getAccentColor() }]}>THIS WEEK</Text>
+                <Text style={[styles.upcomingLabel, { color: getAccentColor() }]}>{t.thisWeek}</Text>
               </View>
-              <Text style={[styles.upcomingTitle, { color: colors.text }]}>Movie Celebrities</Text>
-              <Text style={[styles.upcomingDesc, { color: colors.textSecondary }]}>Guess famous actors and directors!</Text>
+              <Text style={[styles.upcomingTitle, { color: colors.text }]}>{t.thisWeekName}</Text>
+              <Text style={[styles.upcomingDesc, { color: colors.textSecondary }]}>{t.thisWeekDesc}</Text>
             </TouchableOpacity>
 
             {/* Vote for Categories */}
@@ -97,14 +111,14 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               activeOpacity={0.7}
             >
               <Ionicons name="people" size={28} color={selectedSection === 'vote' ? getAccentColor() : colors.text} style={{ marginBottom: 8 }} />
-              <Text style={[styles.comingTitle, { color: colors.text }]}>Vote for Categories</Text>
-              <Text style={[styles.comingDesc, { color: colors.textSecondary }]}>Help choose next week's topics</Text>
+              <Text style={[styles.comingTitle, { color: colors.text }]}>{t.voteTitle}</Text>
+              <Text style={[styles.comingDesc, { color: colors.textSecondary }]}>{t.voteDesc}</Text>
             </TouchableOpacity>
 
             {/* Features */}
             <View style={styles.featureRow}>
               <Text style={styles.featureIcon}>🔥</Text>
-              <Text style={[styles.featureText, { color: colors.text }]}>Exclusive premium content</Text>
+              <Text style={[styles.featureText, { color: colors.text }]}>{t.feature}</Text>
             </View>
 
             {/* Buttons */}
@@ -115,12 +129,12 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               style={styles.purchaseBtnGradient}
             >
               <TouchableOpacity style={styles.purchaseBtn} onPress={onPurchase}>
-                <Text style={styles.purchaseBtnText}>Go Premium Now</Text>
+                <Text style={styles.purchaseBtnText}>{t.goPremium}</Text>
               </TouchableOpacity>
             </LinearGradient>
 
             <TouchableOpacity style={[styles.laterBtn, { borderColor: getAccentColor() }]} onPress={onClose}>
-              <Text style={[styles.laterBtnText, { color: getAccentColor() }]}>Not now</Text>
+              <Text style={[styles.laterBtnText, { color: getAccentColor() }]}>{t.notNow}</Text>
             </TouchableOpacity>
           </View>
         </LinearGradient>

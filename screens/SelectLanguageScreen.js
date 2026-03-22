@@ -83,7 +83,7 @@ export default function SelectLanguageScreen({ navigation, route }) {
 
 const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { flex: 1, padding: 20, paddingTop: 20 },
+  content: { flex: 1, padding: 20, paddingTop: 10 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 40 },
   backButton: {
     width: 44,

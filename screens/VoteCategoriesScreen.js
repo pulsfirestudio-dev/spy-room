@@ -9,15 +9,37 @@ import { usePremium } from '../context/PremiumContext';
 
 const { width } = Dimensions.get('window');
 
-const VOTING_CATEGORIES = [
-  { id: 1, name: 'Sports Legends', emoji: '⚽', description: 'Famous athletes and sports icons' },
-  { id: 2, name: 'Movies & TV Shows', emoji: '🎬', description: 'Actors, directors, and characters' },
-];
+const vt = {
+  en: { back: '← Back', title: 'Vote for Category', chooseCategory: 'Choose a Category', totalVotes: (n) => `${n} total votes this week`, vote: 'Vote', voteSubmitted: 'Vote Submitted!', thankYou: 'Thanks for voting! To unlock all weekly categories and exclusive challenges, upgrade to Premium.', goPremium: 'Go Premium Now', notNow: 'Not now',
+    cats: [ { name: 'Sports Legends', desc: 'Famous athletes and sports icons' }, { name: 'Movies & TV Shows', desc: 'Actors, directors, and characters' } ] },
+  lt: { back: '← Atgal', title: 'Balsuoti už kategoriją', chooseCategory: 'Pasirinkite kategoriją', totalVotes: (n) => `${n} balsų šią savaitę`, vote: 'Balsuoti', voteSubmitted: 'Balsas Pateiktas!', thankYou: 'Ačiū už balsavimą! Norėdami atrakinti visas savaitės kategorijas, pereikite prie Premium.', goPremium: 'Gauti Premium', notNow: 'Ne dabar',
+    cats: [ { name: 'Sporto Legendos', desc: 'Garsūs sportininkai ir ikonos' }, { name: 'Filmai ir TV Laidos', desc: 'Aktoriai, režisieriai ir personažai' } ] },
+  es: { back: '← Atrás', title: 'Votar por Categoría', chooseCategory: 'Elige una Categoría', totalVotes: (n) => `${n} votos totales esta semana`, vote: 'Votar', voteSubmitted: '¡Voto Enviado!', thankYou: '¡Gracias por votar! Para desbloquear todas las categorías semanales, actualiza a Premium.', goPremium: 'Ir a Premium', notNow: 'Ahora no',
+    cats: [ { name: 'Leyendas del Deporte', desc: 'Atletas famosos e iconos del deporte' }, { name: 'Películas y Series', desc: 'Actores, directores y personajes' } ] },
+  fr: { back: '← Retour', title: 'Voter pour une Catégorie', chooseCategory: 'Choisissez une Catégorie', totalVotes: (n) => `${n} votes au total cette semaine`, vote: 'Voter', voteSubmitted: 'Vote Soumis !', thankYou: 'Merci pour votre vote ! Pour débloquer toutes les catégories hebdomadaires, passez à Premium.', goPremium: 'Passer Premium', notNow: 'Pas maintenant',
+    cats: [ { name: 'Légendes du Sport', desc: 'Athlètes et icônes sportives célèbres' }, { name: 'Films et Séries TV', desc: 'Acteurs, réalisateurs et personnages' } ] },
+  de: { back: '← Zurück', title: 'Für Kategorie Abstimmen', chooseCategory: 'Wähle eine Kategorie', totalVotes: (n) => `${n} Gesamtstimmen diese Woche`, vote: 'Abstimmen', voteSubmitted: 'Stimme Abgegeben!', thankYou: 'Danke für Ihre Stimme! Um alle wöchentlichen Kategorien zu entsperren, wechsle zu Premium.', goPremium: 'Jetzt Premium', notNow: 'Nicht jetzt',
+    cats: [ { name: 'Sport-Legenden', desc: 'Berühmte Athleten und Sportikonen' }, { name: 'Filme & TV-Serien', desc: 'Schauspieler, Regisseure und Charaktere' } ] },
+  pl: { back: '← Wróć', title: 'Głosuj na Kategorię', chooseCategory: 'Wybierz Kategorię', totalVotes: (n) => `${n} głosów w tym tygodniu`, vote: 'Głosuj', voteSubmitted: 'Głos Oddany!', thankYou: 'Dziękujemy za głosowanie! Aby odblokować wszystkie tygodniowe kategorie, przejdź na Premium.', goPremium: 'Zdobądź Premium', notNow: 'Nie teraz',
+    cats: [ { name: 'Legendy Sportu', desc: 'Znani sportowcy i ikony sportu' }, { name: 'Filmy i Seriale TV', desc: 'Aktorzy, reżyserzy i postacie' } ] },
+  pt: { back: '← Voltar', title: 'Votar por Categoria', chooseCategory: 'Escolha uma Categoria', totalVotes: (n) => `${n} votos totais esta semana`, vote: 'Votar', voteSubmitted: 'Voto Enviado!', thankYou: 'Obrigado por votar! Para desbloquear todas as categorias semanais, atualize para Premium.', goPremium: 'Ir para Premium', notNow: 'Agora não',
+    cats: [ { name: 'Lendas do Esporte', desc: 'Atletas famosos e ícones do esporte' }, { name: 'Filmes e Séries', desc: 'Atores, diretores e personagens' } ] },
+  it: { back: '← Indietro', title: 'Vota per la Categoria', chooseCategory: 'Scegli una Categoria', totalVotes: (n) => `${n} voti totali questa settimana`, vote: 'Vota', voteSubmitted: 'Voto Inviato!', thankYou: 'Grazie per aver votato! Per sbloccare tutte le categorie settimanali, passa a Premium.', goPremium: 'Vai a Premium', notNow: 'Non ora',
+    cats: [ { name: 'Leggende dello Sport', desc: 'Atleti famosi e icone sportive' }, { name: 'Film e Serie TV', desc: 'Attori, registi e personaggi' } ] },
+  nl: { back: '← Terug', title: 'Stem op Categorie', chooseCategory: 'Kies een Categorie', totalVotes: (n) => `${n} stemmen totaal deze week`, vote: 'Stem', voteSubmitted: 'Stem Uitgebracht!', thankYou: 'Bedankt voor je stem! Ontgrendel alle wekelijkse categorieën door te upgraden naar Premium.', goPremium: 'Ga naar Premium', notNow: 'Niet nu',
+    cats: [ { name: 'Sportlegenden', desc: 'Beroemde atleten en sportikonen' }, { name: 'Films en TV-series', desc: 'Acteurs, regisseurs en personages' } ] },
+  ro: { back: '← Înapoi', title: 'Votează pentru Categorie', chooseCategory: 'Alege o Categorie', totalVotes: (n) => `${n} voturi totale această săptămână`, vote: 'Votează', voteSubmitted: 'Vot Trimis!', thankYou: 'Mulțumim pentru vot! Pentru a debloca toate categoriile săptămânale, treci la Premium.', goPremium: 'Mergi la Premium', notNow: 'Nu acum',
+    cats: [ { name: 'Legende ale Sportului', desc: 'Atleți celebri și icoane sportive' }, { name: 'Filme și Seriale TV', desc: 'Actori, regizori și personaje' } ] },
+};
+
+export default function VoteCategoriesScreen({ navigation, route }) {
+  const lang = route.params?.language || 'en';
+  const t = vt[lang] || vt.en;
+  const VOTING_CATEGORIES = t.cats.map((c, i) => ({ id: i + 1, emoji: i === 0 ? '⚽' : '🎬', name: c.name, description: c.desc }));
 
 // Seeded community vote base counts
 const BASE_VOTES = { 1: 142, 2: 89 };
 
-export default function VoteCategoriesScreen({ navigation, route }) {
   const { colors, isDarkMode } = useTheme();
   const { purchasePremium, isPremium } = usePremium();
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -101,9 +123,9 @@ export default function VoteCategoriesScreen({ navigation, route }) {
         style={styles.header}
       >
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.backBtn}>← Back</Text>
+          <Text style={styles.backBtn}>{t.back}</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Vote for Category</Text>
+        <Text style={styles.headerTitle}>{t.title}</Text>
         <View style={{ width: 50 }} />
       </LinearGradient>
 
@@ -114,9 +136,9 @@ export default function VoteCategoriesScreen({ navigation, route }) {
       >
         {/* Title */}
         <View style={styles.titleSection}>
-          <Text style={[styles.title, { color: colors.text }]}>Choose a Category</Text>
+          <Text style={[styles.title, { color: colors.text }]}>{t.chooseCategory}</Text>
           <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-            {totalVotes} total votes this week
+            {t.totalVotes(totalVotes)}
           </Text>
         </View>
 
@@ -154,7 +176,7 @@ export default function VoteCategoriesScreen({ navigation, route }) {
                     end={{ x: 1, y: 1 }}
                     style={styles.smallVoteBtn}
                   >
-                    <Text style={styles.voteBtnText}>Vote</Text>
+                    <Text style={styles.voteBtnText}>{t.vote}</Text>
                   </LinearGradient>
                 </LinearGradient>
               </TouchableOpacity>
@@ -199,9 +221,9 @@ export default function VoteCategoriesScreen({ navigation, route }) {
               )}
 
               {/* Message */}
-              <Text style={[styles.promptTitle, { color: colors.text }]}>Vote Submitted!</Text>
+              <Text style={[styles.promptTitle, { color: colors.text }]}>{t.voteSubmitted}</Text>
               <Text style={[styles.promptMessage, { color: colors.textSecondary }]}>
-                Thanks for voting! To unlock all weekly categories and exclusive challenges, upgrade to Premium.
+                {t.thankYou}
               </Text>
 
               {/* Buttons */}
@@ -219,13 +241,13 @@ export default function VoteCategoriesScreen({ navigation, route }) {
                   {isLoading ? (
                     <ActivityIndicator color="#FFFFFF" size="small" />
                   ) : (
-                    <Text style={styles.purchaseBtnText}>Go Premium Now</Text>
+                    <Text style={styles.purchaseBtnText}>{t.goPremium}</Text>
                   )}
                 </TouchableOpacity>
               </LinearGradient>
 
               <TouchableOpacity style={[styles.skipBtn, { borderColor: getAccentColor() }]} onPress={handleSkip}>
-                <Text style={[styles.skipBtnText, { color: getAccentColor() }]}>Not now</Text>
+                <Text style={[styles.skipBtnText, { color: getAccentColor() }]}>{t.notNow}</Text>
               </TouchableOpacity>
             </View>
           </LinearGradient>

@@ -400,6 +400,13 @@ const premiumCategoriesLT = {
   ],
 };
 
+const categoryNameTranslations = {
+  'Everyday Objects': { lt: 'Kasdieniai daiktai', es: 'Objetos cotidianos', fr: 'Objets du quotidien', de: 'Alltagsgegenstände', pl: 'Codzienne przedmioty', pt: 'Objetos do cotidiano', it: 'Oggetti quotidiani', nl: 'Alledaagse voorwerpen', ro: 'Obiecte de zi cu zi' },
+  'Famous People':   { lt: 'Žymūs žmonės', es: 'Personas famosas', fr: 'Personnes célèbres', de: 'Berühmte Persönlichkeiten', pl: 'Sławne osoby', pt: 'Pessoas famosas', it: 'Personaggi famosi', nl: 'Beroemde mensen', ro: 'Persoane celebre' },
+  'Animals':         { lt: 'Gyvūnai', es: 'Animales', fr: 'Animaux', de: 'Tiere', pl: 'Zwierzęta', pt: 'Animais', it: 'Animali', nl: 'Dieren', ro: 'Animale' },
+  'Irish Slang':     { lt: 'Airių Slangas' },
+};
+
 const localSlangByLang = {
   es: {
     'Argot Español': [
@@ -594,6 +601,7 @@ const translations = {
     needMorePlayers: (n) => `Add ${n} more player${n === 1 ? '' : 's'} to start.`,
     maxPlayers: 'Max 12 players',
     gameModes: 'GAME MODES',
+    voteCategories: '🗳️ VOTE FOR CATEGORIES',
   },
   lt: {
     title: 'SUKURTI KAMBARĮ',
@@ -631,6 +639,7 @@ const translations = {
     needMorePlayers: (n) => `Pridėkite dar ${n} žaidėjus, kad galėtumėte žaisti.`,
     maxPlayers: 'Maks. 12 žaidėjų',
     gameModes: 'ŽAIDIMO REŽIMAI',
+    voteCategories: '🗳️ BALSUOTI UŽ KATEGORIJAS',
   },
   es: {
     title: 'CREAR SALA',
@@ -668,6 +677,7 @@ const translations = {
     needMorePlayers: (n) => `Añade ${n} jugador${n === 1 ? '' : 'es'} más para empezar.`,
     maxPlayers: 'Máx. 12 jugadores',
     gameModes: 'MODOS DE JUEGO',
+    voteCategories: '🗳️ VOTAR POR CATEGORÍAS',
   },
   fr: {
     title: 'CRÉER UNE SALLE',
@@ -705,6 +715,7 @@ const translations = {
     needMorePlayers: (n) => `Ajoutez ${n} joueur${n === 1 ? '' : 's'} pour commencer.`,
     maxPlayers: 'Max. 12 joueurs',
     gameModes: 'MODES DE JEU',
+    voteCategories: '🗳️ VOTER POUR DES CATÉGORIES',
   },
   de: {
     title: 'RAUM ERSTELLEN',
@@ -742,6 +753,7 @@ const translations = {
     needMorePlayers: (n) => `Füge noch ${n} Spieler${n === 1 ? '' : ''} hinzu.`,
     maxPlayers: 'Max. 12 Spieler',
     gameModes: 'SPIELMODI',
+    voteCategories: '🗳️ FÜR KATEGORIEN ABSTIMMEN',
   },
   pl: {
     title: 'UTWÓRZ POKÓJ',
@@ -779,6 +791,7 @@ const translations = {
     needMorePlayers: (n) => `Dodaj jeszcze ${n} graczy, aby zacząć.`,
     maxPlayers: 'Maks. 12 graczy',
     gameModes: 'TRYBY GRY',
+    voteCategories: '🗳️ GŁOSUJ NA KATEGORIE',
   },
   pt: {
     title: 'CRIAR SALA',
@@ -816,6 +829,7 @@ const translations = {
     needMorePlayers: (n) => `Adicione mais ${n} jogador${n === 1 ? '' : 'es'} para começar.`,
     maxPlayers: 'Máx. 12 jogadores',
     gameModes: 'MODOS DE JOGO',
+    voteCategories: '🗳️ VOTAR EM CATEGORIAS',
   },
   it: {
     title: 'CREA STANZA',
@@ -853,6 +867,7 @@ const translations = {
     needMorePlayers: (n) => `Aggiungi altri ${n} giocator${n === 1 ? 'e' : 'i'} per iniziare.`,
     maxPlayers: 'Max. 12 giocatori',
     gameModes: 'MODALITÀ DI GIOCO',
+    voteCategories: '🗳️ VOTA PER CATEGORIE',
   },
   nl: {
     title: 'KAMER AANMAKEN',
@@ -890,6 +905,7 @@ const translations = {
     needMorePlayers: (n) => `Voeg nog ${n} speler${n === 1 ? '' : 's'} toe om te starten.`,
     maxPlayers: 'Max. 12 spelers',
     gameModes: 'SPELMODI',
+    voteCategories: '🗳️ STEM OP CATEGORIEËN',
   },
   ro: {
     title: 'CREEAZĂ CAMERĂ',
@@ -927,6 +943,7 @@ const translations = {
     needMorePlayers: (n) => `Adaugă încă ${n} jucător${n === 1 ? '' : 'i'} pentru a începe.`,
     maxPlayers: 'Max. 12 jucători',
     gameModes: 'MODURI DE JOC',
+    voteCategories: '🗳️ VOTEAZĂ PENTRU CATEGORII',
   },
 };
 
@@ -938,10 +955,17 @@ export default function CreateRoomScreen({ navigation, route }) {
   const t = translations[lang];
 
   const baseFreeCategories = lang === 'lt' ? freeCategoriesLT : freeCategoriesEN;
-  const freeCategories = localSlangByLang[lang]
-    ? { ...baseFreeCategories, ...localSlangByLang[lang] }
-    : baseFreeCategories;
-  const premiumCategories = lang === 'lt' ? premiumCategoriesLT : premiumCategoriesEN;
+  const freeCategories = lang === 'en'
+    ? baseFreeCategories
+    : Object.fromEntries(Object.entries(baseFreeCategories).filter(([k]) => k !== 'Irish Slang'));
+  const basePremiumCategories = lang === 'lt' ? premiumCategoriesLT : premiumCategoriesEN;
+  const premiumCategories = localSlangByLang[lang]
+    ? { ...localSlangByLang[lang], ...basePremiumCategories }
+    : basePremiumCategories;
+  const getCategoryDisplayName = (cat) => {
+    if (cat === 'Random' || cat === 'Atsitiktinė') return `🎲 ${t.random}`;
+    return categoryNameTranslations[cat]?.[lang] || cat;
+  };
 
   const MIN_PLAYERS = 3;
   const MAX_PLAYERS = 12;
@@ -1021,7 +1045,7 @@ export default function CreateRoomScreen({ navigation, route }) {
 
   const handleWeeklyModalVote = () => {
     setShowWeeklyModal(false);
-    navigation.navigate('VoteCategories');
+    navigation.navigate('VoteCategories', { language: lang });
   };
 
   const startGame = () => {
@@ -1122,7 +1146,7 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
             {Object.keys(freeCategories).map((cat) => (
               <View key={cat} style={{ width: "100%" }}>
                 <AppButton
-                  title={cat === "Random" || cat === "Atsitiktinė" ? `🎲 ${t.random}` : cat}
+                  title={getCategoryDisplayName(cat)}
                   onPress={() => selectCategory(cat)}
                   activeOpacity={0.8}
                   style={[styles.categoryChip, selectedCategory === cat && styles.categoryChipActive]}
@@ -1132,6 +1156,16 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
             ))}
           </View>
         </View>
+
+        {/* Vote for Categories */}
+        <TouchableOpacity
+          style={styles.voteBtn}
+          onPress={() => navigation.navigate('VoteCategories', { language: lang })}
+          activeOpacity={0.8}
+        >
+          <Ionicons name="people" size={18} color={isDarkMode ? '#fff' : '#1d3557'} />
+          <Text style={styles.voteBtnText}>{t.voteCategories}</Text>
+        </TouchableOpacity>
 
         {/* Premium Categories */}
         <View style={styles.section}>
@@ -1293,6 +1327,7 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
         onPurchase={handleWeeklyModalPurchase}
         onVote={handleWeeklyModalVote}
         isPremium={isPremium}
+        language={lang}
       />
     </SafeAreaView>
   );
@@ -1303,7 +1338,7 @@ const getStyles = (colors, isDarkMode) => {
   const border = isDarkMode ? '#ffffff' : '#000000';
   return StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background },
-    scrollContent: { padding: 20, paddingTop: 36 },
+    scrollContent: { padding: 20, paddingTop: 10 },
     header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 30 },
     backButton: {
       width: 44, height: 44, borderRadius: 22, backgroundColor: isDarkMode ? colors.primary : colors.surface,
@@ -1333,6 +1368,14 @@ const getStyles = (colors, isDarkMode) => {
       borderWidth: 1, borderColor: isDarkMode ? '#444444' : '#cccccc', gap: 10,
     },
     playerName: { color: isDarkMode ? '#ffffff' : '#000000', fontWeight: '600', fontSize: 16 },
+    voteBtn: {
+      flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+      gap: 8, marginBottom: 24, paddingVertical: 14, paddingHorizontal: 20,
+      borderRadius: 12, borderWidth: 2,
+      borderColor: isDarkMode ? '#ffffff55' : '#1d355766',
+      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.07)' : 'rgba(29,53,87,0.08)',
+    },
+    voteBtnText: { fontSize: 14, fontWeight: '800', color: isDarkMode ? '#fff' : '#1d3557', letterSpacing: 1 },
     categoryList: { gap: 8 },
     categoryChip: {
       backgroundColor: colors.surface, paddingVertical: 14, paddingHorizontal: 20,

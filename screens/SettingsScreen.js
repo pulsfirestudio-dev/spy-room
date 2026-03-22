@@ -475,7 +475,7 @@ export default function SettingsScreen({ navigation, route }) {
 
 const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  scrollContent: { padding: 20, paddingTop: 36 },
+  scrollContent: { padding: 20, paddingTop: 10 },
   header: {
     flexDirection: 'row', alignItems: 'center',
     justifyContent: 'space-between', marginBottom: 32,

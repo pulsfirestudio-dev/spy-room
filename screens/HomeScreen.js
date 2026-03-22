@@ -45,7 +45,7 @@ const translations = {
   },
   fr: {
     title: 'SPY ROOM',
-    tagline: 'Mensonges. Indices. Chaos.',
+    tagline: 'Mensonges. Pistes. Chaos.',
     newGame: 'NOUVELLE PARTIE',
     howToPlay: 'COMMENT JOUER',
     rateAndShare: 'NOTER ET PARTAGER',
@@ -63,7 +63,7 @@ const translations = {
   },
   pl: {
     title: 'SPY ROOM',
-    tagline: 'Kłamstwa. Wskazówki. Chaos.',
+    tagline: 'Kłamstwa. Tropy. Chaos.',
     newGame: 'NOWA GRA',
     howToPlay: 'JAK GRAĆ',
     rateAndShare: 'OCEŃ I UDOSTĘPNIJ',
@@ -90,7 +90,7 @@ const translations = {
   },
   nl: {
     title: 'SPY ROOM',
-    tagline: 'Leugens. Aanwijzingen. Chaos.',
+    tagline: 'Leugens. Tips. Chaos.',
     newGame: 'NIEUW SPEL',
     howToPlay: 'HOE TE SPELEN',
     rateAndShare: 'BEOORDELEN & DELEN',
@@ -361,7 +361,7 @@ export default function HomeScreen({ navigation, route }) {
   const glitchRedX = glitchX.interpolate({ inputRange: [-10, 10], outputRange: [-14, 6] });
   const glitchCyanX = glitchX.interpolate({ inputRange: [-10, 10], outputRange: [6, -14] });
 
-  const styles = getStyles(colors, isDarkMode, lang);
+  const styles = getStyles(colors, isDarkMode);
   const particles = Array.from({ length: 22 }, (_, i) => (
     <Particle key={i} index={i} delay={i * 380} colors={colors} isDarkMode={isDarkMode} screenWidth={width} screenHeight={height} />
   ));
@@ -448,7 +448,7 @@ export default function HomeScreen({ navigation, route }) {
           </Animated.View>
 
           {/* Typewriter tagline */}
-          <Text style={styles.tagline}>{taglineDisplay}</Text>
+          <Text style={styles.tagline} numberOfLines={1} adjustsFontSizeToFit>{taglineDisplay}</Text>
 
         </Animated.View>
 
@@ -510,7 +510,7 @@ export default function HomeScreen({ navigation, route }) {
   );
 }
 
-const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
+const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   gradientBg: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
   particlesContainer: { position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' },
@@ -560,11 +560,11 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     textShadowColor: 'transparent', zIndex: 0,
   },
   tagline: {
-    fontSize: lang === 'lt' ? 13 : 17,
+    fontSize: 17,
     color: isDarkMode ? '#00ffff' : '#5b21b6',
     marginTop: 10, marginBottom: 16,
     fontWeight: '700',
-    letterSpacing: lang === 'lt' ? 2 : 4,
+    letterSpacing: 3,
     textTransform: 'uppercase',
     textShadowColor: isDarkMode ? '#00ffff' : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
