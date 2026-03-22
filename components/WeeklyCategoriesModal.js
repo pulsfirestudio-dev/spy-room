@@ -40,7 +40,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
           end={{ x: 1, y: 1 }}
           style={styles.gradientBorder}
         >
-          <View style={[styles.modalContainer, { backgroundColor: colors.background }]}>
+          <View style={[styles.modalContainer, { backgroundColor: isDarkMode ? '#1c1c1e' : colors.background }]}>
             {/* Close button */}
             <TouchableOpacity style={[styles.closeBtn, { backgroundColor: getAccentColor() + '20' }]} onPress={onClose}>
               <Text style={[styles.closeBtnText, { color: getAccentColor() }]}>✕</Text>
@@ -69,8 +69,8 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               style={[
                 styles.upcomingCard,
                 {
-                  backgroundColor: getAccentColor() + '10',
-                  borderColor: selectedSection === 'thisWeek' ? getAccentColor() : colors.surface,
+                  backgroundColor: isDarkMode ? getAccentColor() + '30' : getAccentColor() + '10',
+                  borderColor: selectedSection === 'thisWeek' ? getAccentColor() : isDarkMode ? '#444' : colors.surface,
                 },
               ]}
             >
@@ -86,8 +86,8 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               style={[
                 styles.comingCard,
                 {
-                  backgroundColor: colors.surface,
-                  borderColor: selectedSection === 'vote' ? getAccentColor() : isDarkMode ? '#444' : '#bbb',
+                  backgroundColor: isDarkMode ? '#2a2a2a' : colors.surface,
+                  borderColor: selectedSection === 'vote' ? getAccentColor() : isDarkMode ? '#555' : '#bbb',
                 },
               ]}
               onPress={() => {

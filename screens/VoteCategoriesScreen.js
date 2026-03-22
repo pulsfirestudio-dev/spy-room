@@ -37,7 +37,7 @@ export default function VoteCategoriesScreen({ navigation, route }) {
 
   const getGradientColors = () => {
     if (isDarkMode) {
-      return ['#ff1a1a', '#aa0000', '#550000'];
+      return ['#ff3333', '#cc1111', '#991111'];
     } else {
       return ['#1d3557', '#1a7ac7'];
     }
@@ -45,7 +45,7 @@ export default function VoteCategoriesScreen({ navigation, route }) {
 
   const getCardGradientColors = () => {
     if (isDarkMode) {
-      return ['#1a0000', '#2d0505', '#1a0000'];
+      return ['#2d0808', '#4a1010', '#2d0808'];
     } else {
       return ['#1d3557', '#2c5f8a'];
     }
@@ -252,8 +252,11 @@ const getStyles = (colors, isDarkMode) => {
     categoriesContainer: { paddingHorizontal: 16, paddingVertical: 8, gap: 14 },
     cardWrapper: {
       borderRadius: 16, overflow: 'hidden',
-      shadowColor: '#9B00FF', shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.3, shadowRadius: 8, elevation: 8,
+      borderWidth: 2,
+      borderColor: isDarkMode ? '#ff3333' : 'transparent',
+      shadowColor: isDarkMode ? '#ff1a1a' : '#1d3557',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.4, shadowRadius: 8, elevation: 8,
     },
     smallCategoryCard: {
       padding: 18, flexDirection: 'row',
