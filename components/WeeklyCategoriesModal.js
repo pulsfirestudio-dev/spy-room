@@ -182,7 +182,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     closeBtnText: {
       fontSize: 18,
-      fontWeight: '700',
+      fontFamily: 'Orbitron_700Bold',
     },
     iconContainer: {
       marginBottom: 18,
@@ -204,7 +204,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     title: {
       fontSize: 32,
-      fontWeight: '900',
+      fontFamily: 'Orbitron_900Black',
       marginBottom: 6,
       textAlign: 'center',
       letterSpacing: -0.5,
@@ -213,7 +213,7 @@ const getStyles = (colors, isDarkMode) => {
       fontSize: 15,
       marginBottom: 20,
       textAlign: 'center',
-      fontWeight: '500',
+      fontFamily: 'Orbitron_400Regular',
     },
     upcomingCard: {
       width: '100%',
@@ -230,7 +230,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     upcomingLabel: {
       fontSize: 10,
-      fontWeight: '800',
+      fontFamily: 'Orbitron_700Bold',
       letterSpacing: 1.5,
     },
     upcomingEmoji: {
@@ -238,12 +238,13 @@ const getStyles = (colors, isDarkMode) => {
     },
     upcomingTitle: {
       fontSize: 19,
-      fontWeight: '800',
+      fontFamily: 'Orbitron_700Bold',
       marginBottom: 6,
     },
     upcomingDesc: {
       fontSize: 13,
       lineHeight: 18,
+      fontFamily: 'Orbitron_400Regular',
     },
     comingCard: {
       width: '100%',
@@ -255,13 +256,14 @@ const getStyles = (colors, isDarkMode) => {
     },
     comingTitle: {
       fontSize: 17,
-      fontWeight: '800',
+      fontFamily: 'Orbitron_700Bold',
       marginBottom: 4,
       textAlign: 'center',
     },
     comingDesc: {
       fontSize: 13,
       textAlign: 'center',
+      fontFamily: 'Orbitron_400Regular',
     },
     featureRow: {
       flexDirection: 'row',
@@ -277,7 +279,7 @@ const getStyles = (colors, isDarkMode) => {
     featureText: {
       flex: 1,
       fontSize: 14,
-      fontWeight: '500',
+      fontFamily: 'Orbitron_400Regular',
     },
     purchaseBtnGradient: {
       width: '100%',
@@ -299,7 +301,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     purchaseBtnText: {
       fontSize: 17,
-      fontWeight: '800',
+      fontFamily: 'Orbitron_700Bold',
       color: '#FFFFFF',
       letterSpacing: 0.5,
     },
@@ -312,7 +314,7 @@ const getStyles = (colors, isDarkMode) => {
     },
     laterBtnText: {
       fontSize: 15,
-      fontWeight: '600',
+      fontFamily: 'Orbitron_700Bold',
     },
   });
 };

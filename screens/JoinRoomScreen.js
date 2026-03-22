@@ -149,14 +149,14 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     backgroundColor: colors.surface, justifyContent: 'center', alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
   },
-  title: { fontSize: 22, fontWeight: '900', color: isDarkMode ? '#fff' : '#000', letterSpacing: 2 },
+  title: { fontSize: 22, fontFamily: 'Orbitron_900Black', color: isDarkMode ? '#fff' : '#000', letterSpacing: 2 },
   form: { gap: 24, marginBottom: 36 },
   inputGroup: { gap: 8 },
-  label: { fontSize: 12, fontWeight: '800', color: isDarkMode ? '#aaa' : colors.text, letterSpacing: 2 },
+  label: { fontSize: 12, fontFamily: 'Orbitron_700Bold', color: isDarkMode ? '#aaa' : colors.text, letterSpacing: 2 },
   input: {
     backgroundColor: colors.surface, borderRadius: 14, padding: 18,
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
-    fontSize: 20, color: isDarkMode ? '#fff' : '#000', fontWeight: '700', letterSpacing: 4,
+    fontSize: 20, color: isDarkMode ? '#fff' : '#000', fontFamily: 'Orbitron_700Bold', letterSpacing: 4,
   },
   joinButton: {
     backgroundColor: isDarkMode ? '#fff' : colors.primary,
@@ -164,11 +164,11 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     paddingVertical: 18, borderRadius: 14, marginBottom: 14, gap: 10,
     borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000',
   },
-  joinButtonText: { color: '#fff', fontSize: 17, fontWeight: '900', letterSpacing: 2 },
+  joinButtonText: { color: '#fff', fontSize: 17, fontFamily: 'Orbitron_900Black', letterSpacing: 2 },
   backButtonLarge: {
     backgroundColor: colors.surface, paddingVertical: 15,
     borderRadius: 14, alignItems: 'center',
     borderWidth: 2, borderColor: isDarkMode ? '#333' : '#000',
   },
-  backButtonText: { color: isDarkMode ? '#aaa' : colors.text, fontSize: 15, fontWeight: '700', letterSpacing: 1 },
+  backButtonText: { color: isDarkMode ? '#aaa' : colors.text, fontSize: 15, fontFamily: 'Orbitron_700Bold', letterSpacing: 1 },
 });

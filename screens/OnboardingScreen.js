@@ -390,7 +390,7 @@ export default function OnboardingScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#050505', alignItems: 'center' },
   skipBtn: { alignSelf: 'flex-end', paddingHorizontal: 24, paddingTop: 12, paddingBottom: 4 },
-  skipText: { fontSize: 14, fontWeight: '700', letterSpacing: 1 },
+  skipText: { fontSize: 14, fontFamily: 'Orbitron_700Bold', letterSpacing: 1 },
   slide: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
   },
   slideTitle: {
     fontSize: 32,
-    fontWeight: '900',
+    fontFamily: 'Orbitron_900Black',
     letterSpacing: 2,
     textAlign: 'center',
     lineHeight: 38,
@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     lineHeight: 27,
-    fontWeight: '500',
+    fontFamily: 'Orbitron_400Regular',
   },
   dots: { flexDirection: 'row', gap: 6, marginBottom: 28 },
   dot: { height: 8, borderRadius: 4 },
@@ -438,5 +438,5 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     width: width - 64,
   },
-  nextText: { fontSize: 18, fontWeight: '900', color: '#fff', letterSpacing: 2 },
+  nextText: { fontSize: 18, fontFamily: 'Orbitron_900Black', color: '#fff', letterSpacing: 2 },
 });

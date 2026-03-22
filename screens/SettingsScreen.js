@@ -489,11 +489,11 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderColor: isDarkMode ? '#fff' : colors.text,
   },
   title: {
-    fontSize: 24, fontWeight: '900',
+    fontSize: 24, fontFamily: 'Orbitron_900Black',
     color: isDarkMode ? '#fff' : '#000', letterSpacing: 3,
   },
   sectionTitle: {
-    fontSize: 13, fontWeight: '800', letterSpacing: 3,
+    fontSize: 13, fontFamily: 'Orbitron_700Bold', letterSpacing: 3,
     color: isDarkMode ? '#aaa' : colors.text, marginBottom: 10, marginLeft: 4,
   },
   card: {
@@ -507,12 +507,12 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   rowLeft: { flexDirection: 'row', alignItems: 'center', flex: 1 },
   rowIcon: { marginRight: 14 },
   rowLabel: {
-    fontSize: 18, fontWeight: '700',
+    fontSize: 18, fontFamily: 'Orbitron_700Bold',
     color: isDarkMode ? '#fff' : '#000',
   },
   rowSub: {
     fontSize: 14, color: isDarkMode ? '#888' : colors.textSecondary,
-    marginTop: 2,
+    marginTop: 2, fontFamily: 'Orbitron_400Regular',
   },
   rowRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   divider: {
@@ -542,7 +542,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   segmentLast: { borderLeftWidth: 1, borderColor: isDarkMode ? '#333' : '#ccc' },
   segmentLabel: {
     fontSize: 13,
-    fontWeight: '700',
+    fontFamily: 'Orbitron_700Bold',
     color: isDarkMode ? '#aaa' : colors.text,
   },
 });
