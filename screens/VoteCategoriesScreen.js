@@ -37,22 +37,22 @@ export default function VoteCategoriesScreen({ navigation, route }) {
 
   const getGradientColors = () => {
     if (isDarkMode) {
-      return ['#9B00FF', '#CC0055', '#FF4500'];
+      return ['#ff1a1a', '#aa0000', '#550000'];
     } else {
-      return ['#7B00E0', '#C2005A', '#FF2200'];
+      return ['#1d3557', '#1a7ac7'];
     }
   };
 
   const getCardGradientColors = () => {
     if (isDarkMode) {
-      return ['#2D0060', '#6A0080', '#3A0060'];
+      return ['#1a0000', '#2d0505', '#1a0000'];
     } else {
-      return ['#7B00E0', '#A020F0', '#6600CC'];
+      return ['#1d3557', '#2c5f8a'];
     }
   };
 
   const getAccentColor = () => {
-    return isDarkMode ? '#CC0055' : '#C2005A';
+    return isDarkMode ? '#ff1a1a' : '#e63946';
   };
 
   const totalVotes = Object.values(voteCounts).reduce((a, b) => a + b, 0);
@@ -149,7 +149,7 @@ export default function VoteCategoriesScreen({ navigation, route }) {
                   </View>
 
                   <LinearGradient
-                    colors={['#FF4500', '#CC0055']}
+                    colors={isDarkMode ? ['#ff1a1a', '#cc0000'] : ['#e63946', '#c0392b']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={styles.smallVoteBtn}
