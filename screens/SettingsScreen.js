@@ -15,8 +15,10 @@ const translations = {
   en: {
     title: 'SETTINGS',
     appearance: 'APPEARANCE',
-    theme: 'Dark Mode',
-    themeSub: 'Switch between dark and light',
+    theme: 'Theme',
+    themeDark: 'Dark',
+    themeLight: 'Light',
+    themeSystem: 'System',
     audio: 'AUDIO',
     sound: 'Sound Effects',
     soundSub: 'Beeps, buzzer, spy sting',
@@ -38,8 +40,10 @@ const translations = {
   lt: {
     title: 'NUSTATYMAI',
     appearance: 'IŠVAIZDA',
-    theme: 'Tamsus režimas',
-    themeSub: 'Keisti tarp tamsaus ir šviesaus',
+    theme: 'Tema',
+    themeDark: 'Tamsi',
+    themeLight: 'Šviesi',
+    themeSystem: 'Sistema',
     audio: 'GARSAS',
     sound: 'Garso efektai',
     soundSub: 'Pyptelėjimai, sirena, šnipo skambutis',
@@ -61,7 +65,7 @@ const translations = {
 };
 
 export default function SettingsScreen({ navigation, route }) {
-  const { colors, isDarkMode, toggleTheme } = useTheme();
+  const { colors, isDarkMode, themeMode, setThemeMode } = useTheme();
   const { soundEnabled, setSoundEnabled } = useSettings();
   const { isPremium, isLoading, restorePurchases, purchasePremium } = usePremium();
   const lang = route.params?.language || 'en';
@@ -104,6 +108,37 @@ export default function SettingsScreen({ navigation, route }) {
     </TouchableOpacity>
   );
 
+  const ThemeSegment = () => {
+    const options = [
+      { key: 'dark', label: t.themeDark, icon: 'moon' },
+      { key: 'system', label: t.themeSystem, icon: 'phone-portrait-outline' },
+      { key: 'light', label: t.themeLight, icon: 'sunny' },
+    ];
+    return (
+      <View style={styles.segment}>
+        {options.map(({ key, label, icon }, idx) => {
+          const active = themeMode === key;
+          return (
+            <TouchableOpacity
+              key={key}
+              style={[
+                styles.segmentBtn,
+                active && { backgroundColor: colors.primary },
+                idx === 0 && styles.segmentFirst,
+                idx === options.length - 1 && styles.segmentLast,
+              ]}
+              onPress={() => setThemeMode(key)}
+              activeOpacity={0.8}
+            >
+              <Ionicons name={icon} size={16} color={active ? '#fff' : isDarkMode ? '#aaa' : colors.text} />
+              <Text style={[styles.segmentLabel, active && { color: '#fff' }]}>{label}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
+  };
+
   const handleUnlockPremium = async () => {
     if (!isPremium) await purchasePremium();
   };
@@ -136,13 +171,13 @@ export default function SettingsScreen({ navigation, route }) {
         {/* Appearance */}
         <Text style={styles.sectionTitle}>{t.appearance}</Text>
         <View style={[styles.card, { borderColor: border }]}>
-          <SettingRow
-            icon={isDarkMode ? 'moon' : 'sunny'}
-            label={t.theme}
-            subtitle={t.themeSub}
-            value={isDarkMode}
-            onValueChange={toggleTheme}
-          />
+          <View style={styles.row}>
+            <View style={styles.rowLeft}>
+              <Ionicons name="contrast-outline" size={22} color={isDarkMode ? '#fff' : '#000'} style={styles.rowIcon} />
+              <Text style={styles.rowLabel}>{t.theme}</Text>
+            </View>
+          </View>
+          <ThemeSegment />
         </View>
 
         {/* Audio */}
@@ -285,4 +320,29 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     marginHorizontal: 16,
   },
   flagText: { fontSize: 22 },
+  segment: {
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    marginBottom: 14,
+    borderRadius: 10,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: isDarkMode ? '#333' : '#ccc',
+  },
+  segmentBtn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    backgroundColor: 'transparent',
+  },
+  segmentFirst: { borderRightWidth: 1, borderColor: isDarkMode ? '#333' : '#ccc' },
+  segmentLast: { borderLeftWidth: 1, borderColor: isDarkMode ? '#333' : '#ccc' },
+  segmentLabel: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: isDarkMode ? '#aaa' : colors.text,
+  },
 });
