@@ -39,7 +39,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
   };
 
   const styles = getStyles(colors, isDarkMode);
-  const ltFont = (size) => language === 'lt' ? { fontFamily: 'serif', fontSize: size - 2 } : {};
+  const ltFont = (size) => language === 'lt' ? { fontFamily: 'SpecialElite_400Regular', fontSize: size - 2 } : {};
 
   return (
     <Modal

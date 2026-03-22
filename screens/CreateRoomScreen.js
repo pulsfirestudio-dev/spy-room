@@ -601,7 +601,7 @@ const translations = {
     needMorePlayers: (n) => `Add ${n} more player${n === 1 ? '' : 's'} to start.`,
     maxPlayers: 'Max 12 players',
     gameModes: 'GAME MODES',
-    voteCategories: '🗳️ VOTE FOR CATEGORIES',
+    voteCategories: 'VOTE FOR CATEGORIES',
   },
   lt: {
     title: 'SUKURTI KAMBARĮ',
@@ -639,7 +639,7 @@ const translations = {
     needMorePlayers: (n) => `Pridėkite dar ${n} žaidėjus, kad galėtumėte žaisti.`,
     maxPlayers: 'Maks. 12 žaidėjų',
     gameModes: 'ŽAIDIMO REŽIMAI',
-    voteCategories: '🗳️ BALSUOTI UŽ KATEGORIJAS',
+    voteCategories: 'BALSUOTI UŽ KATEGORIJAS',
   },
   es: {
     title: 'CREAR SALA',
@@ -677,7 +677,7 @@ const translations = {
     needMorePlayers: (n) => `Añade ${n} jugador${n === 1 ? '' : 'es'} más para empezar.`,
     maxPlayers: 'Máx. 12 jugadores',
     gameModes: 'MODOS DE JUEGO',
-    voteCategories: '🗳️ VOTAR POR CATEGORÍAS',
+    voteCategories: 'VOTAR POR CATEGORÍAS',
   },
   fr: {
     title: 'CRÉER UNE SALLE',
@@ -715,7 +715,7 @@ const translations = {
     needMorePlayers: (n) => `Ajoutez ${n} joueur${n === 1 ? '' : 's'} pour commencer.`,
     maxPlayers: 'Max. 12 joueurs',
     gameModes: 'MODES DE JEU',
-    voteCategories: '🗳️ VOTER POUR DES CATÉGORIES',
+    voteCategories: 'VOTER POUR DES CATÉGORIES',
   },
   de: {
     title: 'RAUM ERSTELLEN',
@@ -753,7 +753,7 @@ const translations = {
     needMorePlayers: (n) => `Füge noch ${n} Spieler${n === 1 ? '' : ''} hinzu.`,
     maxPlayers: 'Max. 12 Spieler',
     gameModes: 'SPIELMODI',
-    voteCategories: '🗳️ FÜR KATEGORIEN ABSTIMMEN',
+    voteCategories: 'FÜR KATEGORIEN ABSTIMMEN',
   },
   pl: {
     title: 'UTWÓRZ POKÓJ',
@@ -791,7 +791,7 @@ const translations = {
     needMorePlayers: (n) => `Dodaj jeszcze ${n} graczy, aby zacząć.`,
     maxPlayers: 'Maks. 12 graczy',
     gameModes: 'TRYBY GRY',
-    voteCategories: '🗳️ GŁOSUJ NA KATEGORIE',
+    voteCategories: 'GŁOSUJ NA KATEGORIE',
   },
   pt: {
     title: 'CRIAR SALA',
@@ -829,7 +829,7 @@ const translations = {
     needMorePlayers: (n) => `Adicione mais ${n} jogador${n === 1 ? '' : 'es'} para começar.`,
     maxPlayers: 'Máx. 12 jogadores',
     gameModes: 'MODOS DE JOGO',
-    voteCategories: '🗳️ VOTAR EM CATEGORIAS',
+    voteCategories: 'VOTAR EM CATEGORIAS',
   },
   it: {
     title: 'CREA STANZA',
@@ -867,7 +867,7 @@ const translations = {
     needMorePlayers: (n) => `Aggiungi altri ${n} giocator${n === 1 ? 'e' : 'i'} per iniziare.`,
     maxPlayers: 'Max. 12 giocatori',
     gameModes: 'MODALITÀ DI GIOCO',
-    voteCategories: '🗳️ VOTA PER CATEGORIE',
+    voteCategories: 'VOTA PER CATEGORIE',
   },
   nl: {
     title: 'KAMER AANMAKEN',
@@ -905,7 +905,7 @@ const translations = {
     needMorePlayers: (n) => `Voeg nog ${n} speler${n === 1 ? '' : 's'} toe om te starten.`,
     maxPlayers: 'Max. 12 spelers',
     gameModes: 'SPELMODI',
-    voteCategories: '🗳️ STEM OP CATEGORIEËN',
+    voteCategories: 'STEM OP CATEGORIEËN',
   },
   ro: {
     title: 'CREEAZĂ CAMERĂ',
@@ -943,7 +943,7 @@ const translations = {
     needMorePlayers: (n) => `Adaugă încă ${n} jucător${n === 1 ? '' : 'i'} pentru a începe.`,
     maxPlayers: 'Max. 12 jucători',
     gameModes: 'MODURI DE JOC',
-    voteCategories: '🗳️ VOTEAZĂ PENTRU CATEGORII',
+    voteCategories: 'VOTEAZĂ PENTRU CATEGORII',
   },
 };
 
@@ -1370,12 +1370,17 @@ const getStyles = (colors, isDarkMode) => {
     playerName: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'SpecialElite_400Regular', fontSize: 14 },
     voteBtn: {
       flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      marginBottom: 24, paddingVertical: 12, paddingHorizontal: 20,
-      borderRadius: 12, borderWidth: 2,
-      borderColor: isDarkMode ? '#ffffff55' : '#1d355766',
-      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.07)' : 'rgba(29,53,87,0.08)',
+      marginBottom: 24, paddingVertical: 14, paddingHorizontal: 20,
+      borderRadius: 14, borderWidth: 3,
+      borderColor: colors.primary,
+      backgroundColor: isDarkMode ? colors.primary + '22' : colors.primary + '15',
+      shadowColor: colors.primary,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.4,
+      shadowRadius: 10,
+      elevation: 6,
     },
-    voteBtnNew: { fontSize: 10, fontFamily: 'SpecialElite_400Regular', color: colors.primary, letterSpacing: 3, marginBottom: 2 },
+    voteBtnNew: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: colors.primary, letterSpacing: 4, marginBottom: 3 },
     voteBtnText: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? '#fff' : '#1d3557', letterSpacing: 1 },
     categoryList: { gap: 8 },
     categoryChip: {

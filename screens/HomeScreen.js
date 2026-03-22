@@ -473,7 +473,7 @@ export default function HomeScreen({ navigation, route }) {
             secondary
           >
             <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
-            <Text style={styles.secondaryButtonText}>{t.howToPlay}</Text>
+            <Text style={styles.secondaryButtonText} numberOfLines={1} adjustsFontSizeToFit>{t.howToPlay}</Text>
             <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
@@ -485,7 +485,7 @@ export default function HomeScreen({ navigation, route }) {
             secondary
           >
             <View style={styles.btnSlot}><Ionicons name="people-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
-            <Text style={styles.secondaryButtonText}>{t.multiplayer}</Text>
+            <Text style={styles.secondaryButtonText} numberOfLines={1} adjustsFontSizeToFit>{t.multiplayer}</Text>
             <View style={styles.btnSlot}><Ionicons name="wifi" size={17} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
@@ -497,7 +497,7 @@ export default function HomeScreen({ navigation, route }) {
             secondary
           >
             <View style={styles.btnSlot}><Ionicons name="star-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
-            <Text style={styles.secondaryButtonText}>{t.rateAndShare}</Text>
+            <Text style={styles.secondaryButtonText} numberOfLines={1} adjustsFontSizeToFit>{t.rateAndShare}</Text>
             <View style={styles.btnSlot}><Ionicons name="share-social-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
