@@ -76,7 +76,6 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
             >
               <View style={styles.upcomingHeader}>
                 <Text style={[styles.upcomingLabel, { color: getAccentColor() }]}>THIS WEEK</Text>
-                <Text style={styles.upcomingEmoji}>⭐</Text>
               </View>
               <Text style={[styles.upcomingTitle, { color: colors.text }]}>Movie Celebrities</Text>
               <Text style={[styles.upcomingDesc, { color: colors.textSub }]}>Guess famous actors and directors!</Text>
@@ -88,7 +87,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
                 styles.comingCard,
                 {
                   backgroundColor: colors.surface,
-                  borderColor: selectedSection === 'vote' ? getAccentColor() : colors.surface,
+                  borderColor: selectedSection === 'vote' ? getAccentColor() : isDarkMode ? '#444' : '#bbb',
                 },
               ]}
               onPress={() => {
