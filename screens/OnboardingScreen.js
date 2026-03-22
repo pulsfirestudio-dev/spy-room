@@ -15,44 +15,52 @@ const { width } = Dimensions.get('window');
 const slides = {
   en: [
     {
-      emoji: '🕵️',
+      icon: 'eye',
+      iconBg: ['#c0392b', '#e74c3c'],
       title: 'WELCOME TO\nSPY ROOM',
       text: 'One player is the Spy. Everyone else shares a secret word. Can you blend in... or sniff out the imposter?',
     },
     {
-      emoji: '🎮',
+      icon: 'people',
+      iconBg: ['#1a6b8a', '#2196a8'],
       title: 'GATHER YOUR\nCREW',
       text: '3 to 12 players. Each round, one Spy is secretly chosen. Only they don\'t know the secret word.',
     },
     {
-      emoji: '💬',
+      icon: 'chatbubbles',
+      iconBg: ['#6a1b9a', '#9c27b0'],
       title: 'CLUES &\nVOTING',
       text: 'Take turns giving clues about the word. Then vote on who you think is the Spy. Choose wisely — the Spy is listening.',
     },
     {
-      emoji: '🏆',
+      icon: 'game-controller',
+      iconBg: ['#e65100', '#f57c00'],
       title: 'YOU\'RE\nREADY!',
       text: 'Agents win by catching the Spy. The Spy wins by fooling everyone. Good luck, Agent.',
     },
   ],
   lt: [
     {
-      emoji: '🕵️',
+      icon: 'eye',
+      iconBg: ['#c0392b', '#e74c3c'],
       title: 'SVEIKI\nSPY ROOM',
       text: 'Vienas žaidėjas yra Šnipas. Visi kiti žino slaptą žodį. Ar sugebėsite apsimesti... arba pagauti šnipą?',
     },
     {
-      emoji: '🎮',
+      icon: 'people',
+      iconBg: ['#1a6b8a', '#2196a8'],
       title: 'SURINKITE\nKOMANDĄ',
       text: '3–12 žaidėjų. Kiekvieną ratą slapta išrenkamas vienas Šnipas. Tik jis nežino slapto žodžio.',
     },
     {
-      emoji: '💬',
+      icon: 'chatbubbles',
+      iconBg: ['#6a1b9a', '#9c27b0'],
       title: 'UŽUOMINOS\nIR BALSAVIMAS',
       text: 'Eikite ratu ir duokite užuominas apie žodį. Tada balsuokite, kas yra Šnipas. Rinkitės protingai.',
     },
     {
-      emoji: '🏆',
+      icon: 'game-controller',
+      iconBg: ['#e65100', '#f57c00'],
       title: 'ESATE\nPASIRUOŠĘ!',
       text: 'Agentai laimi pagaudami Šnipą. Šnipas laimi apgavęs visus. Sėkmės, Agente.',
     },
@@ -120,7 +128,14 @@ export default function OnboardingScreen({ navigation, route }) {
         viewabilityConfig={{ viewAreaCoveragePercentThreshold: 50 }}
         renderItem={({ item }) => (
           <View style={[styles.slide, { width }]}>
-            <Text style={styles.emoji}>{item.emoji}</Text>
+            <LinearGradient
+              colors={item.iconBg}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.iconCircle}
+            >
+              <Ionicons name={item.icon} size={64} color="#fff" />
+            </LinearGradient>
             <Text style={[styles.slideTitle, { color: isDarkMode ? '#fff' : '#0A4A47' }]}>{item.title}</Text>
             <Text style={[styles.slideText, { color: isDarkMode ? '#ccc' : '#1d3557' }]}>{item.text}</Text>
           </View>
@@ -174,9 +189,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 36,
     paddingTop: 20,
     paddingBottom: 40,
-    gap: 24,
+    gap: 32,
   },
-  emoji: { fontSize: 90 },
+  iconCircle: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 12,
+  },
   slideTitle: {
     fontSize: 32,
     fontWeight: '900',
