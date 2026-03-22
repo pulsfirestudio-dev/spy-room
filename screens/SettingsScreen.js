@@ -2,7 +2,7 @@
 import React, { useMemo, useState } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  StatusBar, ScrollView, Switch, ActivityIndicator, Alert,
+  StatusBar, ScrollView, Switch, ActivityIndicator, Alert, Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -29,6 +29,11 @@ const translations = {
     premiumInactive: 'Unlock Premium',
     restorePurchases: 'Restore Purchases',
     restoreSub: 'Recover purchases on this device',
+    legal: 'LEGAL',
+    privacyPolicy: 'Privacy Policy',
+    privacyPolicySub: 'How we handle your data',
+    termsOfService: 'Terms of Service',
+    termsOfServiceSub: 'Rules for using the app',
   },
   lt: {
     title: 'NUSTATYMAI',
@@ -47,6 +52,11 @@ const translations = {
     premiumInactive: 'Atrakinti Premium',
     restorePurchases: 'Atkurti pirkimus',
     restoreSub: 'Atkurti pirkimus šiame įrenginyje',
+    legal: 'TEISINĖ INFORMACIJA',
+    privacyPolicy: 'Privatumo politika',
+    privacyPolicySub: 'Kaip tvarkome jūsų duomenis',
+    termsOfService: 'Naudojimo sąlygos',
+    termsOfServiceSub: 'Programos naudojimo taisyklės',
   },
 };
 
@@ -203,6 +213,24 @@ export default function SettingsScreen({ navigation, route }) {
               <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : colors.text} />
             )}
           </TouchableOpacity>
+        </View>
+
+        {/* Legal */}
+        <Text style={styles.sectionTitle}>{t.legal}</Text>
+        <View style={[styles.card, { borderColor: border }]}>
+          <NavRow
+            icon="document-text-outline"
+            label={t.privacyPolicy}
+            subtitle={t.privacyPolicySub}
+            onPress={() => Linking.openURL('https://pulsfirestudio-dev.github.io/spy-room/privacy-policy.html')}
+          />
+          <View style={styles.divider} />
+          <NavRow
+            icon="shield-checkmark-outline"
+            label={t.termsOfService}
+            subtitle={t.termsOfServiceSub}
+            onPress={() => Linking.openURL('https://pulsfirestudio-dev.github.io/spy-room/terms-of-use.html')}
+          />
         </View>
 
       </ScrollView>
