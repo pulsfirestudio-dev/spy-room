@@ -299,11 +299,22 @@ const freeCategoriesLT = {
     { word: 'Ryklys', hint: 'vandenynas' }, { word: 'Aštuonkojis', hint: 'čiulptuvai' },
     { word: 'Pingvinas', hint: 'šaltis' }, { word: 'Erelis', hint: 'sparnai' },
   ],
-  'Airių Slangas': [
-    { word: 'Grand', hint: 'gerai' }, { word: 'Craic', hint: 'linksmybės' },
-    { word: 'Gas', hint: 'juokinga' }, { word: 'Deadly', hint: 'puiku' },
-    { word: 'Savage', hint: 'nuostabu' }, { word: 'Sound', hint: 'malonus' },
-    { word: 'Yoke', hint: 'daiktas' }, { word: 'Eejit', hint: 'kvailys' },
+  'Lietuviškas Slangas': [
+    { word: 'Bičas', hint: 'draugas' }, { word: 'Šaunu', hint: 'gerai' },
+    { word: 'Kaifas', hint: 'malonumas' }, { word: 'Žiauriai', hint: 'labai' },
+    { word: 'Nieko sau', hint: 'neblogai' }, { word: 'Geras', hint: 'puiku' },
+    { word: 'Bambizas', hint: 'vaikas' }, { word: 'Smagiai', hint: 'džiaugsmas' },
+    { word: 'Dūmas', hint: 'rūkymas' }, { word: 'Baisi', hint: 'labai' },
+    { word: 'Pūdyti', hint: 'erzinti' }, { word: 'Čiupas', hint: 'geras' },
+    { word: 'Viščiukas', hint: 'bailys' }, { word: 'Nusibodo', hint: 'atsibodo' },
+    { word: 'Susimesti', hint: 'pinigai' }, { word: 'Nutekinti', hint: 'pasprukti' },
+    { word: 'Šokoladas', hint: 'lengva' }, { word: 'Kelti karštį', hint: 'pykdyti' },
+    { word: 'Pamauti', hint: 'apgauti' }, { word: 'Kibti', hint: 'lipti' },
+    { word: 'Lygintuvas', hint: 'tingus' }, { word: 'Briedis', hint: 'nesąmonė' },
+    { word: 'Pasiutusi', hint: 'labai geras' }, { word: 'Traiškyti', hint: 'mušti' },
+    { word: 'Pliusas', hint: 'gerai' }, { word: 'Minusas', hint: 'blogai' },
+    { word: 'Pagauti bangas', hint: 'džiaugtis' }, { word: 'Nuleisti', hint: 'atsipalaiduoti' },
+    { word: 'Dūšia', hint: 'geras žmogus' }, { word: 'Skrebas', hint: 'niekas' },
   ],
 };
 
@@ -387,6 +398,161 @@ const premiumCategoriesLT = {
     { word: 'Aukso kasyklininkas', hint: 'kanėta' }, { word: '22', hint: 'tailoras' }, { word: 'Pajudinkitę tai', hint: 'tailoras' }, { word: 'Bloga kraujo', hint: 'tailoras' },
     { word: 'Meilės istorija', hint: 'tailoras' }, { word: 'Blank Space', hint: 'tailoras' }, { word: 'Per daug', hint: 'tailoras' }, { word: 'Priešo herojus', hint: 'tailoras' },
   ],
+};
+
+const localSlangByLang = {
+  es: {
+    'Argot Español': [
+      { word: 'Guay', hint: 'genial' }, { word: 'Tío', hint: 'amigo' },
+      { word: 'Mola', hint: 'gusta' }, { word: 'Chulo', hint: 'guapo' },
+      { word: 'Flipar', hint: 'sorpresa' }, { word: 'Chaval', hint: 'joven' },
+      { word: 'Mazo', hint: 'mucho' }, { word: 'Pasta', hint: 'dinero' },
+      { word: 'Currar', hint: 'trabajar' }, { word: 'Pillar', hint: 'agarrar' },
+      { word: 'Pijo', hint: 'rico' }, { word: 'Coña', hint: 'broma' },
+      { word: 'Chévere', hint: 'genial' }, { word: 'Fome', hint: 'aburrido' },
+      { word: 'Pibe', hint: 'joven' }, { word: 'Caña', hint: 'cerveza' },
+      { word: 'Enrollarse', hint: 'beso' }, { word: 'Joder', hint: 'maldición' },
+      { word: 'Mogollón', hint: 'montón' }, { word: 'Chetado', hint: 'roto' },
+      { word: 'Listo', hint: 'inteligente' }, { word: 'Guiri', hint: 'extranjero' },
+      { word: 'Tronco', hint: 'amigo' }, { word: 'Pasarse', hint: 'exagerar' },
+      { word: 'Molar', hint: 'gustar' }, { word: 'Bocazas', hint: 'chismoso' },
+      { word: 'Cantamañanas', hint: 'mentiroso' }, { word: 'Liarse', hint: 'confundirse' },
+      { word: 'Petarlo', hint: 'triunfar' }, { word: 'Estar pedo', hint: 'borracho' },
+    ],
+  },
+  fr: {
+    'Argot Français': [
+      { word: 'Kiffer', hint: 'aimer' }, { word: 'Ouf', hint: 'fou' },
+      { word: 'Chelou', hint: 'bizarre' }, { word: 'Zarbi', hint: 'étrange' },
+      { word: 'Meuf', hint: 'femme' }, { word: 'Mec', hint: 'homme' },
+      { word: 'Boloss', hint: 'nul' }, { word: 'Fric', hint: 'argent' },
+      { word: 'Bouffer', hint: 'manger' }, { word: 'Flemme', hint: 'paresse' },
+      { word: 'Galère', hint: 'problème' }, { word: 'Relou', hint: 'ennuyeux' },
+      { word: 'Boulot', hint: 'travail' }, { word: 'Pote', hint: 'ami' },
+      { word: 'Canon', hint: 'beau' }, { word: 'Chiller', hint: 'relaxer' },
+      { word: 'Balèze', hint: 'fort' }, { word: 'Truc', hint: 'chose' },
+      { word: 'Péter les plombs', hint: 'énerver' }, { word: 'Claquer', hint: 'dépenser' },
+      { word: 'Bosser', hint: 'travailler' }, { word: 'Baraque', hint: 'grand' },
+      { word: 'Céfran', hint: 'français' }, { word: 'Vachement', hint: 'très' },
+      { word: 'Niquer', hint: 'détruire' }, { word: 'Tchatche', hint: 'parler' },
+      { word: 'Beauf', hint: 'vulgaire' }, { word: 'Graille', hint: 'nourriture' },
+      { word: 'Plouc', hint: 'provincial' }, { word: 'Se casser', hint: 'partir' },
+    ],
+  },
+  de: {
+    'Deutscher Slang': [
+      { word: 'Geil', hint: 'toll' }, { word: 'Alter', hint: 'freund' },
+      { word: 'Krass', hint: 'extrem' }, { word: 'Chillen', hint: 'entspannen' },
+      { word: 'Digga', hint: 'kumpel' }, { word: 'Mies', hint: 'schlecht' },
+      { word: 'Babo', hint: 'chef' }, { word: 'Opfer', hint: 'verlierer' },
+      { word: 'Läuft', hint: 'gut' }, { word: 'Cringe', hint: 'peinlich' },
+      { word: 'Alder', hint: 'freund' }, { word: 'Abgehen', hint: 'wild' },
+      { word: 'Ballern', hint: 'feiern' }, { word: 'Penner', hint: 'obdachlos' },
+      { word: 'Schräg', hint: 'seltsam' }, { word: 'Assi', hint: 'sozial' },
+      { word: 'Schnitte', hint: 'mädchen' }, { word: 'Hackfressen', hint: 'gesicht' },
+      { word: 'Lästermaul', hint: 'tratsch' }, { word: 'Abzocke', hint: 'betrug' },
+      { word: 'Bratan', hint: 'bruder' }, { word: 'Versaut', hint: 'kaputt' },
+      { word: 'Durchdrehen', hint: 'verrückt' }, { word: 'Abhauen', hint: 'weggehen' },
+      { word: 'Vollpfosten', hint: 'dummkopf' }, { word: 'Klasse', hint: 'super' },
+      { word: 'Spitze', hint: 'toll' }, { word: 'Affig', hint: 'albern' },
+      { word: 'Scheiß drauf', hint: 'egal' }, { word: 'Durchmarsch', hint: 'sieg' },
+    ],
+  },
+  pl: {
+    'Polski Slang': [
+      { word: 'Spoko', hint: 'okej' }, { word: 'Luz', hint: 'spokój' },
+      { word: 'Ziomek', hint: 'przyjaciel' }, { word: 'Git', hint: 'dobrze' },
+      { word: 'Ogień', hint: 'super' }, { word: 'Beka', hint: 'śmiech' },
+      { word: 'Jazda', hint: 'ruszamy' }, { word: 'Masakra', hint: 'katastrofa' },
+      { word: 'Odlot', hint: 'świetny' }, { word: 'Elo', hint: 'cześć' },
+      { word: 'Kumać', hint: 'rozumieć' }, { word: 'Dno', hint: 'zły' },
+      { word: 'Imprezka', hint: 'zabawa' }, { word: 'Mordo', hint: 'twarz' },
+      { word: 'Słabo', hint: 'kiepsko' }, { word: 'Paka', hint: 'paczka' },
+      { word: 'Nara', hint: 'do widzenia' }, { word: 'Hajs', hint: 'pieniądze' },
+      { word: 'Seba', hint: 'koleś' }, { word: 'Zajarać się', hint: 'zainteresowanie' },
+      { word: 'Kox', hint: 'świetny' }, { word: 'Odpalić', hint: 'zacząć' },
+      { word: 'Wypas', hint: 'luksus' }, { word: 'Łapa', hint: 'ręka' },
+      { word: 'Palma', hint: 'głupi' }, { word: 'Ciachać', hint: 'iść' },
+      { word: 'Fura', hint: 'samochód' }, { word: 'Petla', hint: 'problem' },
+      { word: 'Ryj', hint: 'twarz' }, { word: 'Zmykać', hint: 'uciekać' },
+    ],
+  },
+  pt: {
+    'Gíria Brasileira': [
+      { word: 'Cara', hint: 'pessoa' }, { word: 'Mano', hint: 'irmão' },
+      { word: 'Legal', hint: 'bom' }, { word: 'Show', hint: 'ótimo' },
+      { word: 'Véi', hint: 'amigo' }, { word: 'Trampo', hint: 'trabalho' },
+      { word: 'Rolar', hint: 'acontecer' }, { word: 'Vacilão', hint: 'tolo' },
+      { word: 'Sinistro', hint: 'incrível' }, { word: 'Firmeza', hint: 'bom' },
+      { word: 'Fodão', hint: 'incrível' }, { word: 'Balada', hint: 'festa' },
+      { word: 'Pegar', hint: 'beijar' }, { word: 'Gato', hint: 'bonito' },
+      { word: 'Bicho', hint: 'amigo' }, { word: 'Sossego', hint: 'paz' },
+      { word: 'Mó', hint: 'muito' }, { word: 'Irado', hint: 'incrível' },
+      { word: 'Saudade', hint: 'falta' }, { word: 'Baratear', hint: 'estranhar' },
+      { word: 'Zoar', hint: 'brincar' }, { word: 'Maluco', hint: 'louco' },
+      { word: 'Caminhão', hint: 'grande' }, { word: 'Tá ligado', hint: 'entendeu' },
+      { word: 'Maneiro', hint: 'legal' }, { word: 'Dar o fora', hint: 'sair' },
+      { word: 'Foda', hint: 'difícil' }, { word: 'Bagunça', hint: 'desordem' },
+      { word: 'Tirar sarro', hint: 'zoar' }, { word: 'Pagar mico', hint: 'vergonha' },
+    ],
+  },
+  it: {
+    'Slang Italiano': [
+      { word: 'Figo', hint: 'bello' }, { word: 'Roba', hint: 'cosa' },
+      { word: 'Ganzo', hint: 'bravo' }, { word: 'Scemo', hint: 'stupido' },
+      { word: 'Matto', hint: 'pazzo' }, { word: 'Sfigato', hint: 'perdente' },
+      { word: 'Sballo', hint: 'divertimento' }, { word: 'Tamarro', hint: 'volgare' },
+      { word: 'Fichissimo', hint: 'fantastico' }, { word: 'Spaccare', hint: 'dominare' },
+      { word: 'Sgamato', hint: 'scoperto' }, { word: 'Stronzata', hint: 'stupidaggine' },
+      { word: 'Ammazzare', hint: 'sorpresa' }, { word: 'Bello', hint: 'amico' },
+      { word: 'Coglione', hint: 'stupido' }, { word: 'Bischero', hint: 'sciocco' },
+      { word: 'Prendere in giro', hint: 'burla' }, { word: 'Fare il figo', hint: 'posare' },
+      { word: 'Andare forte', hint: 'successo' }, { word: 'Rincoglionito', hint: 'confuso' },
+      { word: 'Fico', hint: 'bello' }, { word: 'Boh', hint: 'non so' },
+      { word: 'Dai', hint: 'andiamo' }, { word: 'Mannaggia', hint: 'accidenti' },
+      { word: 'Cazzo', hint: 'sorpresa' }, { word: 'Cavolo', hint: 'accidenti' },
+      { word: 'Sgobbone', hint: 'studioso' }, { word: 'Troia', hint: 'insulto' },
+      { word: 'Culo', hint: 'fortuna' }, { word: 'Rompere le scatole', hint: 'disturbare' },
+    ],
+  },
+  nl: {
+    'Nederlandse Slang': [
+      { word: 'Vet', hint: 'gaaf' }, { word: 'Gaaf', hint: 'cool' },
+      { word: 'Lekker', hint: 'fijn' }, { word: 'Sick', hint: 'geweldig' },
+      { word: 'Klote', hint: 'slecht' }, { word: 'Gozer', hint: 'man' },
+      { word: 'Tof', hint: 'fijn' }, { word: 'Chillen', hint: 'ontspannen' },
+      { word: 'Balen', hint: 'teleurstelling' }, { word: 'Moppie', hint: 'meisje' },
+      { word: 'Kut', hint: 'slecht' }, { word: 'Ouwe', hint: 'man' },
+      { word: 'Stront', hint: 'rommel' }, { word: 'Nerd', hint: 'slim' },
+      { word: 'Kapper', hint: 'goed' }, { word: 'Hufter', hint: 'vervelend' },
+      { word: 'Lullen', hint: 'praten' }, { word: 'Ophouden', hint: 'stoppen' },
+      { word: 'Grappig', hint: 'humor' }, { word: 'Afknapper', hint: 'tegenvaller' },
+      { word: 'Gestoord', hint: 'gek' }, { word: 'Brutaal', hint: 'brutaal' },
+      { word: 'Drempel', hint: 'probleem' }, { word: 'Aanpakken', hint: 'doen' },
+      { word: 'Pokkeweer', hint: 'slecht weer' }, { word: 'Loser', hint: 'verliezer' },
+      { word: 'Janken', hint: 'huilen' }, { word: 'Zwansen', hint: 'gek doen' },
+      { word: 'Mafkees', hint: 'rare man' }, { word: 'Bek houden', hint: 'stil zijn' },
+    ],
+  },
+  ro: {
+    'Argou Românesc': [
+      { word: 'Mișto', hint: 'bun' }, { word: 'Fain', hint: 'bun' },
+      { word: 'Nasol', hint: 'rău' }, { word: 'Nașpa', hint: 'rău' },
+      { word: 'Boss', hint: 'șef' }, { word: 'Bă', hint: 'hey' },
+      { word: 'Fraier', hint: 'prost' }, { word: 'Marfă', hint: 'bun' },
+      { word: 'Tare', hint: 'puternic' }, { word: 'Hai', hint: 'vino' },
+      { word: 'Șmecherie', hint: 'truc' }, { word: 'Gagică', hint: 'fată' },
+      { word: 'Dubios', hint: 'suspect' }, { word: 'Sictir', hint: 'pleacă' },
+      { word: 'Bulă', hint: 'glumă' }, { word: 'Dă-i drumul', hint: 'începe' },
+      { word: 'A da în bară', hint: 'greșeală' }, { word: 'Mă-sa', hint: 'injurătură' },
+      { word: 'Pirat', hint: 'hoț' }, { word: 'Puștan', hint: 'copil' },
+      { word: 'Băiat bun', hint: 'prieten' }, { word: 'Sclifosit', hint: 'prețios' },
+      { word: 'Muie', hint: 'înfrângere' }, { word: 'Baftă', hint: 'noroc' },
+      { word: 'Leșinat', hint: 'obosit' }, { word: 'Moca', hint: 'gratis' },
+      { word: 'Câcat', hint: 'rău' }, { word: 'Prinde', hint: 'înțelege' },
+      { word: 'Dobitoc', hint: 'prost' }, { word: 'Fițe', hint: 'capricii' },
+    ],
+  },
 };
 
 const translations = {
@@ -771,7 +937,10 @@ export default function CreateRoomScreen({ navigation, route }) {
   const lang = route.params?.language || 'en';
   const t = translations[lang];
 
-  const freeCategories = lang === 'lt' ? freeCategoriesLT : freeCategoriesEN;
+  const baseFreeCategories = lang === 'lt' ? freeCategoriesLT : freeCategoriesEN;
+  const freeCategories = localSlangByLang[lang]
+    ? { ...baseFreeCategories, ...localSlangByLang[lang] }
+    : baseFreeCategories;
   const premiumCategories = lang === 'lt' ? premiumCategoriesLT : premiumCategoriesEN;
 
   const MIN_PLAYERS = 3;
