@@ -489,11 +489,11 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderColor: isDarkMode ? '#fff' : colors.text,
   },
   title: {
-    fontSize: 24, fontFamily: 'Orbitron_900Black',
+    fontSize: 21, fontFamily: 'Special_Elite_400Regular',
     color: isDarkMode ? '#fff' : '#000', letterSpacing: 3,
   },
   sectionTitle: {
-    fontSize: 13, fontFamily: 'Orbitron_700Bold', letterSpacing: 3,
+    fontSize: 13, fontFamily: 'Special_Elite_400Regular', letterSpacing: 3,
     color: isDarkMode ? '#aaa' : colors.text, marginBottom: 10, marginLeft: 4,
   },
   card: {
@@ -507,19 +507,19 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   rowLeft: { flexDirection: 'row', alignItems: 'center', flex: 1 },
   rowIcon: { marginRight: 14 },
   rowLabel: {
-    fontSize: 18, fontFamily: 'Orbitron_700Bold',
+    fontSize: 16, fontFamily: 'Special_Elite_400Regular',
     color: isDarkMode ? '#fff' : '#000',
   },
   rowSub: {
-    fontSize: 14, color: isDarkMode ? '#888' : colors.textSecondary,
-    marginTop: 2, fontFamily: 'Orbitron_400Regular',
+    fontSize: 13, color: isDarkMode ? '#888' : colors.textSecondary,
+    marginTop: 2, fontFamily: 'Special_Elite_400Regular',
   },
   rowRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   divider: {
     height: 1, backgroundColor: isDarkMode ? '#333' : '#eee',
     marginHorizontal: 16,
   },
-  flagText: { fontSize: 22 },
+  flagText: { fontSize: 20 },
   segment: {
     flexDirection: 'row',
     marginHorizontal: 16,
@@ -542,7 +542,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   segmentLast: { borderLeftWidth: 1, borderColor: isDarkMode ? '#333' : '#ccc' },
   segmentLabel: {
     fontSize: 13,
-    fontFamily: 'Orbitron_700Bold',
+    fontFamily: 'Special_Elite_400Regular',
     color: isDarkMode ? '#aaa' : colors.text,
   },
 });

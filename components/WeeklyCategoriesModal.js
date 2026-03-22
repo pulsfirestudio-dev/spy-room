@@ -181,8 +181,8 @@ const getStyles = (colors, isDarkMode) => {
       zIndex: 10,
     },
     closeBtnText: {
-      fontSize: 18,
-      fontFamily: 'Orbitron_700Bold',
+      fontSize: 16,
+      fontFamily: 'Special_Elite_400Regular',
     },
     iconContainer: {
       marginBottom: 18,
@@ -203,17 +203,17 @@ const getStyles = (colors, isDarkMode) => {
       fontSize: 48,
     },
     title: {
-      fontSize: 32,
-      fontFamily: 'Orbitron_900Black',
+      fontSize: 29,
+      fontFamily: 'Special_Elite_400Regular',
       marginBottom: 6,
       textAlign: 'center',
       letterSpacing: -0.5,
     },
     subtitle: {
-      fontSize: 15,
+      fontSize: 13,
       marginBottom: 20,
       textAlign: 'center',
-      fontFamily: 'Orbitron_400Regular',
+      fontFamily: 'Special_Elite_400Regular',
     },
     upcomingCard: {
       width: '100%',
@@ -230,21 +230,21 @@ const getStyles = (colors, isDarkMode) => {
     },
     upcomingLabel: {
       fontSize: 10,
-      fontFamily: 'Orbitron_700Bold',
+      fontFamily: 'Special_Elite_400Regular',
       letterSpacing: 1.5,
     },
     upcomingEmoji: {
-      fontSize: 16,
+      fontSize: 14,
     },
     upcomingTitle: {
-      fontSize: 19,
-      fontFamily: 'Orbitron_700Bold',
+      fontSize: 17,
+      fontFamily: 'Special_Elite_400Regular',
       marginBottom: 6,
     },
     upcomingDesc: {
       fontSize: 13,
       lineHeight: 18,
-      fontFamily: 'Orbitron_400Regular',
+      fontFamily: 'Special_Elite_400Regular',
     },
     comingCard: {
       width: '100%',
@@ -255,15 +255,15 @@ const getStyles = (colors, isDarkMode) => {
       borderWidth: 2,
     },
     comingTitle: {
-      fontSize: 17,
-      fontFamily: 'Orbitron_700Bold',
+      fontSize: 15,
+      fontFamily: 'Special_Elite_400Regular',
       marginBottom: 4,
       textAlign: 'center',
     },
     comingDesc: {
       fontSize: 13,
       textAlign: 'center',
-      fontFamily: 'Orbitron_400Regular',
+      fontFamily: 'Special_Elite_400Regular',
     },
     featureRow: {
       flexDirection: 'row',
@@ -273,13 +273,13 @@ const getStyles = (colors, isDarkMode) => {
       marginBottom: 18,
     },
     featureIcon: {
-      fontSize: 18,
+      fontSize: 16,
       width: 24,
     },
     featureText: {
       flex: 1,
-      fontSize: 14,
-      fontFamily: 'Orbitron_400Regular',
+      fontSize: 13,
+      fontFamily: 'Special_Elite_400Regular',
     },
     purchaseBtnGradient: {
       width: '100%',
@@ -300,8 +300,8 @@ const getStyles = (colors, isDarkMode) => {
       borderRadius: 10,
     },
     purchaseBtnText: {
-      fontSize: 17,
-      fontFamily: 'Orbitron_700Bold',
+      fontSize: 15,
+      fontFamily: 'Special_Elite_400Regular',
       color: '#FFFFFF',
       letterSpacing: 0.5,
     },
@@ -313,8 +313,8 @@ const getStyles = (colors, isDarkMode) => {
       borderWidth: 2,
     },
     laterBtnText: {
-      fontSize: 15,
-      fontFamily: 'Orbitron_700Bold',
+      fontSize: 13,
+      fontFamily: 'Special_Elite_400Regular',
     },
   });
 };

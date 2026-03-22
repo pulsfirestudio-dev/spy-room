@@ -73,12 +73,12 @@ const getStyles = (colors, isDarkMode) =>
   StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background },
     scrollContent: { padding: 20, paddingTop: 40, paddingBottom: 40 },
-    title: { fontSize: 26, fontFamily: 'Orbitron_900Black', letterSpacing: 4, color: isDarkMode ? "#fff" : "#000", marginBottom: 28 },
+    title: { fontSize: 23, fontFamily: 'Special_Elite_400Regular', letterSpacing: 4, color: isDarkMode ? "#fff" : "#000", marginBottom: 28 },
     card: { backgroundColor: "transparent", borderRadius: 18, borderWidth: 2, borderColor: isDarkMode ? "#cc0000" : colors.text, padding: 22, marginBottom: 16 },
-    rowLabel: { fontSize: 12, fontFamily: 'Orbitron_700Bold', letterSpacing: 3, color: isDarkMode ? "#cc0000" : colors.text, marginBottom: 8 },
-    rowValue: { fontSize: 22, fontFamily: 'Orbitron_700Bold', color: isDarkMode ? "#fff" : "#000" },
-    wordValue: { fontSize: 36, fontFamily: 'Orbitron_900Black', letterSpacing: 1, color: isDarkMode ? "#fff" : "#000" },
-    imposterName: { fontSize: 24, fontFamily: 'Orbitron_700Bold', color: isDarkMode ? "#fff" : "#000", marginTop: 2 },
+    rowLabel: { fontSize: 12, fontFamily: 'Special_Elite_400Regular', letterSpacing: 3, color: isDarkMode ? "#cc0000" : colors.text, marginBottom: 8 },
+    rowValue: { fontSize: 20, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? "#fff" : "#000" },
+    wordValue: { fontSize: 36, fontFamily: 'Special_Elite_400Regular', letterSpacing: 1, color: isDarkMode ? "#fff" : "#000" },
+    imposterName: { fontSize: 21, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? "#fff" : "#000", marginTop: 2 },
     backBtn: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 10, paddingVertical: 17, borderRadius: 22, borderWidth: 2, backgroundColor: isDarkMode ? colors.primary : colors.surface, borderColor: isDarkMode ? "#fff" : colors.text },
-    backBtnText: { fontSize: 17, fontFamily: 'Orbitron_700Bold', letterSpacing: 1 },
+    backBtnText: { fontSize: 15, fontFamily: 'Special_Elite_400Regular', letterSpacing: 1 },
   });

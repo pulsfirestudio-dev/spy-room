@@ -174,10 +174,7 @@ export default function SlangPromoModal({ visible, language, onClose, onPurchase
             <View style={[styles.examplesBox, { backgroundColor: isDarkMode ? '#2a2a2a' : colors.surface, borderColor: isDarkMode ? '#444' : '#ddd' }]}>
               <Text style={[styles.examplesLabel, { color: accentColor }]}>PREVIEW</Text>
               {d.examples.map((ex, i) => (
-                <View key={i} style={styles.exampleRow}>
-                  <Text style={[styles.exampleWord, { color: colors.text }]}>{ex.word}</Text>
-                  <Text style={[styles.exampleHint, { color: colors.textSecondary }]}>→ {ex.hint}</Text>
-                </View>
+                <Text key={i} style={[styles.exampleWord, { color: colors.text }]}>{ex.word}</Text>
               ))}
             </View>
 
@@ -241,7 +238,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 10,
   },
-  closeBtnText: { fontSize: 18, fontWeight: '700' },
+  closeBtnText: { fontSize: 16, fontWeight: '700' },
   iconGradient: {
     width: 80,
     height: 80,
@@ -256,21 +253,21 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   headline: {
-    fontSize: 22,
-    fontFamily: 'Orbitron_900Black',
+    fontSize: 20,
+    fontFamily: 'Special_Elite_400Regular',
     marginBottom: 6,
     textAlign: 'center',
   },
   catName: {
-    fontSize: 16,
-    fontFamily: 'Orbitron_700Bold',
+    fontSize: 14,
+    fontFamily: 'Special_Elite_400Regular',
     marginBottom: 10,
     textAlign: 'center',
     letterSpacing: 0.5,
   },
   sub: {
     fontSize: 13,
-    fontFamily: 'Orbitron_400Regular',
+    fontFamily: 'Special_Elite_400Regular',
     textAlign: 'center',
     lineHeight: 20,
     marginBottom: 18,
@@ -282,25 +279,18 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 20,
     gap: 10,
+    alignItems: 'center',
   },
   examplesLabel: {
     fontSize: 10,
-    fontFamily: 'Orbitron_700Bold',
+    fontFamily: 'Special_Elite_400Regular',
     letterSpacing: 2,
     marginBottom: 4,
   },
-  exampleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   exampleWord: {
     fontSize: 15,
-    fontFamily: 'Orbitron_700Bold',
-  },
-  exampleHint: {
-    fontSize: 13,
-    fontFamily: 'Orbitron_400Regular',
+    fontFamily: 'Special_Elite_400Regular',
+    textAlign: 'center',
   },
   premiumBtnGradient: {
     width: '100%',
@@ -321,8 +311,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   premiumBtnText: {
-    fontSize: 15,
-    fontFamily: 'Orbitron_700Bold',
+    fontSize: 13,
+    fontFamily: 'Special_Elite_400Regular',
     color: '#fff',
     letterSpacing: 0.5,
   },
@@ -334,7 +324,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   dismissBtnText: {
-    fontSize: 14,
-    fontFamily: 'Orbitron_400Regular',
+    fontSize: 13,
+    fontFamily: 'Special_Elite_400Regular',
   },
 });

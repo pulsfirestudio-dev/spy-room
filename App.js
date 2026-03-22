@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useFonts, Orbitron_400Regular, Orbitron_700Bold, Orbitron_900Black } from '@expo-google-fonts/orbitron';
+import { useFonts, Special_Elite_400Regular } from '@expo-google-fonts/special-elite';
 
 import HomeScreen from './screens/HomeScreen';
 import CreateRoomScreen from './screens/CreateRoomScreen';
@@ -34,7 +34,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [initialRoute, setInitialRoute] = useState('Home');
-  const [fontsLoaded] = useFonts({ Orbitron_400Regular, Orbitron_700Bold, Orbitron_900Black });
+  const [fontsLoaded] = useFonts({ Special_Elite_400Regular });
 
   useEffect(() => {
     async function prepare() {

@@ -299,6 +299,9 @@ const freeCategoriesLT = {
     { word: 'Ryklys', hint: 'vandenynas' }, { word: 'Aštuonkojis', hint: 'čiulptuvai' },
     { word: 'Pingvinas', hint: 'šaltis' }, { word: 'Erelis', hint: 'sparnai' },
   ],
+};
+
+const premiumCategoriesLT = {
   'Lietuviškas Slangas': [
     { word: 'Bičas', hint: 'draugas' }, { word: 'Šaunu', hint: 'gerai' },
     { word: 'Kaifas', hint: 'malonumas' }, { word: 'Žiauriai', hint: 'labai' },
@@ -316,9 +319,6 @@ const freeCategoriesLT = {
     { word: 'Pagauti bangas', hint: 'džiaugtis' }, { word: 'Nuleisti', hint: 'atsipalaiduoti' },
     { word: 'Dūšia', hint: 'geras žmogus' }, { word: 'Skrebas', hint: 'niekas' },
   ],
-};
-
-const premiumCategoriesLT = {
   'Profesijos': [
     { word: 'Gydytojas', hint: 'medicina' }, { word: 'Inžinierius', hint: 'statybos' }, { word: 'Šefas', hint: 'virtuvė' }, { word: 'Mokytojas', hint: 'išsilavinimas' },
     { word: 'Advokatas', hint: 'teisė' }, { word: 'Medicinos sesuo', hint: 'ligoninė' }, { word: 'Pilotas', hint: 'skridimas' }, { word: 'Architektas', hint: 'dizainas' },
@@ -1163,7 +1163,7 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
           onPress={() => navigation.navigate('VoteCategories', { language: lang })}
           activeOpacity={0.8}
         >
-          <Ionicons name="people" size={18} color={isDarkMode ? '#fff' : '#1d3557'} />
+          <Text style={styles.voteBtnNew}>NEW</Text>
           <Text style={styles.voteBtnText}>{t.voteCategories}</Text>
         </TouchableOpacity>
 
@@ -1345,62 +1345,63 @@ const getStyles = (colors, isDarkMode) => {
       justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: isDarkMode ? '#fff' : colors.text,
     },
     strongOutline: { borderWidth: 2, borderColor: border, backgroundColor: colors.surface },
-    title: { fontSize: 26, fontFamily: 'Orbitron_900Black', color: isDarkMode ? '#fff' : '#000', letterSpacing: 3 },
+    title: { fontSize: 23, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? '#fff' : '#000', letterSpacing: 3 },
     placeholder: { width: 44 },
     section: { marginBottom: 28 },
-    sectionTitle: { fontSize: 16, fontFamily: 'Orbitron_700Bold', color: isDarkMode ? '#ffffff' : '#000000', marginBottom: 14, letterSpacing: 3 },
+    sectionTitle: { fontSize: 14, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? '#ffffff' : '#000000', marginBottom: 14, letterSpacing: 3 },
     inputRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
     inputContainer: {
       flex: 1, borderWidth: 1, borderColor: isDarkMode ? '#444444' : '#cccccc',
       borderRadius: 14, backgroundColor: colors.surface, overflow: 'hidden',
     },
-    input: { flex: 1, paddingHorizontal: 14, paddingVertical: 13, fontSize: 18, color: isDarkMode ? '#ffffff' : '#000000' },
+    input: { flex: 1, paddingHorizontal: 14, paddingVertical: 13, fontSize: 16, color: isDarkMode ? '#ffffff' : '#000000' },
     addButton: {
       width: 52, height: 52, backgroundColor: colors.primary, borderRadius: 14,
       justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: border,
     },
-    helperText: { marginTop: 10, color: isDarkMode ? '#aaaaaa' : colors.text, fontFamily: 'Orbitron_700Bold', fontSize: 15 },
-    helperTextOk: { marginTop: 10, color: isDarkMode ? '#9dffb3' : '#0a6b2d', fontFamily: 'Orbitron_700Bold', fontSize: 15 },
+    helperText: { marginTop: 10, color: isDarkMode ? '#aaaaaa' : colors.text, fontFamily: 'Special_Elite_400Regular', fontSize: 13 },
+    helperTextOk: { marginTop: 10, color: isDarkMode ? '#9dffb3' : '#0a6b2d', fontFamily: 'Special_Elite_400Regular', fontSize: 13 },
     playersList: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 16 },
     playerChip: {
       flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface,
       paddingVertical: 10, paddingHorizontal: 16, borderRadius: 20,
       borderWidth: 1, borderColor: isDarkMode ? '#444444' : '#cccccc', gap: 10,
     },
-    playerName: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'Orbitron_700Bold', fontSize: 16 },
+    playerName: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'Special_Elite_400Regular', fontSize: 14 },
     voteBtn: {
-      flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-      gap: 8, marginBottom: 24, paddingVertical: 14, paddingHorizontal: 20,
+      flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      marginBottom: 24, paddingVertical: 12, paddingHorizontal: 20,
       borderRadius: 12, borderWidth: 2,
       borderColor: isDarkMode ? '#ffffff55' : '#1d355766',
       backgroundColor: isDarkMode ? 'rgba(255,255,255,0.07)' : 'rgba(29,53,87,0.08)',
     },
-    voteBtnText: { fontSize: 14, fontFamily: 'Orbitron_700Bold', color: isDarkMode ? '#fff' : '#1d3557', letterSpacing: 1 },
+    voteBtnNew: { fontSize: 10, fontFamily: 'Special_Elite_400Regular', color: colors.primary, letterSpacing: 3, marginBottom: 2 },
+    voteBtnText: { fontSize: 13, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? '#fff' : '#1d3557', letterSpacing: 1 },
     categoryList: { gap: 8 },
     categoryChip: {
       backgroundColor: colors.surface, paddingVertical: 14, paddingHorizontal: 20,
       borderRadius: 14, borderWidth: 2, borderColor: border,
     },
     categoryChipActive: { backgroundColor: colors.primary, borderColor: border },
-    categoryText: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'Orbitron_700Bold', fontSize: 17 },
-    categoryTextActive: { color: '#fff', fontFamily: 'Orbitron_700Bold' },
+    categoryText: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'Special_Elite_400Regular', fontSize: 15 },
+    categoryTextActive: { color: '#fff', fontFamily: 'Special_Elite_400Regular' },
     premiumHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
     unlockButton: {
       backgroundColor: colors.accent, paddingVertical: 8, paddingHorizontal: 16,
       borderRadius: 20, borderWidth: 2, borderColor: border,
     },
-    unlockButtonText: { color: isDarkMode ? '#000' : '#000', fontFamily: 'Orbitron_700Bold', fontSize: 14 },
+    unlockButtonText: { color: isDarkMode ? '#000' : '#000', fontFamily: 'Special_Elite_400Regular', fontSize: 13 },
     premiumChip: { position: 'relative' },
     lockedChip: { borderWidth: 2, borderColor: isDarkMode ? colors.primary : '#000000', backgroundColor: 'transparent' },
     lockedText: { color: isDarkMode ? '#888888' : '#000', textShadowColor: 'rgba(180,0,0,0.35)', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 4 },
-    lockIcon: { position: 'absolute', right: 20, fontSize: 20 },
+    lockIcon: { position: 'absolute', right: 20, fontSize: 18 },
     counterContainer: { flexDirection: 'row', gap: 12 },
     counterButton: { flex: 1, backgroundColor: colors.surface, paddingVertical: 16, borderRadius: 14, alignItems: 'center' },
     counterButtonActive: {
       backgroundColor: colors.primary, borderWidth: 2, borderColor: border,
       shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4,
     },
-    counterText: { color: isDarkMode ? '#ffffff' : '#000000', fontSize: 24, fontFamily: 'Orbitron_700Bold' },
+    counterText: { color: isDarkMode ? '#ffffff' : '#000000', fontSize: 21, fontFamily: 'Special_Elite_400Regular' },
     counterTextActive: { color: '#fff' },
     toggleRow: { flexDirection: 'row', gap: 10 },
     toggleSquare: {
@@ -1408,7 +1409,7 @@ const getStyles = (colors, isDarkMode) => {
       alignItems: 'center', minHeight: 120, justifyContent: 'space-between',
     },
     toggleSquareActive: { borderWidth: 2, borderColor: border, backgroundColor: colors.primary + '15' },
-    toggleSquareTitle: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'Orbitron_700Bold', fontSize: 14, letterSpacing: 1, textAlign: 'center' },
+    toggleSquareTitle: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'Special_Elite_400Regular', fontSize: 13, letterSpacing: 1, textAlign: 'center' },
     toggleSquareTitleActive: { color: isDarkMode ? '#fff' : '#000' },
     toggleSquareSubtitle: { color: isDarkMode ? '#aaaaaa' : colors.text, fontSize: 13, textAlign: 'center', marginTop: 4 },
     toggleSquareSubtitleActive: { color: isDarkMode ? '#fff' : '#000', opacity: 0.8 },
@@ -1417,7 +1418,7 @@ const getStyles = (colors, isDarkMode) => {
       borderRadius: 12, borderWidth: 1, borderColor: isDarkMode ? '#555555' : colors.text,
     },
     toggleIndicatorActive: { backgroundColor: colors.primary, borderColor: border },
-    toggleIndicatorText: { color: isDarkMode ? '#888888' : colors.text, fontFamily: 'Orbitron_700Bold', fontSize: 12 },
+    toggleIndicatorText: { color: isDarkMode ? '#888888' : colors.text, fontFamily: 'Special_Elite_400Regular', fontSize: 12 },
     toggleIndicatorTextActive: { color: '#fff' },
     startButton: {
       backgroundColor: colors.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
@@ -1426,18 +1427,18 @@ const getStyles = (colors, isDarkMode) => {
     },
     startButtonDisabled: { opacity: 0.45 },
     startButtonPressed: { transform: [{ scale: 0.97 }], shadowOpacity: 0.2 },
-    startButtonText: { color: '#fff', fontSize: 20, fontFamily: 'Orbitron_700Bold', letterSpacing: 2 },
+    startButtonText: { color: '#fff', fontSize: 18, fontFamily: 'Special_Elite_400Regular', letterSpacing: 2 },
     modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center', padding: 20 },
     modalContent: { backgroundColor: colors.surface, padding: 30, borderRadius: 20, width: '100%', maxWidth: 350, borderWidth: 2, borderColor: border },
-    modalTitle: { fontSize: 22, fontFamily: 'Orbitron_900Black', color: isDarkMode ? '#fff' : '#000', marginBottom: 15, textAlign: 'center', letterSpacing: 2 },
-    modalDesc: { fontSize: 16, color: isDarkMode ? '#ffffff' : '#000000', marginBottom: 15, textAlign: 'center', lineHeight: 20 },
-    modalFeatures: { fontSize: 15, color: isDarkMode ? '#aaaaaa' : colors.text, marginBottom: 25, lineHeight: 22 },
+    modalTitle: { fontSize: 20, fontFamily: 'Special_Elite_400Regular', color: isDarkMode ? '#fff' : '#000', marginBottom: 15, textAlign: 'center', letterSpacing: 2 },
+    modalDesc: { fontSize: 14, color: isDarkMode ? '#ffffff' : '#000000', marginBottom: 15, textAlign: 'center', lineHeight: 20 },
+    modalFeatures: { fontSize: 13, color: isDarkMode ? '#aaaaaa' : colors.text, marginBottom: 25, lineHeight: 22 },
     unlockPriceButton: { backgroundColor: colors.primary, paddingVertical: 16, borderRadius: 12, alignItems: 'center', marginBottom: 10, borderWidth: 2, borderColor: border },
-    unlockPriceText: { color: '#fff', fontSize: 18, fontFamily: 'Orbitron_700Bold', letterSpacing: 2 },
+    unlockPriceText: { color: '#fff', fontSize: 16, fontFamily: 'Special_Elite_400Regular', letterSpacing: 2 },
     maybeLaterButton: { paddingVertical: 12, alignItems: 'center' },
-    maybeLaterText: { color: isDarkMode ? '#888888' : colors.text, fontSize: 16, fontFamily: 'Orbitron_700Bold' },
+    maybeLaterText: { color: isDarkMode ? '#888888' : colors.text, fontSize: 14, fontFamily: 'Special_Elite_400Regular' },
     errorContainer: { backgroundColor: '#ff1a1a' + '22', borderColor: '#ff1a1a', borderWidth: 1, borderRadius: 8, padding: 12, marginVertical: 12 },
-    errorText: { color: '#ff1a1a', fontSize: 14, fontFamily: 'Orbitron_700Bold', textAlign: 'center' },
+    errorText: { color: '#ff1a1a', fontSize: 13, fontFamily: 'Special_Elite_400Regular', textAlign: 'center' },
     buttonDisabled: { opacity: 0.6 },
   });
 };

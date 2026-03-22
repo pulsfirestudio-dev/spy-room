@@ -128,8 +128,8 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderColor: isDarkMode ? '#fff' : colors.text,
   },
   title: {
-    fontSize: 18,
-    fontFamily: 'Orbitron_900Black',
+    fontSize: 16,
+    fontFamily: 'Special_Elite_400Regular',
     color: isDarkMode ? '#fff' : '#000',
     letterSpacing: 1,
     textShadowColor: isDarkMode ? colors.primary : 'transparent',
@@ -152,8 +152,8 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   flag: { fontSize: 36 },
   languageName: {
     flex: 1,
-    fontSize: 15,
-    fontFamily: 'Orbitron_700Bold',
+    fontSize: 13,
+    fontFamily: 'Special_Elite_400Regular',
     color: isDarkMode ? '#fff' : '#000',
   },
   selectedText: { color: isDarkMode ? '#fff' : '#000' },
@@ -165,5 +165,5 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     borderWidth: 2,
     borderColor: '#000',
   },
-  backButtonText: { color: '#fff', fontSize: 14, fontFamily: 'Orbitron_700Bold', letterSpacing: 1 },
+  backButtonText: { color: '#fff', fontSize: 13, fontFamily: 'Special_Elite_400Regular', letterSpacing: 1 },
 });
