@@ -8,6 +8,7 @@ const { width } = Dimensions.get('window');
 
 export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, isPremium, onVote }) {
   const { colors, isDarkMode } = useTheme();
+  const [selectedSection, setSelectedSection] = useState('thisWeek');
 
   if (isPremium) return null;
 
@@ -62,22 +63,41 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
             <Text style={[styles.subtitle, { color: colors.textSub }]}>New challenges every week</Text>
 
             {/* This Week's Category */}
-            <View style={[styles.upcomingCard, { backgroundColor: getAccentColor() + '10', borderColor: getAccentColor() }]}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setSelectedSection('thisWeek')}
+              style={[
+                styles.upcomingCard,
+                {
+                  backgroundColor: getAccentColor() + '10',
+                  borderColor: selectedSection === 'thisWeek' ? getAccentColor() : colors.surface,
+                },
+              ]}
+            >
               <View style={styles.upcomingHeader}>
                 <Text style={[styles.upcomingLabel, { color: getAccentColor() }]}>THIS WEEK</Text>
-                <Text style={[styles.upcomingEmoji]}>⭐</Text>
+                <Text style={styles.upcomingEmoji}>⭐</Text>
               </View>
               <Text style={[styles.upcomingTitle, { color: colors.text }]}>Movie Celebrities</Text>
               <Text style={[styles.upcomingDesc, { color: colors.textSub }]}>Guess famous actors and directors!</Text>
-            </View>
+            </TouchableOpacity>
 
-            {/* Coming Soon Section */}
-            <TouchableOpacity 
-              style={[styles.comingCard, { backgroundColor: colors.surface }]}
-              onPress={onVote}
+            {/* Vote for Categories */}
+            <TouchableOpacity
+              style={[
+                styles.comingCard,
+                {
+                  backgroundColor: colors.surface,
+                  borderColor: selectedSection === 'vote' ? getAccentColor() : colors.surface,
+                },
+              ]}
+              onPress={() => {
+                setSelectedSection('vote');
+                onVote();
+              }}
               activeOpacity={0.7}
             >
-              <Text style={[styles.comingEmoji]}>🗳️</Text>
+              <Ionicons name="people" size={28} color={selectedSection === 'vote' ? getAccentColor() : colors.text} style={{ marginBottom: 8 }} />
               <Text style={[styles.comingTitle, { color: colors.text }]}>Vote for Categories</Text>
               <Text style={[styles.comingDesc, { color: colors.textSub }]}>Help choose next week's topics</Text>
             </TouchableOpacity>
@@ -217,10 +237,7 @@ const getStyles = (colors, isDarkMode) => {
       padding: 18,
       marginBottom: 18,
       alignItems: 'center',
-    },
-    comingEmoji: {
-      fontSize: 28,
-      marginBottom: 8,
+      borderWidth: 2,
     },
     comingTitle: {
       fontSize: 17,
