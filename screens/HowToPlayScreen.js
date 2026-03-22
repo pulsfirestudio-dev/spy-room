@@ -198,11 +198,11 @@ export default function HowToPlayScreen({ navigation, route }) {
   const styles = getStyles(colors, isDarkMode);
 
   const steps = [
-    { emoji: '🎮', title: t.step1, text: t.step1Text },
-    { emoji: '🕵️', title: t.step2, text: t.step2Text },
-    { emoji: '💬', title: t.step3, text: t.step3Text },
-    { emoji: '🗳️', title: t.step4, text: t.step4Text },
-    { emoji: '🏆', title: t.step5, text: t.step5Text },
+    { icon: 'people',          iconBg: ['#1a6b8a', '#2196a8'], title: t.step1, text: t.step1Text },
+    { icon: 'eye',             iconBg: ['#c0392b', '#e74c3c'], title: t.step2, text: t.step2Text },
+    { icon: 'chatbubbles',     iconBg: ['#6a1b9a', '#9c27b0'], title: t.step3, text: t.step3Text },
+    { icon: 'people',          iconBg: ['#1a6b8a', '#2196a8'], title: t.step4, text: t.step4Text },
+    { icon: 'game-controller', iconBg: ['#e65100', '#f57c00'], title: t.step5, text: t.step5Text },
   ];
 
   return (
@@ -223,7 +223,9 @@ export default function HowToPlayScreen({ navigation, route }) {
         <View style={styles.stepsContainer}>
           {steps.map((step, i) => (
             <View key={i} style={styles.stepCard}>
-              <Text style={styles.stepEmoji}>{step.emoji}</Text>
+              <LinearGradient colors={step.iconBg} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.stepIconGradient}>
+                <Ionicons name={step.icon} size={32} color="#fff" />
+              </LinearGradient>
               <Text style={styles.stepTitle}>{step.title}</Text>
               <Text style={styles.stepText}>{step.text}</Text>
             </View>
@@ -255,7 +257,7 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
   logo: { width: 120, height: 120, opacity: 0.72 },
   stepsContainer: { gap: 15, marginBottom: 25 },
   stepCard: { backgroundColor: colors.surface, padding: 22, borderRadius: 16, borderWidth: 2, borderColor: isDarkMode ? '#fff' : '#000' },
-  stepEmoji: { fontSize: 34, marginBottom: 10 },
+  stepIconGradient: { width: 60, height: 60, borderRadius: 30, justifyContent: 'center', alignItems: 'center', marginBottom: 12 },
   stepTitle: { fontSize: 20, fontWeight: '800', color: isDarkMode ? '#fff' : '#000', marginBottom: 8, letterSpacing: 1 },
   stepText: { fontSize: 16, color: isDarkMode ? '#fff' : '#000', lineHeight: 23 },
   tipsCard: { backgroundColor: colors.primary + '15', padding: 22, borderRadius: 16, borderWidth: 2, borderColor: colors.primary, marginBottom: 25 },
