@@ -14,14 +14,14 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
 
   const getGradientColors = () => {
     if (isDarkMode) {
-      return ['#9B00FF', '#CC0055', '#FF4500'];
+      return ['#ff3333', '#cc1111', '#991111'];
     } else {
-      return ['#7B00E0', '#C2005A', '#FF2200'];
+      return ['#1d3557', '#1a7ac7'];
     }
   };
 
   const getAccentColor = () => {
-    return isDarkMode ? '#CC0055' : '#C2005A';
+    return isDarkMode ? '#ff3333' : '#e63946';
   };
 
   const styles = getStyles(colors, isDarkMode);
@@ -60,7 +60,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
 
             {/* Content */}
             <Text style={[styles.title, { color: colors.text }]}>Weekly Categories</Text>
-            <Text style={[styles.subtitle, { color: colors.textSub }]}>New challenges every week</Text>
+            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>New challenges every week</Text>
 
             {/* This Week's Category */}
             <TouchableOpacity
@@ -78,7 +78,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
                 <Text style={[styles.upcomingLabel, { color: getAccentColor() }]}>THIS WEEK</Text>
               </View>
               <Text style={[styles.upcomingTitle, { color: colors.text }]}>Movie Celebrities</Text>
-              <Text style={[styles.upcomingDesc, { color: colors.textSub }]}>Guess famous actors and directors!</Text>
+              <Text style={[styles.upcomingDesc, { color: colors.textSecondary }]}>Guess famous actors and directors!</Text>
             </TouchableOpacity>
 
             {/* Vote for Categories */}
@@ -98,7 +98,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
             >
               <Ionicons name="people" size={28} color={selectedSection === 'vote' ? getAccentColor() : colors.text} style={{ marginBottom: 8 }} />
               <Text style={[styles.comingTitle, { color: colors.text }]}>Vote for Categories</Text>
-              <Text style={[styles.comingDesc, { color: colors.textSub }]}>Help choose next week's topics</Text>
+              <Text style={[styles.comingDesc, { color: colors.textSecondary }]}>Help choose next week's topics</Text>
             </TouchableOpacity>
 
             {/* Features */}
@@ -141,7 +141,7 @@ const getStyles = (colors, isDarkMode) => {
     gradientBorder: {
       padding: 2,
       borderRadius: 28,
-      shadowColor: '#9B00FF',
+      shadowColor: '#ff1a1a',
       shadowOffset: { width: 0, height: 8 },
       shadowOpacity: 0.5,
       shadowRadius: 20,
@@ -178,7 +178,7 @@ const getStyles = (colors, isDarkMode) => {
       borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
-      shadowColor: '#9B00FF',
+      shadowColor: '#ff1a1a',
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.6,
       shadowRadius: 16,
@@ -270,7 +270,7 @@ const getStyles = (colors, isDarkMode) => {
       marginBottom: 10,
       borderWidth: 2,
       borderColor: '#ffffff',
-      shadowColor: '#9B00FF',
+      shadowColor: '#ff1a1a',
       shadowOffset: { width: 0, height: 6 },
       shadowOpacity: 0.5,
       shadowRadius: 16,

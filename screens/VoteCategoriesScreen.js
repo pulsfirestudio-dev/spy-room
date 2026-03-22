@@ -115,7 +115,7 @@ export default function VoteCategoriesScreen({ navigation, route }) {
         {/* Title */}
         <View style={styles.titleSection}>
           <Text style={[styles.title, { color: colors.text }]}>Choose a Category</Text>
-          <Text style={[styles.subtitle, { color: colors.textSub }]}>
+          <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
             {totalVotes} total votes this week
           </Text>
         </View>
@@ -200,7 +200,7 @@ export default function VoteCategoriesScreen({ navigation, route }) {
 
               {/* Message */}
               <Text style={[styles.promptTitle, { color: colors.text }]}>Vote Submitted!</Text>
-              <Text style={[styles.promptMessage, { color: colors.textSub }]}>
+              <Text style={[styles.promptMessage, { color: colors.textSecondary }]}>
                 Thanks for voting! To unlock all weekly categories and exclusive challenges, upgrade to Premium.
               </Text>
 
