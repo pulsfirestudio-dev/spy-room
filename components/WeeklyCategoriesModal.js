@@ -23,6 +23,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
   const { colors, isDarkMode } = useTheme();
   const [selectedSection, setSelectedSection] = useState('thisWeek');
   const t = wt[language] || wt.en;
+  const secondaryText = isDarkMode ? colors.textSecondary : '#1d3557';
 
   if (isPremium) return null;
 
@@ -75,7 +76,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
 
             {/* Content */}
             <Text style={[styles.title, { color: colors.text }, ltFont(32)]}>{t.title}</Text>
-            <Text style={[styles.subtitle, { color: colors.textSecondary }, ltFont(15)]}>{t.subtitle}</Text>
+            <Text style={[styles.subtitle, { color: secondaryText }, ltFont(15)]}>{t.subtitle}</Text>
 
             {/* This Week's Category */}
             <TouchableOpacity
@@ -93,7 +94,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
                 <Text style={[styles.upcomingLabel, { color: getAccentColor() }, ltFont(10)]}>{t.thisWeek}</Text>
               </View>
               <Text style={[styles.upcomingTitle, { color: colors.text }, ltFont(19)]}>{t.thisWeekName}</Text>
-              <Text style={[styles.upcomingDesc, { color: colors.textSecondary }, ltFont(13)]}>{t.thisWeekDesc}</Text>
+              <Text style={[styles.upcomingDesc, { color: secondaryText }, ltFont(13)]}>{t.thisWeekDesc}</Text>
             </TouchableOpacity>
 
             {/* Vote for Categories */}
@@ -113,7 +114,7 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
             >
               <Ionicons name="people" size={28} color={selectedSection === 'vote' ? getAccentColor() : colors.text} style={{ marginBottom: 8 }} />
               <Text style={[styles.comingTitle, { color: colors.text }, ltFont(17)]}>{t.voteTitle}</Text>
-              <Text style={[styles.comingDesc, { color: colors.textSecondary }, ltFont(13)]}>{t.voteDesc}</Text>
+              <Text style={[styles.comingDesc, { color: secondaryText }, ltFont(13)]}>{t.voteDesc}</Text>
             </TouchableOpacity>
 
             {/* Features */}

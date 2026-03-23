@@ -122,33 +122,6 @@ const freeCategoriesEN = {
     { word: 'Lizard', hint: 'scales' }, { word: 'Peacock', hint: 'feathers' },
     { word: 'Bat', hint: 'night' }, { word: 'Hedgehog', hint: 'spines' },
   ],
-  'Irish Slang': [
-    { word: 'Grand', hint: 'fine' }, { word: 'Craic', hint: 'fun' },
-    { word: 'Gas', hint: 'funny' }, { word: 'Deadly', hint: 'great' },
-    { word: 'Savage', hint: 'excellent' }, { word: 'Sound', hint: 'kind' },
-    { word: "Fair play", hint: "respect" }, { word: "What's the story", hint: "greeting" },
-    { word: 'Yoke', hint: 'object' }, { word: 'Eejit', hint: 'fool' },
-    { word: 'Gobshite', hint: 'idiot' }, { word: 'Gowl', hint: 'insult' },
-    { word: 'Dose', hint: 'annoying' }, { word: 'Feck', hint: 'swear' },
-    { word: 'Jaysus', hint: 'surprise' }, { word: 'Shift', hint: 'kiss' },
-    { word: 'Mot', hint: 'girlfriend' }, { word: 'Lad', hint: 'male' },
-    { word: 'Yer man', hint: 'person' }, { word: 'Yer wan', hint: 'person' },
-    { word: 'Banjaxed', hint: 'broken' }, { word: 'Knackered', hint: 'tired' },
-    { word: 'Scuttered', hint: 'drunk' }, { word: 'Plastered', hint: 'drunk' },
-    { word: 'Locked', hint: 'drunk' }, { word: 'Hammered', hint: 'drunk' },
-    { word: 'Pissed', hint: 'drunk' }, { word: 'Buzzin', hint: 'excited' },
-    { word: 'Giving out', hint: 'complaining' }, { word: 'On the lash', hint: 'drinking' },
-    { word: 'Up to 90', hint: 'busy' }, { word: 'Taking the piss', hint: 'mocking' },
-    { word: 'Acting the maggot', hint: 'foolish' }, { word: 'Head melted', hint: 'overwhelmed' },
-    { word: 'Notions', hint: 'pretentious' }, { word: 'Bogger', hint: 'rural' },
-    { word: 'Cute hoor', hint: 'sly' }, { word: 'Scarlet', hint: 'embarrassed' },
-    { word: 'Away with the fairies', hint: 'distracted' }, { word: 'Story horse', hint: 'greeting' },
-    { word: 'Cop on', hint: 'sense' }, { word: 'Dry shite', hint: 'boring' },
-    { word: 'Chancer', hint: 'opportunist' }, { word: 'Manky', hint: 'dirty' },
-    { word: 'Skint', hint: 'broke' }, { word: 'Gaff', hint: 'home' },
-    { word: 'Messages', hint: 'groceries' }, { word: 'Shifted', hint: 'kissed' },
-    { word: 'Leg it', hint: 'run' }, { word: 'Sound out', hint: 'confirm' },
-  ],
 };
 
 const premiumCategoriesEN = {
@@ -230,6 +203,33 @@ const premiumCategoriesEN = {
     { word: 'Hotline Bling', hint: 'drake' }, { word: 'In da Club', hint: '50cent' }, { word: 'Lose Yourself', hint: 'eminem' }, { word: 'Without Me', hint: 'eminem' },
     { word: 'Gold Digger', hint: 'kanye' }, { word: '22', hint: 'taylor' }, { word: 'Shake It Off', hint: 'taylor' }, { word: 'Bad Blood', hint: 'taylor' },
     { word: 'Love Story', hint: 'taylor' }, { word: 'Blank Space', hint: 'taylor' }, { word: 'All Too Well', hint: 'taylor' }, { word: 'Anti-Hero', hint: 'taylor' },
+  ],
+  'Irish Slang': [
+    { word: 'Grand', hint: 'fine' }, { word: 'Craic', hint: 'fun' },
+    { word: 'Gas', hint: 'funny' }, { word: 'Deadly', hint: 'great' },
+    { word: 'Savage', hint: 'excellent' }, { word: 'Sound', hint: 'kind' },
+    { word: "Fair play", hint: "respect" }, { word: "What's the story", hint: "greeting" },
+    { word: 'Yoke', hint: 'object' }, { word: 'Eejit', hint: 'fool' },
+    { word: 'Gobshite', hint: 'idiot' }, { word: 'Gowl', hint: 'insult' },
+    { word: 'Dose', hint: 'annoying' }, { word: 'Feck', hint: 'swear' },
+    { word: 'Jaysus', hint: 'surprise' }, { word: 'Shift', hint: 'kiss' },
+    { word: 'Mot', hint: 'girlfriend' }, { word: 'Lad', hint: 'male' },
+    { word: 'Yer man', hint: 'person' }, { word: 'Yer wan', hint: 'person' },
+    { word: 'Banjaxed', hint: 'broken' }, { word: 'Knackered', hint: 'tired' },
+    { word: 'Scuttered', hint: 'drunk' }, { word: 'Plastered', hint: 'drunk' },
+    { word: 'Locked', hint: 'drunk' }, { word: 'Hammered', hint: 'drunk' },
+    { word: 'Pissed', hint: 'drunk' }, { word: 'Buzzin', hint: 'excited' },
+    { word: 'Giving out', hint: 'complaining' }, { word: 'On the lash', hint: 'drinking' },
+    { word: 'Up to 90', hint: 'busy' }, { word: 'Taking the piss', hint: 'mocking' },
+    { word: 'Acting the maggot', hint: 'foolish' }, { word: 'Head melted', hint: 'overwhelmed' },
+    { word: 'Notions', hint: 'pretentious' }, { word: 'Bogger', hint: 'rural' },
+    { word: 'Cute hoor', hint: 'sly' }, { word: 'Scarlet', hint: 'embarrassed' },
+    { word: 'Away with the fairies', hint: 'distracted' }, { word: 'Story horse', hint: 'greeting' },
+    { word: 'Cop on', hint: 'sense' }, { word: 'Dry shite', hint: 'boring' },
+    { word: 'Chancer', hint: 'opportunist' }, { word: 'Manky', hint: 'dirty' },
+    { word: 'Skint', hint: 'broke' }, { word: 'Gaff', hint: 'home' },
+    { word: 'Messages', hint: 'groceries' }, { word: 'Shifted', hint: 'kissed' },
+    { word: 'Leg it', hint: 'run' }, { word: 'Sound out', hint: 'confirm' },
   ],
 };
 
@@ -595,7 +595,7 @@ const translations = {
     unlockPremium: 'Unlock Premium',
     premiumTitle: 'Unlock Premium Categories',
     premiumDesc: 'Get access to 300+ words across 6 exclusive categories!',
-    premiumFeatures: '• Professions\n• Gen Z Mode\n• Adult Party Mode\n• Movie & TV Characters\n• Fantasy & Mythology\n• Famous Songs',
+    premiumFeatures: '• Professions\n• Gen Z Mode\n• Adult Party Mode\n• Movie & TV Characters\n• Fantasy & Mythology\n• Famous Songs\n• Irish Slang',
     unlockPrice: 'Unlock for $4.99',
     maybeLater: 'Maybe Later',
     needMorePlayers: (n) => `Add ${n} more player${n === 1 ? '' : 's'} to start.`,
@@ -955,9 +955,7 @@ export default function CreateRoomScreen({ navigation, route }) {
   const t = translations[lang];
 
   const baseFreeCategories = lang === 'lt' ? freeCategoriesLT : freeCategoriesEN;
-  const freeCategories = lang === 'en'
-    ? baseFreeCategories
-    : Object.fromEntries(Object.entries(baseFreeCategories).filter(([k]) => k !== 'Irish Slang'));
+  const freeCategories = baseFreeCategories;
   const basePremiumCategories = lang === 'lt' ? premiumCategoriesLT : premiumCategoriesEN;
   const premiumCategories = localSlangByLang[lang]
     ? { ...localSlangByLang[lang], ...basePremiumCategories }
@@ -1372,16 +1370,16 @@ const getStyles = (colors, isDarkMode) => {
       flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
       marginBottom: 24, paddingVertical: 14, paddingHorizontal: 20,
       borderRadius: 14, borderWidth: 3,
-      borderColor: colors.primary,
-      backgroundColor: isDarkMode ? colors.primary + '22' : colors.primary + '15',
-      shadowColor: colors.primary,
+      borderColor: isDarkMode ? colors.primary : '#fff',
+      backgroundColor: isDarkMode ? colors.primary + '22' : '#1d3557',
+      shadowColor: isDarkMode ? colors.primary : '#1d3557',
       shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.4,
+      shadowOpacity: 0.5,
       shadowRadius: 10,
       elevation: 6,
     },
-    voteBtnNew: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: colors.primary, letterSpacing: 4, marginBottom: 3 },
-    voteBtnText: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? '#fff' : '#1d3557', letterSpacing: 1 },
+    voteBtnNew: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? colors.primary : '#f1faee', letterSpacing: 4, marginBottom: 3 },
+    voteBtnText: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? '#fff' : '#f1faee', letterSpacing: 1 },
     categoryList: { gap: 8 },
     categoryChip: {
       backgroundColor: colors.surface, paddingVertical: 14, paddingHorizontal: 20,

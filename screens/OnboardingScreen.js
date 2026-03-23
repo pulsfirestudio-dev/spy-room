@@ -343,7 +343,7 @@ export default function OnboardingScreen({ navigation }) {
         end={{ x: 1, y: 1 }}
         style={styles.iconCircle}
       >
-        <Ionicons name="eye" size={56} color="#fff" />
+        <Ionicons name="eye" size={44} color="#fff" />
       </LinearGradient>
 
       <Text style={[styles.slideTitle, { color: isDarkMode ? '#fff' : '#0A4A47' }]}>{t.welcome}</Text>
@@ -395,7 +395,7 @@ export default function OnboardingScreen({ navigation }) {
         end={{ x: 1, y: 1 }}
         style={styles.iconCircle}
       >
-        <Ionicons name="sparkles" size={56} color="#fff" />
+        <Ionicons name="sparkles" size={44} color="#fff" />
       </LinearGradient>
 
       <Text style={[styles.slideTitle, { color: isDarkMode ? '#fff' : '#0A4A47', fontSize: 22 }]}>
@@ -444,7 +444,7 @@ export default function OnboardingScreen({ navigation }) {
         end={{ x: 1, y: 1 }}
         style={styles.iconCircle}
       >
-        <Ionicons name={slideData.icon} size={56} color="#fff" />
+        <Ionicons name={slideData.icon} size={44} color="#fff" />
       </LinearGradient>
       <Text style={[styles.slideTitle, { color: isDarkMode ? '#fff' : '#0A4A47' }]}>{slideData.title}</Text>
       <Text style={[styles.slideText, { color: isDarkMode ? '#ccc' : '#1d3557' }]}>{slideData.text}</Text>
@@ -537,33 +537,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 28,
-    paddingTop: 16,
-    paddingBottom: 32,
-    gap: 18,
+    paddingTop: 8,
+    paddingBottom: 24,
+    gap: 10,
   },
   iconCircle: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: 90,
+    height: 90,
+    borderRadius: 45,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
+    shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.3,
-    shadowRadius: 16,
-    elevation: 12,
+    shadowRadius: 12,
+    elevation: 10,
   },
   slideTitle: {
-    fontSize: 26,
+    fontSize: 22,
     fontFamily: 'SpecialElite_400Regular',
     letterSpacing: 2,
     textAlign: 'center',
-    lineHeight: 34,
+    lineHeight: 30,
   },
   slideText: {
-    fontSize: 15,
+    fontSize: 13,
     textAlign: 'center',
-    lineHeight: 25,
+    lineHeight: 21,
     fontFamily: 'SpecialElite_400Regular',
   },
 
