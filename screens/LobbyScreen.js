@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { listenToRoom, startGame, leaveRoom } from '../utils/RoomManager';
-import { CATEGORY_NAMES } from '../utils/wordCategories';
+import { CATEGORY_NAMES, CATEGORY_NAMES_LT } from '../utils/wordCategories';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const T = {
@@ -63,8 +63,10 @@ export default function LobbyScreen({ navigation, route }) {
   const [roomData, setRoomData] = useState(null);
   const [starting, setStarting] = useState(false);
 
+  const categoryNames = language === 'lt' ? CATEGORY_NAMES_LT : CATEGORY_NAMES;
+
   // Game config — host only
-  const [categoryId, setCategoryId] = useState('Random');
+  const [categoryId, setCategoryId] = useState(language === 'lt' ? 'Atsitiktinė' : 'Random');
   const [numSpies, setNumSpies] = useState(1);
   const [timeLimitOn, setTimeLimitOn] = useState(false);
   const [timePerPerson, setTimePerPerson] = useState(30);
@@ -105,6 +107,7 @@ export default function LobbyScreen({ navigation, route }) {
         timePerPerson,
         clueAssist,
         videoCallEnabled: videoCall,
+        language,
       });
     } catch (e) {
       Alert.alert('Error', e.message);
@@ -181,7 +184,7 @@ export default function LobbyScreen({ navigation, route }) {
             {/* Category */}
             <Text style={styles.configLabel}>{t.category}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 14 }}>
-              {CATEGORY_NAMES.map(cat => (
+              {categoryNames.map(cat => (
                 <TouchableOpacity
                   key={cat}
                   style={[styles.catChip, categoryId === cat && styles.catChipActive]}

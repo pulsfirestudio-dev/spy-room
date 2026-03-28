@@ -18,6 +18,7 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 9,
       "package": "com.pulsfirestudio.spyroom",
       "adaptiveIcon": {
         "foregroundImage": "./assets/Logo2.png",
@@ -43,3 +44,4 @@
     }
   }
 }
+

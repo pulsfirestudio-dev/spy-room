@@ -104,7 +104,7 @@ const gameSlides = {
     intro: {
       icon: 'people',
       iconBg: ['#1a6b8a', '#2196a8'],
-      title: 'GATHER YOUR\nCREW',
+      title: 'GATHER YOUR\nTEAM',
       text: '3 to 12 players. Each round, one Spy is secretly chosen. Only they don\'t know the secret word — everyone else does.',
     },
     play: {

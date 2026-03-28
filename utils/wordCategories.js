@@ -91,10 +91,77 @@ export const CATEGORIES_EN = {
   ],
 };
 
+export const CATEGORIES_LT = {
+  'Atsitiktinė': [
+    { word: 'Dantų šepetėlis', hint: 'vonios kambarys' }, { word: 'Liūtas', hint: 'plėšrūnas' },
+    { word: 'Elon Musk', hint: 'technologijos' }, { word: 'Kėdė', hint: 'sėdėjimas' },
+    { word: 'Taylor Swift', hint: 'pop' }, { word: 'Delfinas', hint: 'protingas' },
+    { word: 'Veidrodis', hint: 'atspindys' }, { word: 'Cristiano Ronaldo', hint: 'futbolas' },
+    { word: 'Erelis', hint: 'sparnai' }, { word: 'Nešiojamas', hint: 'kompiuteris' },
+    { word: 'Beyoncé', hint: 'dainininkė' }, { word: 'Ryklys', hint: 'vandenynas' },
+    { word: 'Skėtis', hint: 'lietus' }, { word: 'LeBron James', hint: 'krepšinis' },
+    { word: 'Pingvinas', hint: 'šaltis' }, { word: 'Šaldytuvas', hint: 'šaltis' },
+    { word: 'Gordon Ramsay', hint: 'virimas' }, { word: 'Vilkas', hint: 'gauja' },
+    { word: 'Grand', hint: 'gerai' }, { word: 'Craic', hint: 'linksmybės' },
+    { word: 'Deadly', hint: 'puiku' }, { word: 'Gobshite', hint: 'idiotas' },
+    { word: 'Knackered', hint: 'pavargęs' }, { word: 'Scarlet', hint: 'gėda' },
+  ],
+  'Kasdieniai Daiktai': [
+    { word: 'Dantų šepetėlis', hint: 'vonios kambarys' }, { word: 'Kėdė', hint: 'sėdėjimas' },
+    { word: 'Stalas', hint: 'paviršius' }, { word: 'Sofa', hint: 'svetainė' },
+    { word: 'Pagalvė', hint: 'lova' }, { word: 'Antklodė', hint: 'šiluma' },
+    { word: 'Lempa', hint: 'apšvietimas' }, { word: 'Veidrodis', hint: 'atspindys' },
+    { word: 'Laikrodis', hint: 'laikas' }, { word: 'Durys', hint: 'įėjimas' },
+    { word: 'Langas', hint: 'stiklas' }, { word: 'Kilimas', hint: 'grindys' },
+    { word: 'Lentyna', hint: 'saugojimas' }, { word: 'Televizorius', hint: 'ekranas' },
+    { word: 'Nuotolinis', hint: 'valdymas' }, { word: 'Kroviklis', hint: 'energija' },
+    { word: 'Nešiojamas', hint: 'kompiuteris' }, { word: 'Ausinės', hint: 'garsas' },
+    { word: 'Kuprinė', hint: 'nešiojimas' }, { word: 'Piniginė', hint: 'pinigai' },
+    { word: 'Raktai', hint: 'prieiga' }, { word: 'Rašiklis', hint: 'rašymas' },
+    { word: 'Knyga', hint: 'skaitymas' }, { word: 'Puodelis', hint: 'gėrimas' },
+    { word: 'Lėkštė', hint: 'maistas' }, { word: 'Virdulys', hint: 'vanduo' },
+    { word: 'Mikrobangė', hint: 'šildymas' }, { word: 'Šaldytuvas', hint: 'šaltis' },
+    { word: 'Rankšluostis', hint: 'džiovinimas' }, { word: 'Skėtis', hint: 'lietus' },
+  ],
+  'Garsūs Žmonės': [
+    { word: 'Elon Musk', hint: 'technologijos' }, { word: 'Taylor Swift', hint: 'pop' },
+    { word: 'Cristiano Ronaldo', hint: 'futbolas' }, { word: 'Lionel Messi', hint: 'futbolas' },
+    { word: 'Dwayne Johnson', hint: 'imtynės' }, { word: 'Kim Kardashian', hint: 'realybė' },
+    { word: 'Gordon Ramsay', hint: 'virimas' }, { word: 'MrBeast', hint: 'YouTube' },
+    { word: 'Oprah Winfrey', hint: 'pokalbių laida' }, { word: 'Barack Obama', hint: 'prezidentas' },
+    { word: 'Michael Jackson', hint: 'pop' }, { word: 'Beyoncé', hint: 'dainininkė' },
+    { word: 'Johnny Depp', hint: 'aktoriaus' }, { word: 'Keanu Reeves', hint: 'veiksmas' },
+    { word: 'Tom Cruise', hint: 'veiksmas' }, { word: 'Adele', hint: 'vokalas' },
+    { word: 'Drake', hint: 'repas' }, { word: 'Rihanna', hint: 'mada' },
+    { word: 'Billie Eilish', hint: 'alternatyva' }, { word: 'LeBron James', hint: 'krepšinis' },
+    { word: 'Serena Williams', hint: 'tenisas' }, { word: 'Usain Bolt', hint: 'bėgimas' },
+    { word: 'Conor McGregor', hint: 'MMA' }, { word: 'Lewis Hamilton', hint: 'lenktynės' },
+  ],
+  'Gyvūnai': [
+    { word: 'Šuo', hint: 'augintinis' }, { word: 'Katė', hint: 'augintinis' },
+    { word: 'Liūtas', hint: 'plėšrūnas' }, { word: 'Tigras', hint: 'dryžiai' },
+    { word: 'Dramblys', hint: 'didžiulis' }, { word: 'Žirafa', hint: 'aukštas' },
+    { word: 'Kenguira', hint: 'šokinėjimas' }, { word: 'Panda', hint: 'bambukas' },
+    { word: 'Koala', hint: 'eukaliptas' }, { word: 'Delfinas', hint: 'protingas' },
+    { word: 'Banginis', hint: 'milžinas' }, { word: 'Ryklys', hint: 'vandenynas' },
+    { word: 'Aštuonkojis', hint: 'čiuptuvai' }, { word: 'Pingvinas', hint: 'šaltis' },
+    { word: 'Erelis', hint: 'sparnai' }, { word: 'Pelėda', hint: 'naktis' },
+  ],
+};
+
 export const CATEGORY_NAMES = Object.keys(CATEGORIES_EN);
+export const CATEGORY_NAMES_LT = Object.keys(CATEGORIES_LT);
 
 export const pickWord = (categoryId, usedWords = []) => {
   const list = CATEGORIES_EN[categoryId] ?? Object.values(CATEGORIES_EN)[0];
+  const available = list.filter(item => !usedWords.includes(item.word));
+  const pool = available.length > 0 ? available : list;
+  return pool[Math.floor(Math.random() * pool.length)];
+};
+
+export const pickWordForLanguage = (categoryId, language = 'en', usedWords = []) => {
+  const categories = language === 'lt' ? CATEGORIES_LT : CATEGORIES_EN;
+  const list = categories[categoryId] ?? Object.values(categories)[0];
   const available = list.filter(item => !usedWords.includes(item.word));
   const pool = available.length > 0 ? available : list;
   return pool[Math.floor(Math.random() * pool.length)];
