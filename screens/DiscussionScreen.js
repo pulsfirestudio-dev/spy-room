@@ -496,7 +496,7 @@ const getStyles = (colors, isDarkMode) =>
     },
     // ↑ Bigger title
     title: {
-      fontSize: isSmallScreen ? 20 : 24, fontWeight: "900", letterSpacing: 3,
+      fontSize: isSmallScreen ? 20 : 24, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3,
       color: isDarkMode ? "#fff" : "#000", flex: 1, textAlign: "center",
     },
     closeBtn: {
@@ -515,20 +515,20 @@ const getStyles = (colors, isDarkMode) =>
     },
     // ↑ Bigger "NOW TALKING" label
     nowTalkingLabel: {
-      fontSize: 12, fontWeight: "800", letterSpacing: 3,
+      fontSize: 12, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3,
       color: isDarkMode ? "#aaa" : colors.text, marginBottom: 4,
     },
     // ↑ Bigger current player name
     currentPlayerName: {
-      fontSize: isSmallScreen ? 28 : 34, fontWeight: "900",
+      fontSize: isSmallScreen ? 28 : 34, fontFamily: 'SpecialElite_400Regular',
       color: isDarkMode ? "#fff" : "#000", letterSpacing: 1,
       marginBottom: 3, textAlign: "center",
     },
     // ↑ Bigger starts convo text
-    startsConvo: { fontSize: 14, color: isDarkMode ? "#aaa" : colors.text, fontWeight: "600" },
+    startsConvo: { fontSize: 13, color: isDarkMode ? "#aaa" : colors.text, fontFamily: 'SpecialElite_400Regular' },
     timerSection: { alignItems: "center", marginBottom: isSmallScreen ? 8 : 12, gap: 7 },
     // ↑ Bigger timer number
-    timerNumber: { fontSize: isSmallScreen ? 42 : 52, fontWeight: "900", letterSpacing: 1, textAlign: 'center', width: '100%' },
+    timerNumber: { fontSize: isSmallScreen ? 42 : 52, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1, textAlign: 'center', width: '100%' },
     timerBarBg: {
       width: "100%", height: 5, backgroundColor: isDarkMode ? "#333" : "#ddd",
       borderRadius: 3, overflow: "hidden",
@@ -541,11 +541,11 @@ const getStyles = (colors, isDarkMode) =>
     },
     nextBtnAlert: { backgroundColor: "#ff1a1a", borderColor: "#ff1a1a" },
     // ↑ Bigger next button text
-    nextBtnText: { color: "#fff", fontWeight: "800", fontSize: 15, letterSpacing: 1 },
+    nextBtnText: { color: "#fff", fontFamily: 'SpecialElite_400Regular', fontSize: 13, letterSpacing: 1 },
     section: { marginBottom: isSmallScreen ? 8 : 12 },
     // ↑ Bigger section label
     sectionLabel: {
-      fontSize: 12, fontWeight: "800", letterSpacing: 3,
+      fontSize: 12, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3,
       color: isDarkMode ? "#aaa" : colors.text, marginBottom: 7,
     },
     playerList: { gap: 5 },
@@ -563,14 +563,14 @@ const getStyles = (colors, isDarkMode) =>
     },
     playerIndexActive: { backgroundColor: colors.primary },
     // ↑ Bigger player index number
-    playerIndexText: { fontSize: 13, fontWeight: "800", color: isDarkMode ? "#aaa" : colors.text },
+    playerIndexText: { fontSize: 13, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? "#aaa" : colors.text },
     playerIndexTextActive: { color: "#fff" },
     // ↑ Bigger player name in list
-    playerRowName: { flex: 1, fontSize: 16, fontWeight: "700", color: isDarkMode ? "#ccc" : "#444" },
-    playerRowNameActive: { color: isDarkMode ? "#fff" : "#000", fontWeight: "900" },
+    playerRowName: { flex: 1, fontSize: 14, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? "#ccc" : "#444" },
+    playerRowNameActive: { color: isDarkMode ? "#fff" : "#000", fontFamily: 'SpecialElite_400Regular' },
     talkingPill: { backgroundColor: colors.primary, paddingVertical: 3, paddingHorizontal: 8, borderRadius: 20 },
     // ↑ Bigger talking pill text
-    talkingPillText: { color: "#fff", fontSize: 10, fontWeight: "800", letterSpacing: 1 },
+    talkingPillText: { color: "#fff", fontSize: 10, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1 },
     actions: { gap: 7 },
     revealBtn: {
       flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8,
@@ -579,12 +579,12 @@ const getStyles = (colors, isDarkMode) =>
       borderRadius: 14, borderWidth: 2, borderColor: isDarkMode ? "#fff" : "#000",
     },
     // ↑ Bigger reveal button text
-    revealBtnText: { color: isDarkMode ? "#000" : "#fff", fontSize: 15, fontWeight: "900", letterSpacing: 2 },
+    revealBtnText: { color: isDarkMode ? "#000" : "#fff", fontSize: 13, fontFamily: 'SpecialElite_400Regular', letterSpacing: 2 },
     bottomRow: { flexDirection: "row", gap: 8 },
     smallBtn: {
       flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center",
       gap: 5, paddingVertical: isSmallScreen ? 10 : 12, borderRadius: 11, borderWidth: 1.5,
     },
     // ↑ Bigger small button text
-    smallBtnText: { color: isDarkMode ? "#aaa" : colors.text, fontSize: 14, fontWeight: "700" },
+    smallBtnText: { color: isDarkMode ? "#aaa" : colors.text, fontSize: 13, fontFamily: 'SpecialElite_400Regular' },
   });

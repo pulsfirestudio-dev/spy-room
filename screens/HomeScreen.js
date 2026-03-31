@@ -34,6 +34,78 @@ const translations = {
     multiplayer: 'DAUGIAŽAIDIS',
     language: 'KALBA',
   },
+  es: {
+    title: 'SPY ROOM',
+    tagline: 'Mentiras. Pistas. Caos.',
+    newGame: 'NUEVO JUEGO',
+    howToPlay: 'CÓMO JUGAR',
+    rateAndShare: 'VALORAR Y COMPARTIR',
+    multiplayer: 'MULTIJUGADOR',
+    language: 'IDIOMA',
+  },
+  fr: {
+    title: 'SPY ROOM',
+    tagline: 'Mensonges. Pistes. Chaos.',
+    newGame: 'NOUVELLE PARTIE',
+    howToPlay: 'COMMENT JOUER',
+    rateAndShare: 'NOTER ET PARTAGER',
+    multiplayer: 'MULTIJOUEUR',
+    language: 'LANGUE',
+  },
+  de: {
+    title: 'SPY ROOM',
+    tagline: 'Lügen. Hinweise. Chaos.',
+    newGame: 'NEUES SPIEL',
+    howToPlay: 'WIE MAN SPIELT',
+    rateAndShare: 'BEWERTEN & TEILEN',
+    multiplayer: 'MEHRSPIELER',
+    language: 'SPRACHE',
+  },
+  pl: {
+    title: 'SPY ROOM',
+    tagline: 'Kłamstwa. Tropy. Chaos.',
+    newGame: 'NOWA GRA',
+    howToPlay: 'JAK GRAĆ',
+    rateAndShare: 'OCEŃ I UDOSTĘPNIJ',
+    multiplayer: 'MULTIPLAYER',
+    language: 'JĘZYK',
+  },
+  pt: {
+    title: 'SPY ROOM',
+    tagline: 'Mentiras. Pistas. Caos.',
+    newGame: 'NOVO JOGO',
+    howToPlay: 'COMO JOGAR',
+    rateAndShare: 'AVALIAR E COMPARTILHAR',
+    multiplayer: 'MULTIJOGADOR',
+    language: 'IDIOMA',
+  },
+  it: {
+    title: 'SPY ROOM',
+    tagline: 'Bugie. Indizi. Caos.',
+    newGame: 'NUOVA PARTITA',
+    howToPlay: 'COME GIOCARE',
+    rateAndShare: 'VALUTA E CONDIVIDI',
+    multiplayer: 'MULTIPLAYER',
+    language: 'LINGUA',
+  },
+  nl: {
+    title: 'SPY ROOM',
+    tagline: 'Leugens. Tips. Chaos.',
+    newGame: 'NIEUW SPEL',
+    howToPlay: 'HOE TE SPELEN',
+    rateAndShare: 'BEOORDELEN & DELEN',
+    multiplayer: 'MEERSPELER',
+    language: 'TAAL',
+  },
+  ro: {
+    title: 'SPY ROOM',
+    tagline: 'Minciuni. Indicii. Haos.',
+    newGame: 'JOC NOU',
+    howToPlay: 'CUM SE JOACĂ',
+    rateAndShare: 'EVALUEAZĂ ȘI DISTRIBUIE',
+    multiplayer: 'MULTIPLAYER',
+    language: 'LIMBĂ',
+  },
 };
 
 // ─── Particle ──────────────────────────────────────────────────────────────────
@@ -289,7 +361,7 @@ export default function HomeScreen({ navigation, route }) {
   const glitchRedX = glitchX.interpolate({ inputRange: [-10, 10], outputRange: [-14, 6] });
   const glitchCyanX = glitchX.interpolate({ inputRange: [-10, 10], outputRange: [6, -14] });
 
-  const styles = getStyles(colors, isDarkMode, lang);
+  const styles = getStyles(colors, isDarkMode);
   const particles = Array.from({ length: 22 }, (_, i) => (
     <Particle key={i} index={i} delay={i * 380} colors={colors} isDarkMode={isDarkMode} screenWidth={width} screenHeight={height} />
   ));
@@ -376,7 +448,7 @@ export default function HomeScreen({ navigation, route }) {
           </Animated.View>
 
           {/* Typewriter tagline */}
-          <Text style={styles.tagline}>{taglineDisplay}</Text>
+          <Text style={styles.tagline} numberOfLines={1} adjustsFontSizeToFit>{taglineDisplay}</Text>
 
         </Animated.View>
 
@@ -401,7 +473,7 @@ export default function HomeScreen({ navigation, route }) {
             secondary
           >
             <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
-            <Text style={styles.secondaryButtonText}>{t.howToPlay}</Text>
+            <Text style={styles.secondaryButtonText} numberOfLines={1} adjustsFontSizeToFit>{t.howToPlay}</Text>
             <View style={styles.btnSlot}><Ionicons name="help-circle-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
@@ -413,7 +485,7 @@ export default function HomeScreen({ navigation, route }) {
             secondary
           >
             <View style={styles.btnSlot}><Ionicons name="people-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
-            <Text style={styles.secondaryButtonText}>{t.multiplayer}</Text>
+            <Text style={styles.secondaryButtonText} numberOfLines={1} adjustsFontSizeToFit>{t.multiplayer}</Text>
             <View style={styles.btnSlot}><Ionicons name="wifi" size={17} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
@@ -425,7 +497,7 @@ export default function HomeScreen({ navigation, route }) {
             secondary
           >
             <View style={styles.btnSlot}><Ionicons name="star-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
-            <Text style={styles.secondaryButtonText}>{t.rateAndShare}</Text>
+            <Text style={styles.secondaryButtonText} numberOfLines={1} adjustsFontSizeToFit>{t.rateAndShare}</Text>
             <View style={styles.btnSlot}><Ionicons name="share-social-outline" size={20} color={isDarkMode ? '#fff' : '#000'} /></View>
           </AnimatedButton>
 
@@ -438,7 +510,7 @@ export default function HomeScreen({ navigation, route }) {
   );
 }
 
-const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
+const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   gradientBg: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
   particlesContainer: { position: 'absolute', width: '100%', height: '100%', overflow: 'hidden' },
@@ -473,7 +545,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     backgroundColor: isDarkMode ? colors.primary : '#1a7ac7', borderRadius: 16,
   },
   title: {
-    fontSize: 48, fontWeight: '900', color: '#fff', letterSpacing: 6,
+    fontSize: 48, fontFamily: 'SpecialElite_400Regular', color: '#fff', letterSpacing: 6,
     textShadowColor: isDarkMode ? colors.primary : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: isDarkMode ? 22 : 0,
@@ -488,11 +560,11 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     textShadowColor: 'transparent', zIndex: 0,
   },
   tagline: {
-    fontSize: lang === 'lt' ? 13 : 17,
+    fontSize: 15,
     color: isDarkMode ? '#00ffff' : '#5b21b6',
     marginTop: 10, marginBottom: 16,
-    fontWeight: '700',
-    letterSpacing: lang === 'lt' ? 2 : 4,
+    fontFamily: 'SpecialElite_400Regular',
+    letterSpacing: 3,
     textTransform: 'uppercase',
     textShadowColor: isDarkMode ? '#00ffff' : 'transparent',
     textShadowOffset: { width: 0, height: 0 },
@@ -501,7 +573,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   cursor: {
     color: isDarkMode ? '#00ffff' : '#5b21b6',
-    fontWeight: '300',
+    fontFamily: 'SpecialElite_400Regular',
   },
   buttonContainer: { width: '100%', maxWidth: 320, gap: 8 },
   mainButton: {
@@ -515,7 +587,7 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
     shadowOpacity: isDarkMode ? 0.5 : 0.2,
     shadowRadius: 18, elevation: 10,
   },
-  buttonText: { color: '#fff', fontSize: 18, fontWeight: '800', letterSpacing: 3 },
+  buttonText: { color: '#fff', fontSize: 16, fontFamily: 'SpecialElite_400Regular', letterSpacing: 3 },
   multiplayerBtn: {
     backgroundColor: isDarkMode ? colors.surface : 'rgba(255,255,255,0.45)',
     paddingVertical: 15, paddingHorizontal: 25,
@@ -530,13 +602,13 @@ const getStyles = (colors, isDarkMode, lang) => StyleSheet.create({
   },
   secondaryButtonText: {
     color: isDarkMode ? '#fff' : '#0A4A47',
-    fontSize: 14, fontWeight: '700', letterSpacing: 1,
+    fontSize: 13, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1,
     textAlign: 'center', flex: 1,
   },
   btnSlot: { width: 32, alignItems: 'center', justifyContent: 'center' },
   version: {
     marginTop: 24,
     color: isDarkMode ? '#ffffff44' : '#00000044',
-    fontSize: 12, letterSpacing: 2,
+    fontSize: 12, letterSpacing: 2, fontFamily: 'SpecialElite_400Regular',
   },
 });

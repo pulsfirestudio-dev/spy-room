@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
+import { useFonts, SpecialElite_400Regular } from '@expo-google-fonts/special-elite';
 
 import HomeScreen from './screens/HomeScreen';
 import CreateRoomScreen from './screens/CreateRoomScreen';
@@ -19,6 +21,7 @@ import SettingsScreen from './screens/SettingsScreen';
 import DiscussionScreen from './screens/DiscussionScreen';
 import RevealResultScreen from './screens/RevealResultScreen';
 import VoteCategoriesScreen from './screens/VoteCategoriesScreen';
+import OnboardingScreen from './screens/OnboardingScreen';
 
 import { ThemeProvider } from './context/ThemeContext';
 import { SettingsProvider } from './context/SettingsContext';
@@ -30,11 +33,15 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [initialRoute, setInitialRoute] = useState('Home');
+  const [fontsLoaded] = useFonts({ SpecialElite_400Regular });
 
   useEffect(() => {
     async function prepare() {
       try {
         await new Promise(resolve => setTimeout(resolve, 1500));
+        const seen = await AsyncStorage.getItem('hasSeenOnboarding');
+        if (!seen) setInitialRoute('Onboarding');
       } catch (e) {
         console.warn(e);
       } finally {
@@ -50,7 +57,7 @@ export default function App() {
     }
   }, [appIsReady]);
 
-  if (!appIsReady) {
+  if (!appIsReady || !fontsLoaded) {
     return null;
   }
 
@@ -62,9 +69,10 @@ export default function App() {
             <View style={styles.container} onLayout={onLayoutRootView}>
               <StatusBar style="auto" />
               <Stack.Navigator
-                initialRouteName="Home"
+                initialRouteName={initialRoute}
                 screenOptions={{ headerShown: false }}
               >
+                <Stack.Screen name="Onboarding" component={OnboardingScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Settings" component={SettingsScreen} />
                 <Stack.Screen name="CreateRoom" component={CreateRoomScreen} />

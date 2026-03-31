@@ -5,7 +5,7 @@ import {
   doc, setDoc, getDoc, updateDoc, onSnapshot,
   serverTimestamp, arrayUnion,
 } from 'firebase/firestore';
-import { pickWord, generatePlayerId } from './wordCategories';
+import { pickWordForLanguage, generatePlayerId } from './wordCategories';
 
 const generateRoomCode = () => {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -47,7 +47,7 @@ export const joinRoom = async (roomCode, playerName) => {
 };
 
 export const startGame = async (roomCode, config) => {
-  const { categoryId, numImposters, timeLimit, timePerPerson, clueAssist, videoCallEnabled } = config;
+  const { categoryId, numImposters, timeLimit, timePerPerson, clueAssist, videoCallEnabled, language = 'en' } = config;
   const roomRef = doc(db, 'rooms', roomCode);
   const snap = await getDoc(roomRef);
   if (!snap.exists()) throw new Error('Room not found.');
@@ -57,7 +57,7 @@ export const startGame = async (roomCode, config) => {
     .sort((a, b) => a[1].joinedAt - b[1].joinedAt);
   const playerOrder = playerEntries.map(([id]) => id);
 
-  const picked = pickWord(categoryId);
+  const picked = pickWordForLanguage(categoryId, language);
   const secretWord = picked.word;
   const hintWord = picked.hint;
 

@@ -1,40 +1,80 @@
-// SelectLanguageScreen.js - Fixed light mode visibility
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
+import { usePremium } from '../context/PremiumContext';
 import { LinearGradient } from 'expo-linear-gradient';
+import SlangPromoModal from '../components/SlangPromoModal';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'lt', name: 'Lietuvių', flag: '🇱🇹' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+  { code: 'pt', name: 'Português', flag: '🇧🇷' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+  { code: 'ro', name: 'Română', flag: '🇷🇴' },
 ];
 
 const translations = {
   en: { title: 'SELECT LANGUAGE', back: 'BACK' },
-  lt: { title: 'PASIRINKTI KALBĄ', back: 'ATGAL' }
+  lt: { title: 'PASIRINKTI KALBĄ', back: 'ATGAL' },
+  es: { title: 'SELECCIONAR IDIOMA', back: 'ATRÁS' },
+  fr: { title: 'CHOISIR LA LANGUE', back: 'RETOUR' },
+  de: { title: 'SPRACHE WÄHLEN', back: 'ZURÜCK' },
+  pl: { title: 'WYBIERZ JĘZYK', back: 'WRÓĆ' },
+  pt: { title: 'SELECIONAR IDIOMA', back: 'VOLTAR' },
+  it: { title: 'SELEZIONA LINGUA', back: 'INDIETRO' },
+  nl: { title: 'TAAL SELECTEREN', back: 'TERUG' },
+  ro: { title: 'SELECTEAZĂ LIMBA', back: 'ÎNAPOI' },
 };
 
 export default function SelectLanguageScreen({ navigation, route }) {
   const { colors, isDarkMode } = useTheme();
+  const { isPremium, purchasePremium } = usePremium();
   const currentLang = route.params?.currentLang || 'en';
   const t = translations[currentLang];
   const styles = getStyles(colors, isDarkMode);
 
-  const selectLanguage = (langCode) => navigation.navigate('Home', { language: langCode });
+  const [promoVisible, setPromoVisible] = useState(false);
+  const [pendingLang, setPendingLang] = useState(null);
+
+  const selectLanguage = (langCode) => {
+    if (!isPremium && langCode !== currentLang) {
+      setPendingLang(langCode);
+      setPromoVisible(true);
+    } else {
+      navigation.navigate('Home', { language: langCode });
+    }
+  };
+
+  const handlePromoClose = () => {
+    setPromoVisible(false);
+    if (pendingLang) navigation.navigate('Home', { language: pendingLang });
+  };
+
+  const handlePromoPurchase = async () => {
+    setPromoVisible(false);
+    await purchasePremium();
+    if (pendingLang) navigation.navigate('Home', { language: pendingLang });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={isDarkMode ? colors.background : '#3EC9C1'} />
-      <View style={styles.content}>
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
             <Ionicons name="arrow-back" size={24} color={isDarkMode ? '#fff' : colors.text} />
@@ -60,14 +100,22 @@ export default function SelectLanguageScreen({ navigation, route }) {
         <TouchableOpacity style={styles.backButtonLarge} onPress={() => navigation.goBack()}>
           <Text style={styles.backButtonText}>{t.back}</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
+
+      <SlangPromoModal
+        visible={promoVisible}
+        language={pendingLang || currentLang}
+        onClose={handlePromoClose}
+        onPurchase={handlePromoPurchase}
+      />
     </SafeAreaView>
   );
 }
 
 const getStyles = (colors, isDarkMode) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { flex: 1, padding: 20, paddingTop: 20 },
+  content: { flex: 1 },
+  scrollContent: { padding: 20, paddingTop: 10 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 40 },
   backButton: {
     width: 44,
@@ -77,45 +125,45 @@ const getStyles = (colors, isDarkMode) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: isDarkMode ? '#fff' : colors.text
+    borderColor: isDarkMode ? '#fff' : colors.text,
   },
-  title: { 
-    fontSize: 24, 
-    fontWeight: '900', 
-    color: isDarkMode ? '#fff' : '#000', 
-    letterSpacing: 2, 
-    textShadowColor: isDarkMode ? colors.primary : 'transparent', 
-    textShadowOffset: { width: 1, height: 1 }, 
-    textShadowRadius: isDarkMode ? 2 : 0 
+  title: {
+    fontSize: 16,
+    fontFamily: 'SpecialElite_400Regular',
+    color: isDarkMode ? '#fff' : '#000',
+    letterSpacing: 1,
+    textShadowColor: isDarkMode ? colors.primary : 'transparent',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: isDarkMode ? 2 : 0,
   },
   placeholder: { width: 44 },
-  languagesContainer: { gap: 20, marginBottom: 40 },
-  languageCard: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    backgroundColor: colors.surface, 
-    padding: 20, 
-    borderRadius: 16, 
-    borderWidth: 2, 
-    borderColor: '#000', 
-    gap: 15 
+  languagesContainer: { gap: 16, marginBottom: 40 },
+  languageCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    padding: 16,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#000',
+    gap: 15,
   },
   selectedCard: { borderColor: colors.primary, backgroundColor: colors.primary + '10' },
-  flag: { fontSize: 40 },
-  languageName: { 
-    flex: 1, 
-    fontSize: 20, 
-    fontWeight: '700', 
-    color: isDarkMode ? '#fff' : '#000' 
+  flag: { fontSize: 36 },
+  languageName: {
+    flex: 1,
+    fontSize: 13,
+    fontFamily: 'SpecialElite_400Regular',
+    color: isDarkMode ? '#fff' : '#000',
   },
   selectedText: { color: isDarkMode ? '#fff' : '#000' },
-  backButtonLarge: { 
-    backgroundColor: colors.primary, 
-    paddingVertical: 18, 
-    borderRadius: 12, 
-    alignItems: 'center', 
-    borderWidth: 2, 
-    borderColor: '#000' 
+  backButtonLarge: {
+    backgroundColor: colors.primary,
+    paddingVertical: 18,
+    borderRadius: 12,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#000',
   },
-  backButtonText: { color: '#fff', fontSize: 16, fontWeight: '800', letterSpacing: 2 },
+  backButtonText: { color: '#fff', fontSize: 13, fontFamily: 'SpecialElite_400Regular', letterSpacing: 1 },
 });

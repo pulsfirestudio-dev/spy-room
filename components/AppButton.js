@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   text: {
-    fontWeight: "800",
     letterSpacing: 2,
   },
 });

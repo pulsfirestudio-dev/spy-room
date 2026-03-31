@@ -1,39 +1,54 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { Appearance } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to DARK mode (neon)
+  const [themeMode, setThemeModeState] = useState('dark'); // 'dark' | 'light' | 'system'
+  const [systemIsDark, setSystemIsDark] = useState(Appearance.getColorScheme() === 'dark');
 
   useEffect(() => {
     loadThemePreference();
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      setSystemIsDark(colorScheme === 'dark');
+    });
+    return () => subscription.remove();
   }, []);
 
   const loadThemePreference = async () => {
     try {
-      const savedTheme = await AsyncStorage.getItem('themePreference');
-      if (savedTheme !== null) {
-        setIsDarkMode(savedTheme === 'dark');
+      const saved = await AsyncStorage.getItem('themePreference');
+      if (saved === 'dark' || saved === 'light' || saved === 'system') {
+        setThemeModeState(saved);
       }
     } catch (error) {
       console.log('Error loading theme:', error);
     }
   };
 
-  const toggleTheme = async () => {
-    const newTheme = !isDarkMode;
-    setIsDarkMode(newTheme);
+  const setThemeMode = async (mode) => {
+    setThemeModeState(mode);
     try {
-      await AsyncStorage.setItem('themePreference', newTheme ? 'dark' : 'light');
+      await AsyncStorage.setItem('themePreference', mode);
     } catch (error) {
       console.log('Error saving theme:', error);
     }
   };
 
+  // Quick toggle for HomeScreen button (cycles dark ↔ light, clears system)
+  const toggleTheme = () => {
+    const next = isDarkMode ? 'light' : 'dark';
+    setThemeMode(next);
+  };
+
+  const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
+
   // NEON GAMING COLOR PALETTE
   const theme = {
     isDarkMode,
+    themeMode,
+    setThemeMode,
     toggleTheme,
     colors: isDarkMode ? {
       buttonOutline: '#ffffff',
