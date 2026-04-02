@@ -1,15 +1,57 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Purchases, { PurchasesError, LOG_LEVEL } from 'react-native-purchases';
+import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 
-const REVENUECAT_API_KEY = 'goog_YgxvzPUbckehiMlsMfbvAxzsCES';
+// Fix credit: Graham Walsh. RevenueCat requires platform-specific public keys.
+// Android uses a mobile key, while web testing must use a Web Billing key.
+const REVENUECAT_ANDROID_API_KEY = 'goog_YgxvzPUbckehiMlsMfbvAxzsCES';
+const REVENUECAT_IOS_API_KEY = process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY || '';
+const REVENUECAT_WEB_API_KEY = process.env.EXPO_PUBLIC_REVENUECAT_WEB_API_KEY || '';
 let purchasesConfigured = false;
+let purchasesConfigurePromise = null;
+
+// Fix credit: Graham Walsh. Choose the key by runtime platform to avoid web/mobile key mismatches.
+const getRevenueCatApiKey = () => {
+  if (Platform.OS === 'android') return REVENUECAT_ANDROID_API_KEY;
+  if (Platform.OS === 'ios') return REVENUECAT_IOS_API_KEY;
+  if (Platform.OS === 'web') return REVENUECAT_WEB_API_KEY;
+  return '';
+};
 
 const ensurePurchasesConfigured = async () => {
   if (purchasesConfigured) return;
-  Purchases.setLogLevel(LOG_LEVEL.SILENT);
-  await Purchases.configure({ apiKey: REVENUECAT_API_KEY });
-  purchasesConfigured = true;
+  // Fix credit: Graham Walsh. Reuse one in-flight configure promise to avoid duplicate init races.
+  if (purchasesConfigurePromise) {
+    await purchasesConfigurePromise;
+    return;
+  }
+
+  const apiKey = getRevenueCatApiKey();
+  if (!apiKey) {
+    // Fix credit: Graham Walsh. Fail fast with a clear key error instead of crashing deep in configure.
+    throw new Error(
+      Platform.OS === 'web'
+        ? 'RevenueCat Web Billing API key is missing. Set EXPO_PUBLIC_REVENUECAT_WEB_API_KEY for web testing.'
+        : 'RevenueCat API key is missing for this platform.'
+    );
+  }
+
+  purchasesConfigurePromise = (async () => {
+    const silentLevel = LOG_LEVEL?.SILENT;
+    // Fix credit: Graham Walsh. Guard LOG_LEVEL.SILENT because some runtimes expose it as undefined/null.
+    if (silentLevel != null) {
+      await Purchases.setLogLevel(silentLevel);
+    }
+    await Purchases.configure({ apiKey });
+    purchasesConfigured = true;
+  })();
+
+  try {
+    await purchasesConfigurePromise;
+  } finally {
+    purchasesConfigurePromise = null;
+  }
 };
 
 const PremiumContext = createContext();
@@ -51,7 +93,11 @@ export const PremiumProvider = ({ children }) => {
 
       // Get the premium package (one-time purchase)
       const premiumPackage = offerings.current.availablePackages.find(
-        (pkg) => pkg.identifier === 'premium' || pkg.product.title.toLowerCase().includes('premium')
+        (pkg) => {
+          const identifier = (pkg?.identifier || '').toLowerCase();
+          const title = (pkg?.product?.title || '').toLowerCase();
+          return identifier === 'premium' || title.includes('premium');
+        }
       );
 
       if (!premiumPackage) {
@@ -77,24 +123,31 @@ export const PremiumProvider = ({ children }) => {
         return { success: false, message: 'Purchase verification failed' };
       }
     } catch (err) {
-      if (err instanceof PurchasesError) {
-        setIsLoading(false);
-        if (err.code === Purchases.ErrorCode.PurchaseCancelledError) {
-          setError('Purchase cancelled');
-          return { success: false, message: 'Purchase cancelled' };
-        } else if (err.code === Purchases.ErrorCode.PurchaseNotAllowedError) {
-          setError('Purchase not allowed on this device');
-          return { success: false, message: 'Purchase not allowed on this device' };
-        } else if (err.code === Purchases.ErrorCode.NetworkError) {
-          setError('Network error - please check your connection');
-          return { success: false, message: 'Network error' };
-        }
+      setIsLoading(false);
+
+      // Fix credit: Graham Walsh. Avoid `instanceof PurchasesError` because the constructor can be unavailable on some builds.
+      const errorCode = err?.code;
+      const purchaseCancelled = Purchases?.ErrorCode?.PurchaseCancelledError;
+      const purchaseNotAllowed = Purchases?.ErrorCode?.PurchaseNotAllowedError;
+      const networkError = Purchases?.ErrorCode?.NetworkError;
+
+      if (errorCode === purchaseCancelled) {
+        setError('Purchase cancelled');
+        return { success: false, message: 'Purchase cancelled' };
+      }
+      if (errorCode === purchaseNotAllowed) {
+        setError('Purchase not allowed on this device');
+        return { success: false, message: 'Purchase not allowed on this device' };
+      }
+      if (errorCode === networkError) {
+        setError('Network error - please check your connection');
+        return { success: false, message: 'Network error' };
       }
 
       console.warn('Purchase error:', err);
-      setError(err.message || 'Purchase failed');
-      setIsLoading(false);
-      return { success: false, message: err.message || 'Purchase failed' };
+      const message = err?.message || 'Purchase failed';
+      setError(message);
+      return { success: false, message };
     }
   };
 
