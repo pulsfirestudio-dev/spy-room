@@ -1031,13 +1031,18 @@ export default function CreateRoomScreen({ navigation, route }) {
   };
 
   const handleWeeklyModalClose = () => {
+    clearError();
     setShowWeeklyModal(false);
   };
 
   const handleWeeklyModalPurchase = async () => {
+    // Fix credit: Graham Walsh. Surface failed weekly promo purchases instead of failing silently.
     const result = await purchasePremium();
     if (result.success) {
+      clearError();
       setShowWeeklyModal(false);
+    } else {
+      Alert.alert('Purchase Failed', result.message);
     }
   };
 
@@ -1325,6 +1330,7 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
         onPurchase={handleWeeklyModalPurchase}
         onVote={handleWeeklyModalVote}
         isPremium={isPremium}
+        isLoading={isLoading}
         language={lang}
       />
     </SafeAreaView>

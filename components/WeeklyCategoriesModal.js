@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
@@ -19,7 +19,7 @@ const wt = {
   ro: { title: 'Categorii Săptămânale', subtitle: 'Provocări noi în fiecare săptămână', thisWeek: 'SĂPTĂMÂNA ACEASTA', thisWeekName: 'Celebrități de Film', thisWeekDesc: 'Ghicește actori și regizori celebri!', voteTitle: 'Votează pentru categorii', voteDesc: 'Ajută la alegerea temelor pentru săptămâna viitoare', feature: 'Conținut premium exclusiv', goPremium: 'Mergi la Premium', notNow: 'Nu acum' },
 };
 
-export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, isPremium, onVote, language }) {
+export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, isPremium, isLoading = false, onVote, language }) {
   const { colors, isDarkMode } = useTheme();
   const [selectedSection, setSelectedSection] = useState('thisWeek');
   const t = wt[language] || wt.en;
@@ -130,12 +130,24 @@ export default function WeeklyCategoriesModal({ visible, onClose, onPurchase, is
               end={{ x: 1, y: 1 }}
               style={styles.purchaseBtnGradient}
             >
-              <TouchableOpacity style={styles.purchaseBtn} onPress={onPurchase}>
-                <Text style={[styles.purchaseBtnText, ltFont(17)]}>{t.goPremium}</Text>
+              <TouchableOpacity
+                style={[styles.purchaseBtn, isLoading && styles.buttonDisabled]}
+                onPress={onPurchase}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="#FFFFFF" size="small" />
+                ) : (
+                  <Text style={[styles.purchaseBtnText, ltFont(17)]}>{t.goPremium}</Text>
+                )}
               </TouchableOpacity>
             </LinearGradient>
 
-            <TouchableOpacity style={[styles.laterBtn, { borderColor: getAccentColor() }]} onPress={onClose}>
+            <TouchableOpacity
+              style={[styles.laterBtn, { borderColor: getAccentColor() }, isLoading && styles.buttonDisabled]}
+              onPress={onClose}
+              disabled={isLoading}
+            >
               <Text style={[styles.laterBtnText, { color: getAccentColor() }, ltFont(15)]}>{t.notNow}</Text>
             </TouchableOpacity>
           </View>
@@ -299,6 +311,9 @@ const getStyles = (colors, isDarkMode) => {
       paddingVertical: 16,
       alignItems: 'center',
       borderRadius: 10,
+    },
+    buttonDisabled: {
+      opacity: 0.7,
     },
     purchaseBtnText: {
       fontSize: 15,
