@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Modal, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../context/ThemeContext';
-import { usePremium } from '../context/PremiumContext';
 
 const { width } = Dimensions.get('window');
 
@@ -41,10 +40,6 @@ export default function VoteCategoriesScreen({ navigation, route }) {
 const BASE_VOTES = { 1: 142, 2: 89 };
 
   const { colors, isDarkMode } = useTheme();
-  const { purchasePremium, isPremium } = usePremium();
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [showPurchasePrompt, setShowPurchasePrompt] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [voteCounts, setVoteCounts] = useState(BASE_VOTES);
 
   useEffect(() => {
@@ -85,29 +80,6 @@ const BASE_VOTES = { 1: 142, 2: 89 };
     try {
       await AsyncStorage.setItem('categoryVoteCounts', JSON.stringify(updated));
     } catch (_) {}
-    setSelectedCategory(category);
-    setShowPurchasePrompt(true);
-  };
-
-  const handlePurchase = async () => {
-    setIsLoading(true);
-    try {
-      const result = await purchasePremium();
-      if (result?.success) {
-        setShowPurchasePrompt(false);
-        Alert.alert('Success!', 'Welcome to Premium! Enjoy all categories.', [
-          { text: 'Continue', onPress: () => navigation.goBack() }
-        ]);
-      }
-    } catch (error) {
-      Alert.alert('Purchase Error', error.message || 'Failed to process purchase. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSkip = () => {
-    setShowPurchasePrompt(false);
     navigation.goBack();
   };
 
@@ -185,74 +157,6 @@ const BASE_VOTES = { 1: 142, 2: 89 };
         </View>
       </ScrollView>
 
-      {/* Purchase Prompt Modal */}
-      <Modal visible={showPurchasePrompt} transparent={true} animationType="fade">
-        <View style={styles.promptOverlay}>
-          <LinearGradient
-            colors={getGradientColors()}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.promptGradientBorder}
-          >
-            <View style={[styles.promptContainer, { backgroundColor: isDarkMode ? colors.background : '#ffffff' }]}>
-              {/* Icon */}
-              <View style={styles.promptIconContainer}>
-                <LinearGradient
-                  colors={getGradientColors()}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={styles.promptIconGradient}
-                >
-                  <Ionicons name="checkmark-circle" size={40} color="#fff" />
-                </LinearGradient>
-              </View>
-
-              {/* Selected Category Display */}
-              {selectedCategory && (
-                <View style={styles.selectedCategoryDisplay}>
-                  <Text style={styles.selectedEmoji}>{selectedCategory.emoji}</Text>
-                  <Text style={[styles.selectedName, { color: isDarkMode ? colors.text : '#1d3557' }]}>
-                    {selectedCategory.name}
-                  </Text>
-                  <Text style={[styles.selectedVoteCount, { color: getAccentColor() }]}>
-                    {voteCounts[selectedCategory.id]} votes
-                  </Text>
-                </View>
-              )}
-
-              {/* Message */}
-              <Text style={[styles.promptTitle, { color: isDarkMode ? colors.text : '#1d3557' }]}>{t.voteSubmitted}</Text>
-              <Text style={[styles.promptMessage, { color: isDarkMode ? colors.textSecondary : '#2c5f7a' }]}>
-                {t.thankYou}
-              </Text>
-
-              {/* Buttons */}
-              <LinearGradient
-                colors={getGradientColors()}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.purchaseBtnGradient}
-              >
-                <TouchableOpacity
-                  style={styles.purchaseBtn}
-                  onPress={handlePurchase}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <ActivityIndicator color="#FFFFFF" size="small" />
-                  ) : (
-                    <Text style={styles.purchaseBtnText}>{t.goPremium}</Text>
-                  )}
-                </TouchableOpacity>
-              </LinearGradient>
-
-              <TouchableOpacity style={[styles.skipBtn, { borderColor: getAccentColor() }]} onPress={handleSkip}>
-                <Text style={[styles.skipBtnText, { color: getAccentColor() }]}>{t.notNow}</Text>
-              </TouchableOpacity>
-            </View>
-          </LinearGradient>
-        </View>
-      </Modal>
     </SafeAreaView>
   );
 }
@@ -301,38 +205,5 @@ const getStyles = (colors, isDarkMode) => {
       borderRadius: 10, marginLeft: 12,
     },
     voteBtnText: { color: '#FFFFFF', fontSize: 13, fontFamily: 'SpecialElite_400Regular', textAlign: 'center' },
-    // Modal
-    promptOverlay: {
-      flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.75)',
-      justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20,
-    },
-    promptGradientBorder: {
-      padding: 2, borderRadius: 28,
-      shadowColor: '#9B00FF', shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.5, shadowRadius: 20, elevation: 25,
-    },
-    promptContainer: { borderRadius: 26, padding: 28, alignItems: 'center' },
-    promptIconContainer: { marginBottom: 20 },
-    promptIconGradient: {
-      width: 80, height: 80, borderRadius: 40,
-      justifyContent: 'center', alignItems: 'center',
-      shadowColor: '#9B00FF', shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.6, shadowRadius: 16, elevation: 18,
-    },
-    selectedCategoryDisplay: { alignItems: 'center', marginBottom: 16 },
-    selectedEmoji: { fontSize: 48, marginBottom: 6 },
-    selectedName: { fontSize: 18, fontFamily: 'SpecialElite_400Regular', letterSpacing: -0.5, marginBottom: 4 },
-    selectedVoteCount: { fontSize: 13, fontFamily: 'SpecialElite_400Regular' },
-    promptTitle: { fontSize: 21, fontFamily: 'SpecialElite_400Regular', marginBottom: 12, textAlign: 'center' },
-    promptMessage: { fontSize: 13, textAlign: 'center', lineHeight: 20, marginBottom: 24, fontFamily: 'SpecialElite_400Regular' },
-    purchaseBtnGradient: {
-      width: '100%', borderRadius: 12, marginBottom: 10,
-      shadowColor: '#9B00FF', shadowOffset: { width: 0, height: 6 },
-      shadowOpacity: 0.5, shadowRadius: 16, elevation: 15,
-    },
-    purchaseBtn: { width: '100%', paddingVertical: 14, alignItems: 'center', borderRadius: 12 },
-    purchaseBtnText: { fontSize: 14, fontFamily: 'SpecialElite_400Regular', color: '#FFFFFF', letterSpacing: 0.5 },
-    skipBtn: { width: '100%', paddingVertical: 12, alignItems: 'center', borderRadius: 10, borderWidth: 2 },
-    skipBtnText: { fontSize: 13, fontFamily: 'SpecialElite_400Regular' },
   });
 };

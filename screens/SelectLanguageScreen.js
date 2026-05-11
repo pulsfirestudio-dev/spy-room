@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
-import { usePremium } from '../context/PremiumContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import SlangPromoModal from '../components/SlangPromoModal';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
@@ -42,32 +40,12 @@ const translations = {
 
 export default function SelectLanguageScreen({ navigation, route }) {
   const { colors, isDarkMode } = useTheme();
-  const { isPremium, purchasePremium } = usePremium();
   const currentLang = route.params?.currentLang || 'en';
   const t = translations[currentLang];
   const styles = getStyles(colors, isDarkMode);
 
-  const [promoVisible, setPromoVisible] = useState(false);
-  const [pendingLang, setPendingLang] = useState(null);
-
   const selectLanguage = (langCode) => {
-    if (!isPremium && langCode !== currentLang) {
-      setPendingLang(langCode);
-      setPromoVisible(true);
-    } else {
-      navigation.navigate('Home', { language: langCode });
-    }
-  };
-
-  const handlePromoClose = () => {
-    setPromoVisible(false);
-    if (pendingLang) navigation.navigate('Home', { language: pendingLang });
-  };
-
-  const handlePromoPurchase = async () => {
-    setPromoVisible(false);
-    await purchasePremium();
-    if (pendingLang) navigation.navigate('Home', { language: pendingLang });
+    navigation.navigate('Home', { language: langCode });
   };
 
   return (
@@ -102,12 +80,6 @@ export default function SelectLanguageScreen({ navigation, route }) {
         </TouchableOpacity>
       </ScrollView>
 
-      <SlangPromoModal
-        visible={promoVisible}
-        language={pendingLang || currentLang}
-        onClose={handlePromoClose}
-        onPurchase={handlePromoPurchase}
-      />
     </SafeAreaView>
   );
 }

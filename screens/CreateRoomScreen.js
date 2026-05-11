@@ -1,5 +1,5 @@
 // CreateRoomScreen.js
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   View,
   Text,
@@ -8,18 +8,13 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
-  Modal,
-  ActivityIndicator,
   StatusBar,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
-import { usePremium } from '../context/PremiumContext';
 
 import AppButton from "../components/AppButton";
-import WeeklyCategoriesModal from "../components/WeeklyCategoriesModal";
 import { LinearGradient } from 'expo-linear-gradient';
 
 /* -------------------- DATA -------------------- */
@@ -950,16 +945,16 @@ const translations = {
 /* -------------------- SCREEN -------------------- */
 export default function CreateRoomScreen({ navigation, route }) {
   const { colors, isDarkMode } = useTheme();
-  const { isPremium, isLoading, error, purchasePremium, clearError } = usePremium();
   const lang = route.params?.language || 'en';
   const t = translations[lang];
 
-  const baseFreeCategories = lang === 'lt' ? freeCategoriesLT : freeCategoriesEN;
-  const freeCategories = baseFreeCategories;
+  const baseCategories = lang === 'lt' ? freeCategoriesLT : freeCategoriesEN;
   const basePremiumCategories = lang === 'lt' ? premiumCategoriesLT : premiumCategoriesEN;
-  const premiumCategories = localSlangByLang[lang]
-    ? { ...localSlangByLang[lang], ...basePremiumCategories }
-    : basePremiumCategories;
+  const allCategories = {
+    ...baseCategories,
+    ...(localSlangByLang[lang] || {}),
+    ...basePremiumCategories,
+  };
   const getCategoryDisplayName = (cat) => {
     if (cat === 'Random' || cat === 'Atsitiktinė') return `🎲 ${t.random}`;
     return categoryNameTranslations[cat]?.[lang] || cat;
@@ -970,31 +965,13 @@ export default function CreateRoomScreen({ navigation, route }) {
 
   const [players, setPlayers] = useState([]);
   const [newPlayerName, setNewPlayerName] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(Object.keys(freeCategories)[0]);
+  const [selectedCategory, setSelectedCategory] = useState(Object.keys(allCategories)[0]);
   const [numImposters, setNumImposters] = useState(1);
   const [clueAssist, setClueAssist] = useState(false);
   const [chaosRound, setChaosRound] = useState(false);
   const [timeLimit, setTimeLimit] = useState(false);
   const [pressedButton, setPressedButton] = useState(null);
-  const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [showWeeklyModal, setShowWeeklyModal] = useState(false);
-
   const styles = getStyles(colors, isDarkMode);
-
-  // Show weekly categories modal when screen opens
-  useEffect(() => {
-    const showPromotionalModal = async () => {
-      try {
-        if (!isPremium) {
-          setTimeout(() => setShowWeeklyModal(true), 1000);
-        }
-      } catch (e) {
-        console.warn('Error showing modal:', e);
-      }
-    };
-
-    showPromotionalModal();
-  }, [isPremium]);
 
   const remainingPlayers = Math.max(0, MIN_PLAYERS - players.length);
   const canStart = players.length >= MIN_PLAYERS;
@@ -1015,46 +992,14 @@ export default function CreateRoomScreen({ navigation, route }) {
 
   const removePlayer = (index) => setPlayers((prev) => prev.filter((_, i) => i !== index));
 
-  const selectCategory = (cat, isPremiumCat = false) => {
-    if (isPremiumCat && !isPremium) { setShowPremiumModal(true); return; }
+  const selectCategory = (cat) => {
     setSelectedCategory(cat);
-  };
-
-  const handlePurchasePremium = async () => {
-    const result = await purchasePremium();
-    if (result.success) {
-      setShowPremiumModal(false);
-      Alert.alert('Success', result.message);
-    } else {
-      Alert.alert('Purchase Failed', result.message);
-    }
-  };
-
-  const handleWeeklyModalClose = () => {
-    clearError();
-    setShowWeeklyModal(false);
-  };
-
-  const handleWeeklyModalPurchase = async () => {
-    // Fix credit: Graham Walsh. Surface failed weekly promo purchases instead of failing silently.
-    const result = await purchasePremium();
-    if (result.success) {
-      clearError();
-      setShowWeeklyModal(false);
-    } else {
-      Alert.alert('Purchase Failed', result.message);
-    }
-  };
-
-  const handleWeeklyModalVote = () => {
-    setShowWeeklyModal(false);
-    navigation.navigate('VoteCategories', { language: lang });
   };
 
   const startGame = () => {
     if (!canStart) { Alert.alert('Error', t.needMorePlayers(remainingPlayers)); return; }
 
-    const categoryData = freeCategories[selectedCategory] || premiumCategories[selectedCategory];
+    const categoryData = allCategories[selectedCategory];
     const randomItem = categoryData[Math.floor(Math.random() * categoryData.length)];
     const secretWord = typeof randomItem === 'object' ? randomItem.word : randomItem;
     const hintWord = typeof randomItem === 'object' ? randomItem.hint : '';
@@ -1142,11 +1087,11 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
           </View>
         </View>
 
-        {/* Free Categories */}
+        {/* Categories */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{t.freeCategories}</Text>
+          <Text style={styles.sectionTitle}>{t.category}</Text>
           <View style={styles.categoryList}>
-            {Object.keys(freeCategories).map((cat) => (
+            {Object.keys(allCategories).map((cat) => (
               <View key={cat} style={{ width: "100%" }}>
                 <AppButton
                   title={getCategoryDisplayName(cat)}
@@ -1169,37 +1114,6 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
           <Text style={styles.voteBtnNew}>NEW</Text>
           <Text style={styles.voteBtnText}>{t.voteCategories}</Text>
         </TouchableOpacity>
-
-        {/* Premium Categories */}
-        <View style={styles.section}>
-          <View style={styles.premiumHeader}>
-            <Text style={styles.sectionTitle}>{t.premiumCategories}</Text>
-            {!isPremium && (
-              <TouchableOpacity style={styles.unlockButton} onPress={() => setShowPremiumModal(true)}>
-                <Text style={styles.unlockButtonText}>{t.unlockPremium}</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-          <View style={styles.categoryList}>
-            {Object.keys(premiumCategories).map((cat) => (
-              <TouchableOpacity
-                key={cat}
-                style={[
-                  styles.categoryChip, styles.premiumChip,
-                  selectedCategory === cat && isPremium && styles.categoryChipActive,
-                  !isPremium && styles.lockedChip,
-                ]}
-                onPress={() => selectCategory(cat, true)}
-                activeOpacity={0.8}
-              >
-                <Text style={[styles.categoryText, !isPremium && styles.lockedText, selectedCategory === cat && isPremium && styles.categoryTextActive]}>
-                  {cat}
-                </Text>
-                {!isPremium && <Text style={styles.lockIcon}>🔒</Text>}
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
 
         {/* Hidden Roles */}
         <View style={styles.section}>
@@ -1283,56 +1197,6 @@ const imposterIndices = shuffled.slice(0, Math.min(actualNumImposters, players.l
         />
       </ScrollView>
 
-      {/* Premium modal */}
-      <Modal visible={showPremiumModal} transparent animationType="fade">
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>{t.premiumTitle}</Text>
-            <Text style={styles.modalDesc}>{t.premiumDesc}</Text>
-            <Text style={styles.modalFeatures}>{t.premiumFeatures}</Text>
-
-            {error && (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
-              </View>
-            )}
-
-            <TouchableOpacity
-              style={[styles.unlockPriceButton, isLoading && styles.buttonDisabled]}
-              onPress={handlePurchasePremium}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <ActivityIndicator color="#fff" size="small" />
-              ) : (
-                <Text style={styles.unlockPriceText}>{t.unlockPrice}</Text>
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.maybeLaterButton}
-              onPress={() => {
-                setShowPremiumModal(false);
-                clearError();
-              }}
-              disabled={isLoading}
-            >
-              <Text style={styles.maybeLaterText}>{t.maybeLater}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Weekly Categories Modal */}
-      <WeeklyCategoriesModal
-        visible={showWeeklyModal}
-        onClose={handleWeeklyModalClose}
-        onPurchase={handleWeeklyModalPurchase}
-        onVote={handleWeeklyModalVote}
-        isPremium={isPremium}
-        isLoading={isLoading}
-        language={lang}
-      />
     </SafeAreaView>
   );
 }
@@ -1394,16 +1258,6 @@ const getStyles = (colors, isDarkMode) => {
     categoryChipActive: { backgroundColor: colors.primary, borderColor: border },
     categoryText: { color: isDarkMode ? '#ffffff' : '#000000', fontFamily: 'SpecialElite_400Regular', fontSize: 15 },
     categoryTextActive: { color: '#fff', fontFamily: 'SpecialElite_400Regular' },
-    premiumHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
-    unlockButton: {
-      backgroundColor: colors.accent, paddingVertical: 8, paddingHorizontal: 16,
-      borderRadius: 20, borderWidth: 2, borderColor: border,
-    },
-    unlockButtonText: { color: isDarkMode ? '#000' : '#000', fontFamily: 'SpecialElite_400Regular', fontSize: 13 },
-    premiumChip: { position: 'relative' },
-    lockedChip: { borderWidth: 2, borderColor: isDarkMode ? colors.primary : '#000000', backgroundColor: 'transparent' },
-    lockedText: { color: isDarkMode ? '#888888' : '#000', textShadowColor: 'rgba(180,0,0,0.35)', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 4 },
-    lockIcon: { position: 'absolute', right: 20, fontSize: 18 },
     counterContainer: { flexDirection: 'row', gap: 12 },
     counterButton: { flex: 1, backgroundColor: colors.surface, paddingVertical: 16, borderRadius: 14, alignItems: 'center' },
     counterButtonActive: {
@@ -1437,17 +1291,5 @@ const getStyles = (colors, isDarkMode) => {
     startButtonDisabled: { opacity: 0.45 },
     startButtonPressed: { transform: [{ scale: 0.97 }], shadowOpacity: 0.2 },
     startButtonText: { color: '#fff', fontSize: 18, fontFamily: 'SpecialElite_400Regular', letterSpacing: 2 },
-    modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-    modalContent: { backgroundColor: colors.surface, padding: 30, borderRadius: 20, width: '100%', maxWidth: 350, borderWidth: 2, borderColor: border },
-    modalTitle: { fontSize: 20, fontFamily: 'SpecialElite_400Regular', color: isDarkMode ? '#fff' : '#000', marginBottom: 15, textAlign: 'center', letterSpacing: 2 },
-    modalDesc: { fontSize: 14, color: isDarkMode ? '#ffffff' : '#000000', marginBottom: 15, textAlign: 'center', lineHeight: 20 },
-    modalFeatures: { fontSize: 13, color: isDarkMode ? '#aaaaaa' : colors.text, marginBottom: 25, lineHeight: 22 },
-    unlockPriceButton: { backgroundColor: colors.primary, paddingVertical: 16, borderRadius: 12, alignItems: 'center', marginBottom: 10, borderWidth: 2, borderColor: border },
-    unlockPriceText: { color: '#fff', fontSize: 16, fontFamily: 'SpecialElite_400Regular', letterSpacing: 2 },
-    maybeLaterButton: { paddingVertical: 12, alignItems: 'center' },
-    maybeLaterText: { color: isDarkMode ? '#888888' : colors.text, fontSize: 14, fontFamily: 'SpecialElite_400Regular' },
-    errorContainer: { backgroundColor: '#ff1a1a' + '22', borderColor: '#ff1a1a', borderWidth: 1, borderRadius: 8, padding: 12, marginVertical: 12 },
-    errorText: { color: '#ff1a1a', fontSize: 13, fontFamily: 'SpecialElite_400Regular', textAlign: 'center' },
-    buttonDisabled: { opacity: 0.6 },
   });
 };

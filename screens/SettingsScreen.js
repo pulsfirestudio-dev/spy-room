@@ -1,14 +1,13 @@
 // screens/SettingsScreen.js
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  StatusBar, ScrollView, Switch, ActivityIndicator, Alert, Linking,
+  StatusBar, ScrollView, Switch, Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { useSettings } from '../context/SettingsContext';
-import { usePremium } from '../context/PremiumContext';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const translations = {
@@ -267,12 +266,10 @@ const translations = {
 export default function SettingsScreen({ navigation, route }) {
   const { colors, isDarkMode, themeMode, setThemeMode } = useTheme();
   const { soundEnabled, setSoundEnabled } = useSettings();
-  const { isPremium, isLoading, restorePurchases, purchasePremium } = usePremium();
   const lang = route.params?.language || 'en';
   const t = translations[lang] || translations.en;
   const styles = useMemo(() => getStyles(colors, isDarkMode), [colors, isDarkMode]);
   const border = isDarkMode ? '#ffffff' : '#000000';
-  const [restoreLoading, setRestoreLoading] = useState(false);
 
   const SettingRow = ({ label, subtitle, value, onValueChange, icon }) => (
     <View style={styles.row}>
@@ -339,20 +336,6 @@ export default function SettingsScreen({ navigation, route }) {
     );
   };
 
-  const handleUnlockPremium = async () => {
-    if (!isPremium) await purchasePremium();
-  };
-
-  const handleRestorePurchases = async () => {
-    setRestoreLoading(true);
-    const result = await restorePurchases();
-    setRestoreLoading(false);
-    Alert.alert(
-      result.success ? 'Success' : 'Info',
-      result.message
-    );
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       {!isDarkMode && <LinearGradient colors={['#3EC9C1', '#1a7ac7']} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} pointerEvents="none" />}
@@ -404,50 +387,6 @@ export default function SettingsScreen({ navigation, route }) {
               <Text style={styles.flagText}>{{ en: '🇬🇧', lt: '🇱🇹', es: '🇪🇸', fr: '🇫🇷', de: '🇩🇪', pl: '🇵🇱', pt: '🇧🇷', it: '🇮🇹', nl: '🇳🇱', ro: '🇷🇴' }[lang] || '🇬🇧'}</Text>
             }
           />
-        </View>
-
-        {/* Premium */}
-        <Text style={styles.sectionTitle}>{t.premium}</Text>
-        <View style={[styles.card, { borderColor: border }]}>
-          <TouchableOpacity style={styles.row} onPress={handleUnlockPremium} disabled={isPremium} activeOpacity={0.8}>
-            <View style={styles.rowLeft}>
-              <Ionicons name="star" size={22} color={isPremium ? colors.primary : isDarkMode ? '#888' : colors.textSecondary} style={styles.rowIcon} />
-              <View>
-                <Text style={styles.rowLabel}>{t.premiumStatus}</Text>
-                <Text style={[
-                  styles.rowSub,
-                  { color: isPremium ? colors.primary : isDarkMode ? '#888' : colors.textSecondary }
-                ]}>
-                  {isPremium ? t.premiumActive : t.premiumInactive}
-                </Text>
-              </View>
-            </View>
-            {!isPremium && (
-              <View style={styles.rowRight}>
-                <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : colors.text} />
-              </View>
-            )}
-          </TouchableOpacity>
-          <View style={styles.divider} />
-          <TouchableOpacity
-            style={[styles.row, restoreLoading && { opacity: 0.6 }]}
-            onPress={handleRestorePurchases}
-            disabled={restoreLoading}
-            activeOpacity={0.8}
-          >
-            <View style={styles.rowLeft}>
-              <Ionicons name="download-outline" size={22} color={isDarkMode ? '#fff' : '#000'} style={styles.rowIcon} />
-              <View>
-                <Text style={styles.rowLabel}>{t.restorePurchases}</Text>
-                <Text style={styles.rowSub}>{t.restoreSub}</Text>
-              </View>
-            </View>
-            {restoreLoading ? (
-              <ActivityIndicator size="small" color={colors.primary} />
-            ) : (
-              <Ionicons name="chevron-forward" size={18} color={isDarkMode ? '#666' : colors.text} />
-            )}
-          </TouchableOpacity>
         </View>
 
         {/* Legal */}

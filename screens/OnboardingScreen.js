@@ -9,8 +9,6 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../context/ThemeContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { usePremium } from '../context/PremiumContext';
-
 const { width } = Dimensions.get('window');
 
 const languages = [
@@ -25,79 +23,6 @@ const languages = [
   { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
   { code: 'ro', name: 'Română', flag: '🇷🇴' },
 ];
-
-const slangData = {
-  en: {
-    catName: 'Irish Slang',
-    headline: 'New Category Available!',
-    sub: 'Unlock Irish Slang with Premium and test your lingo!',
-    examples: ['Grand', 'Craic', 'Deadly'],
-    premium: 'Go Premium',
-  },
-  lt: {
-    catName: 'Lietuviškas Slangas',
-    headline: 'Nauja Kategorija!',
-    sub: 'Atrakink Lietuvišką Slangą su Premium ir išbandyk!',
-    examples: ['Bičas', 'Šaunu', 'Kaifas'],
-    premium: 'Gauti Premium',
-  },
-  es: {
-    catName: 'Argot Español',
-    headline: '¡Nueva Categoría!',
-    sub: '¡Desbloquea el Argot Español con Premium!',
-    examples: ['Guay', 'Tío', 'Mola'],
-    premium: 'Ir a Premium',
-  },
-  fr: {
-    catName: 'Argot Français',
-    headline: 'Nouvelle Catégorie !',
-    sub: "Débloque l'Argot Français avec Premium !",
-    examples: ['Kiffer', 'Ouf', 'Chelou'],
-    premium: 'Passer Premium',
-  },
-  de: {
-    catName: 'Deutscher Slang',
-    headline: 'Neue Kategorie!',
-    sub: 'Schalte den Deutschen Slang mit Premium frei!',
-    examples: ['Geil', 'Alter', 'Krass'],
-    premium: 'Jetzt Premium',
-  },
-  pl: {
-    catName: 'Polski Slang',
-    headline: 'Nowa Kategoria!',
-    sub: 'Odblokuj Polski Slang z Premium!',
-    examples: ['Spoko', 'Ziomek', 'Ogień'],
-    premium: 'Zdobądź Premium',
-  },
-  pt: {
-    catName: 'Gíria Brasileira',
-    headline: 'Nova Categoria!',
-    sub: 'Desbloqueie a Gíria Brasileira com Premium!',
-    examples: ['Cara', 'Mano', 'Legal'],
-    premium: 'Ir para Premium',
-  },
-  it: {
-    catName: 'Slang Italiano',
-    headline: 'Nuova Categoria!',
-    sub: 'Sblocca lo Slang Italiano con Premium!',
-    examples: ['Figo', 'Ganzo', 'Sballo'],
-    premium: 'Vai a Premium',
-  },
-  nl: {
-    catName: 'Nederlandse Slang',
-    headline: 'Nieuwe Categorie!',
-    sub: 'Ontgrendel de Nederlandse Slang met Premium!',
-    examples: ['Vet', 'Lekker', 'Sick'],
-    premium: 'Ga naar Premium',
-  },
-  ro: {
-    catName: 'Argou Românesc',
-    headline: 'Categorie Nouă!',
-    sub: 'Deblochează Argoul Românesc cu Premium!',
-    examples: ['Mișto', 'Tare', 'Marfă'],
-    premium: 'Mergi la Premium',
-  },
-};
 
 const gameSlides = {
   en: {
@@ -302,11 +227,10 @@ const gameSlides = {
   },
 };
 
-const SLIDE_TYPES = ['welcome', 'slang', 'intro', 'play'];
+const SLIDE_TYPES = ['welcome', 'intro', 'play'];
 
 export default function OnboardingScreen({ navigation }) {
   const { colors, isDarkMode } = useTheme();
-  const { purchasePremium } = usePremium();
 
   const [selectedLang, setSelectedLang] = useState('en');
   const [activeIndex, setActiveIndex] = useState(0);
@@ -314,7 +238,6 @@ export default function OnboardingScreen({ navigation }) {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const t = gameSlides[selectedLang] || gameSlides.en;
-  const slang = slangData[selectedLang] || slangData.en;
 
   const isLast = activeIndex === SLIDE_TYPES.length - 1;
 
@@ -387,55 +310,6 @@ export default function OnboardingScreen({ navigation }) {
     </View>
   );
 
-  const renderSlangSlide = () => (
-    <View style={[styles.slide, { width }]}>
-      <LinearGradient
-        colors={isDarkMode ? ['#ff3333', '#cc1111'] : ['#1d3557', '#1a7ac7']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.iconCircle}
-      >
-        <Ionicons name="sparkles" size={44} color="#fff" />
-      </LinearGradient>
-
-      <Text style={[styles.slideTitle, { color: isDarkMode ? '#fff' : '#0A4A47', fontSize: 22 }]}>
-        {slang.headline}
-      </Text>
-      <Text style={[styles.slangCatName, { color: isDarkMode ? '#ff6666' : '#e63946' }]}>
-        {slang.catName}
-      </Text>
-      <Text style={[styles.slideText, { color: isDarkMode ? '#ccc' : '#1d3557' }]}>{slang.sub}</Text>
-
-      <View style={[styles.examplesBox, {
-        backgroundColor: isDarkMode ? '#1e1e1e' : '#f0f4f8',
-        borderColor: isDarkMode ? '#444' : '#ddd',
-      }]}>
-        <Text style={[styles.previewLabel, { color: isDarkMode ? '#ff6666' : '#e63946' }]}>PREVIEW</Text>
-        {slang.examples.map((word, i) => (
-          <Text key={i} style={[styles.exampleWord, { color: isDarkMode ? '#fff' : '#1d3557' }]}>
-            {word}
-          </Text>
-        ))}
-      </View>
-
-      <TouchableOpacity
-        style={styles.premiumBtnWrap}
-        onPress={purchasePremium}
-        activeOpacity={0.85}
-      >
-        <LinearGradient
-          colors={isDarkMode ? ['#ff3333', '#cc1111'] : ['#1d3557', '#1a7ac7']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.premiumBtnGradient}
-        >
-          <Ionicons name="star" size={16} color="#fff" />
-          <Text style={styles.premiumBtnText}>{slang.premium}</Text>
-        </LinearGradient>
-      </TouchableOpacity>
-    </View>
-  );
-
   const renderGameSlide = (slideData) => (
     <View style={[styles.slide, { width }]}>
       <LinearGradient
@@ -453,7 +327,6 @@ export default function OnboardingScreen({ navigation }) {
 
   const renderItem = ({ item }) => {
     if (item === 'welcome') return renderWelcomeSlide();
-    if (item === 'slang') return renderSlangSlide();
     if (item === 'intro') return renderGameSlide(t.intro);
     if (item === 'play') return renderGameSlide(t.play);
     return null;
@@ -597,60 +470,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     fontFamily: 'SpecialElite_400Regular',
-  },
-
-  // Slang slide
-  slangCatName: {
-    fontSize: 13,
-    fontFamily: 'SpecialElite_400Regular',
-    letterSpacing: 1,
-    marginTop: -8,
-  },
-  examplesBox: {
-    borderRadius: 14,
-    borderWidth: 1,
-    paddingVertical: 14,
-    paddingHorizontal: 24,
-    gap: 8,
-    alignItems: 'center',
-    width: '100%',
-  },
-  previewLabel: {
-    fontSize: 10,
-    fontFamily: 'SpecialElite_400Regular',
-    letterSpacing: 2,
-    marginBottom: 2,
-  },
-  exampleWord: {
-    fontSize: 15,
-    fontFamily: 'SpecialElite_400Regular',
-    textAlign: 'center',
-  },
-  premiumBtnWrap: {
-    width: '100%',
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: '#ff1a1a',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    elevation: 10,
-  },
-  premiumBtnGradient: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    paddingVertical: 14,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#fff',
-  },
-  premiumBtnText: {
-    fontSize: 13,
-    fontFamily: 'SpecialElite_400Regular',
-    color: '#fff',
-    letterSpacing: 0.5,
   },
 
   // Dots + nav
